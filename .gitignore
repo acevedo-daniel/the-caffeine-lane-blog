@@ -1,19 +1,19 @@
-   # Entorno virtual
-   venv/
+# Entorno virtual
+venv/
 
-   # Archivos de Python
-   __pycache__/
-   *.pyc
+# Archivos de Python
+ __pycache__/
+*.pyc
 
-   # Archivos de base de datos
-   db.sqlite3
+# Archivos de base de datos
+db.sqlite3
 
-   # Archivos de configuración local
-   .env
+# Archivos de configuración local
+.env
 
-   # Archivos de sistema
-   .DS_Store
-   Thumbs.db
+# Archivos de sistema
+.DS_Store
+Thumbs.db
 
-   # Archivos de logs
-   *.log
+# Archivos de logs
+*.log

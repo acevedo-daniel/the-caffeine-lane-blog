@@ -1,0 +1,77 @@
+THECAFFEINELANE - ROADMAP DE DESARROLLO
+========================================
+
+Este roadmap te guiará paso a paso en el desarrollo colaborativo de la app de blog de motos tipo café racer usando Django. ¡Ideal para equipos que están aprendiendo!
+
+----------------------------------------
+
+ETAPA 1: BASE DEL PROYECTO
+--------------------------
+- [x] Crear estructura profesional del proyecto (hecho)
+- [x] Configurar entorno virtual y .gitignore (hecho)
+- [x] Subir estructura limpia a GitHub (hecho)
+- [ ] Crear README y ROADMAP para el equipo
+
+----------------------------------------
+
+ETAPA 2: MODELOS Y ADMIN
+------------------------
+- [ ] Definir el modelo Post (título, contenido, autor, fecha, imagen opcional, categoría)
+- [ ] Crear migraciones y aplicarlas
+- [ ] Registrar el modelo en admin.py para gestionarlo desde el panel de Django
+- [ ] Crear superusuario y probar el admin
+
+----------------------------------------
+
+ETAPA 3: VISTAS Y RUTAS BÁSICAS
+-------------------------------
+- [ ] Crear vistas para listar posts y ver detalle de un post
+- [ ] Definir rutas en apps/posts/urls.py y enlazarlas en config/urls.py
+- [ ] Crear templates básicos para mostrar los posts
+
+----------------------------------------
+
+ETAPA 4: FUNCIONALIDADES DE USUARIO
+-----------------------------------
+- [ ] Implementar registro y login de usuarios (puede ser con Django auth)
+- [ ] Restringir creación/comentario de posts a usuarios autenticados
+- [ ] Crear modelo y vista para comentarios
+- [ ] Permitir que usuarios registrados comenten posts
+
+----------------------------------------
+
+ETAPA 5: FILTROS Y MEJORAS
+--------------------------
+- [ ] Filtrar posts por fecha, categoría y comentarios recibidos
+- [ ] Mejorar templates (herencia, base.html, estilos)
+- [ ] Agregar paginación a la lista de posts
+
+----------------------------------------
+
+ETAPA 6: PRUEBAS Y DOCUMENTACIÓN
+--------------------------------
+- [ ] Escribir tests básicos en tests.py
+- [ ] Documentar el código y actualizar el README
+- [ ] Agregar ejemplos de uso y buenas prácticas
+
+----------------------------------------
+
+ETAPA 7: DESPLIEGUE Y PRODUCCIÓN
+--------------------------------
+- [ ] Configurar variables de entorno y settings de producción
+- [ ] Desplegar en un servidor (Heroku, Render, PythonAnywhere, etc)
+- [ ] Probar la app en producción y corregir errores
+
+----------------------------------------
+
+RECOMENDACIONES PARA EL EQUIPO
+-----------------------------
+- Trabaja en ramas separadas y haz pull requests para revisión.
+- Haz commits pequeños y descriptivos.
+- Comenta tu código y pregunta si tienes dudas.
+- Lee la documentación oficial de Django.
+- ¡Colabora, aprende y diviértete programando!
+
+----------------------------------------
+
+¿Dudas? Consulta el README, la documentación oficial o pregunta en el equipo. 
