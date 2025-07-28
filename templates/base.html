@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="es"> {# Añadido atributo lang #}
+<head>
+    <meta charset="UTF-8"> {# Añadido charset #}
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> {# Añadido viewport para responsividad #}
+    <title>{% block title %}TheCaffeineLane{% endblock %}</title>
+    {# Aquí irían enlaces a CSS global si los tuvieras, ejemplo: #}
+    {# <link rel="stylesheet" href="{% static 'css/global.css' %}"> #}
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="{% url 'landing' %}">Landing</a>
+            <a href="{% url 'home' %}">Home</a>
+            {# Asumiendo que 'post_list' será el name de la URL para la lista de posts #}
+            <a href="{% url 'post_list' %}">Blog</a> {# Uso de {% url %} para consistencia #}
+        </nav>
+    </header>
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+    <footer>
+        <p>© 2024 TheCaffeineLane</p>
+    </footer>
+    {# Aquí irían enlaces a JS global si los tuvieras, ejemplo: #}
+    {# <script src="{% static 'js/main.js' %}"></script> #}
+</body>
+</html>
