@@ -1,5 +1,11 @@
+<<<<<<< HEAD
+<<<<<<< HEAD
+   # Entorno virtual
+   venv/
+=======
 # Entorno virtual
 venv/
+>>>>>>> origin/main
 
 # Archivos de Python
  __pycache__/
@@ -15,5 +21,18 @@ db.sqlite3
 .DS_Store
 Thumbs.db
 
+<<<<<<< HEAD
+   # Archivos de logs
+   *.log
+=======
+venv/
+__pycache__/
+*.pyc
+*.sqlite3
+.env
+.DS_Store
+>>>>>>> ec61b933ec35f8b9360d6f874869a62671d0a1bc
+=======
 # Archivos de logs
 *.log
+>>>>>>> origin/main

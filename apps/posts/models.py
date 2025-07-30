@@ -1,8 +1,11 @@
+import os
+from django.db import models
+
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils.text import slugify
 
-
+# Create your models here.
 class Category(models.Model):
     name = models.CharField(max_length=100, unique=True)
 
@@ -42,5 +45,19 @@ class Post(models.Model):
         verbose_name_plural = 'Posts'
         ordering = ['-created_at']
 
+class Comment(models.Model):
+    post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='comments')
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    content = models.TextField(max_length=500)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    is_active = models.BooleanField(default=True)
+    parent = models.ForeignKey('self', on_delete=models.CASCADE, null=True, blank=True, related_name='replies')
 
+    def __str__(self):
+        return f'Comentario de {self.author.username} en {self.post.title}'
 
+    class Meta:
+        verbose_name = 'Comment'
+        verbose_name_plural = 'Comments'
+        ordering = ['created_at']
