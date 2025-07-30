@@ -1,14 +1,18 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bienvenido a TheCaffeineLane</title>
-</head>
-<body>
-    <h1>¡Bienvenido a TheCaffeineLane!</h1>
-    <form action="{% url 'home' %}">
-        <button type="submit">Entrar al blog</button>
-    </form>
-</body>
-</html>
+{% extends 'base.html' %} {# This line tells Django to inherit from base.html #}
+
+{% block title %}Welcome to The Caffeine Lane{% endblock %}
+
+{% block header %}{% endblock %}
+
+{% block footer %}{% endblock %}
+
+{% block content %}
+    <div class="bg-black flex flex-col items-center justify-center min-h-screen">
+        <h1 class="font-bebas text-7xl mb-8 text-white tracking-wide ">THE CAFFEINE LANE</h1>
+        <form action="{% url 'home' %}">
+            <button type="submit" class="bg-white hover:bg-gray-100 text-black font-mont font-extrabold py-2 px-5 rounded-md shadow-lg text-2xl uppercase transition duration-300 ease-in-out transform hover:scale-105">
+                EXPLORE
+            </button>
+        </form>
+    </div>
+{% endblock %}
