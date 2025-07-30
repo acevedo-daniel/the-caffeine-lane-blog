@@ -1,8 +1,13 @@
 {% extends 'base.html' %}
-{% block title %}Home - The Caffeine Lane{% endblock %}
+
+{% block title %}Home - TheCaffeineLane{% endblock %} {# Añadido bloque title #}
+
 {% block content %}
 <h1>Últimos Posts</h1>
-{% for p in posts %}
+{# Corregido: La variable pasada desde la vista es 'post', no 'posts'. #}
+{# Si la vista pasa 'post', entonces iteras sobre 'post'. Si pasa 'posts', iteras sobre 'posts'. #}
+{# Asumiendo que la vista home() se modificará para pasar 'posts' (plural) #}
+{% for p in posts %} {# Usamos 'p' para evitar conflicto con la variable 'post' del contexto #}
   <div>
     {# Enlace al detalle del post (asumiendo una URL 'post_detail' con el pk del post) #}
     <a href="{% url 'post_detail' p.pk %}"> {# Esto es un placeholder, necesitarás crear esa URL #}
