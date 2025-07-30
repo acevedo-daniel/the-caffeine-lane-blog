@@ -1,17 +1,17 @@
 from django import forms
-from .models import Comentario
+from .models import Comment
 
-# Definir el formulario para los Posts
-
-# Definir el formulario para los Comentarios
-class ComentarioForm(forms.ModelForm):
+class CommentForm(forms.ModelForm):
     class Meta:
-        models = Comentario
-        fields = ['contenido']
+        model = Comment
+        fields = ['content']
         widgets = {
-            'contenido': forms.Textarea(attrs={
-                'class': 'form-control',
-                'rows': 3,
-                'placeholder': '¿Qué opinas sobre esta moto?'
+            'content': forms.Textarea(attrs={
+                'class': 'w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent',
+                'rows': 4,
+                'placeholder': 'Escribe tu comentario aquí...'
             })
+        }
+        labels = {
+            'content': 'Comentario'
         }
