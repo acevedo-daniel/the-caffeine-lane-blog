@@ -1,5 +1,25 @@
 # TheCaffeineLane - Proyecto Django
 
+![Python](https://img.shields.io/badge/python-3.10%2B-blue)
+![Django](https://img.shields.io/badge/django-5.2-green)
+
+---
+
+## Tabla de Contenidos
+- [¿Qué es este proyecto?](#qué-es-este-proyecto)
+- [Estructura del proyecto](#estructura-del-proyecto)
+- [¿Qué significa cada carpeta/archivo?](#qué-significa-cada-carpetaarchivo)
+- [Cómo trabajar en este proyecto](#cómo-trabajar-en-este-proyecto)
+- [Ejemplo de uso](#ejemplo-de-uso)
+- [Variables de entorno](#variables-de-entorno)
+- [Ejecutar tests](#ejecutar-tests)
+- [Despliegue](#despliegue)
+- [Buenas prácticas](#buenas-prácticas)
+- [Licencia](#licencia)
+- [Contacto y colaboración](#contacto-y-colaboración)
+
+---
+
 ## ¿Qué es este proyecto?
 Este es un proyecto base profesional en Django para un blog de motos tipo café racer. Está preparado para escalar y seguir las mejores prácticas de la industria.
 
@@ -104,13 +124,52 @@ python manage.py runserver
 
 ---
 
-## Lógica general del flujo Django
+## Ejemplo de uso
 
-1. El usuario accede a una URL.
-2. Django busca la URL en `config/urls.py` y la redirige a la app correspondiente.
-3. La app gestiona la lógica en `views.py` y obtiene datos de `models.py`.
-4. Se renderiza un template HTML y se muestra al usuario.
-5. El admin permite gestionar los datos desde una interfaz web.
+### Crear un post desde el admin
+1. Accede a `http://localhost:8000/admin/`.
+2. Inicia sesión con tu superusuario.
+3. Haz clic en "Posts" y luego en "Add post" para crear una nueva publicación.
+
+### Mostrar posts en una vista (ejemplo básico)
+```python
+# apps/posts/views.py
+from django.shortcuts import render
+from .models import Post
+
+def post_list(request):
+    posts = Post.objects.all()
+    return render(request, 'posts/post_list.html', {'posts': posts})
+```
+
+---
+
+## Variables de entorno
+
+Crea un archivo `.env` en la raíz del proyecto para variables sensibles (no lo subas a git):
+```
+SECRET_KEY=tu_clave_secreta
+DEBUG=True
+```
+
+Puedes usar librerías como `python-dotenv` o `django-environ` para cargar estas variables en `settings.py`.
+
+---
+
+## Ejecutar tests
+
+Para correr los tests automáticos:
+```bash
+python manage.py test
+```
+
+---
+
+## Despliegue
+
+- Para producción, pon `DEBUG = False` y configura `ALLOWED_HOSTS` en `config/settings.py`.
+- Usa un servidor WSGI como Gunicorn o despliega en servicios como Heroku, Render, etc.
+- Sirve archivos estáticos y media correctamente (consulta la [documentación oficial](https://docs.djangoproject.com/en/5.2/howto/deployment/)).
 
 ---
 
@@ -120,7 +179,22 @@ python manage.py runserver
 - Mantén cada app independiente y modular.
 - Usa migraciones para cambios en la base de datos.
 - Documenta tus modelos, vistas y formularios.
+- Haz commits frecuentes y descriptivos.
+- Comenta tu código para que otros lo entiendan.
 
 ---
 
-¿Dudas? ¡Lee la documentación oficial de Django o pregunta a tu equipo! 
+## Licencia
+
+Este proyecto está bajo la licencia MIT. Puedes usarlo, modificarlo y compartirlo libremente.
+
+---
+
+## Contacto y colaboración
+
+¿Tienes dudas o quieres contribuir?
+- Lee la documentación oficial de Django: https://docs.djangoproject.com/es/5.2/
+- Abre un issue o pull request en este repositorio.
+- Contacta a los responsables del proyecto o pregunta en el equipo.
+
+¡Colabora, aprende y diviértete programando en Django! 

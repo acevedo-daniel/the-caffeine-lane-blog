@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block title %}Home - TheCaffeineLane{% endblock %} {# Añadido bloque title #}
+
+{% block content %}
+<h1>Últimos Posts</h1>
+{# Corregido: La variable pasada desde la vista es 'post', no 'posts'. #}
+{# Si la vista pasa 'post', entonces iteras sobre 'post'. Si pasa 'posts', iteras sobre 'posts'. #}
+{# Asumiendo que la vista home() se modificará para pasar 'posts' (plural) #}
+{% for p in posts %} {# Usamos 'p' para evitar conflicto con la variable 'post' del contexto #}
+  <div>
+    {# Enlace al detalle del post (asumiendo una URL 'post_detail' con el pk del post) #}
+    <a href="{% url 'post_detail' p.pk %}"> {# Esto es un placeholder, necesitarás crear esa URL #}
+      {% if p.image %} {# Muestra la imagen solo si existe #}
+        <img src="{{ p.image.url }}" alt="{{ p.title }}" style="max-width: 100%; height: auto; border-radius: 8px;"> {# Estilos básicos para la imagen #}
+      {% else %}
+        {# Opcional: una imagen placeholder si no hay imagen subida #}
+        <img src="https://placehold.co/600x400/cccccc/333333?text=No+Image" alt="No Image" style="max-width: 100%; height: auto; border-radius: 8px;">
+      {% endif %}
+      <h2>{{ p.title }}</h2>
+      <p>Por {{ p.author.username }} el {{ p.created_at|date:"d/m/Y H:i" }}</p> {# Añadido autor y fecha #}
+      <p>{{ p.content|truncatewords:20 }}</p>
+    </a>
+  </div>
+  <hr> {# Separador entre posts #}
+{% empty %} {# Si no hay posts #}
+  <p>No hay posts disponibles en este momento.</p>
+{% endfor %}
+{% endblock %}
