@@ -1,0 +1,130 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ post.title }} - TheCaffeineLane{% endblock %}
+
+{% block content %}
+<article class="max-w-4xl mx-auto px-4 py-8">
+    <!-- Header del post -->
+    <header class="mb-8">
+        <h1 class="text-4xl font-bold text-gray-900 mb-4">{{ post.title }}</h1>
+        <div class="flex items-center text-gray-600 mb-4">
+            <span>Por {{ post.author.get_full_name|default:post.author.username }}</span>
+            <span class="mx-2">•</span>
+            <span>{{ post.created_at|date:"d/m/Y" }}</span>
+            <span class="mx-2">•</span>
+            <span>{{ post.comments.count }} comentario{{ post.comments.count|pluralize }}</span>
+        </div>
+        {% for category in post.category.all %}
+            <span class="inline-block bg-blue-100 text-blue-800 text-sm px-3 py-1 rounded-full mr-2">
+                {{ category.name }}
+            </span>
+        {% endfor %}
+    </header>
+
+    <!-- Imagen principal -->
+    {% if post.image %}
+    <div class="mb-8">
+        <img src="{{ post.image.url }}" alt="{{ post.title }}" 
+             class="w-full h-auto rounded-lg shadow-lg">
+    </div>
+    {% endif %}
+
+    <!-- Contenido del post -->
+    <div class="prose prose-lg max-w-none mb-12">
+        {{ post.content|linebreaks }}
+    </div>
+
+    <!-- Sección de comentarios -->
+    <section class="border-t pt-8">
+        <h3 class="text-2xl font-bold mb-6">
+            Comentarios ({{ comments.count }})
+        </h3>
+
+        <!-- Formulario para nuevo comentario -->
+        {% if user.is_authenticated %}
+        <div class="mb-8 bg-gray-50 p-6 rounded-lg">
+            <h4 class="text-lg font-semibold mb-4">Deja tu comentario</h4>
+            <form method="post">
+                {% csrf_token %}
+                {{ form.content }}
+                <button type="submit" 
+                        class="mt-4 bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition">
+                    Comentar
+                </button>
+            </form>
+        </div>
+        {% else %}
+        <div class="mb-8 bg-yellow-50 border border-yellow-200 p-4 rounded-lg">
+            <p class="text-yellow-800">
+                <a href="#" class="text-blue-600 hover:underline">Inicia sesión</a> 
+                para dejar un comentario.
+            </p>
+        </div>
+        {% endif %}
+
+        <!-- Lista de comentarios -->
+        <div class="space-y-6">
+            {% for comment in comments %}
+            <div class="bg-white border border-gray-200 rounded-lg p-6">
+                <div class="flex items-center mb-3">
+                    <strong class="text-gray-900">
+                        {{ comment.author.get_full_name|default:comment.author.username }}
+                    </strong>
+                    <span class="text-gray-500 ml-2">
+                        {{ comment.created_at|date:"d/m/Y H:i" }}
+                    </span>
+                </div>
+                <p class="text-gray-700">{{ comment.content|linebreaks }}</p>
+                
+                <!-- Respuestas al comentario -->
+                {% for reply in comment.replies.all %}
+                <div class="ml-8 mt-4 border-l-2 border-gray-200 pl-4">
+                    <div class="flex items-center mb-2">
+                        <strong class="text-gray-900 text-sm">
+                            {{ reply.author.get_full_name|default:reply.author.username }}
+                        </strong>
+                        <span class="text-gray-500 ml-2 text-sm">
+                            {{ reply.created_at|date:"d/m/Y H:i" }}
+                        </span>
+                    </div>
+                    <p class="text-gray-700 text-sm">{{ reply.content|linebreaks }}</p>
+                </div>
+                {% endfor %}
+            </div>
+            {% empty %}
+            <p class="text-gray-500 text-center py-8">
+                Sé el primero en comentar este post.
+            </p>
+            {% endfor %}
+        </div>
+    </section>
+</article>
+
+<!-- Posts relacionados -->
+<section class="max-w-4xl mx-auto px-4 py-8 border-t">
+    <h3 class="text-2xl font-bold mb-6">Posts Relacionados</h3>
+    <div class="grid md:grid-cols-3 gap-6">
+        {% for related_post in post.category.all.0.post_set.all|slice:":3" %}
+        {% if related_post != post %}
+        <article class="bg-white rounded-lg shadow-md overflow-hidden">
+            {% if related_post.image %}
+            <img src="{{ related_post.image.url }}" alt="{{ related_post.title }}" 
+                 class="w-full h-48 object-cover">
+            {% endif %}
+            <div class="p-4">
+                <h4 class="font-semibold mb-2">
+                    <a href="{% url 'post_detail' related_post.slug %}" 
+                       class="hover:text-blue-600">
+                        {{ related_post.title }}
+                    </a>
+                </h4>
+                <p class="text-gray-600 text-sm">
+                    {{ related_post.created_at|date:"d/m/Y" }}
+                </p>
+            </div>
+        </article>
+        {% endif %}
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}
