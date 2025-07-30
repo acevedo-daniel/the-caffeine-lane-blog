@@ -24,26 +24,26 @@
 <body>
     {% block header %}
     <header class="bg-black flex flex-col">
-    <div class="flex items-center justify-center px-8 py-2">
+    <div class="flex items-center justify-center pt-3 ">
         <p class="text-white font-bebas text-3xl">THE CAFFEINE LANE</p>
     </div>
-    <div class="flex items-center px-8 py-4 space-x-8">
-        <a href="{% url 'home' %}" class="font-bebas text-2xl text-white hover:text-red-500 transition">TCL</a>
-        <nav class="flex space-x-8">
+    <div class="flex items-center px-6 py-1 space-x-8">
+        <a href="{% url 'home' %}" class="font-bebas text-3xl text-white hover:text-red-500 transition">TCL</a>
+        <nav class="flex space-x-6 text-sm">
             <a href="{% url 'home' %}" class="text-white font-mont font-bold uppercase hover:text-red-500 transition">Home</a>
             <a href="#" class="text-white font-mont font-bold uppercase hover:text-red-500 transition">Builds</a>
             <a href="#" class="text-white font-mont font-bold uppercase hover:text-red-500 transition">Harley</a>
             <a href="#" class="text-white font-mont font-bold uppercase hover:text-red-500 transition">Shop</a>
         </nav>
     </div>
-    </header>
+</header>
     {% endblock %}
     <main>
         {% block content %}{% endblock %}
     </main>
     {% block footer %}
-    <footer>
-        <p>© 2024 The Caffeine Lane</p>
+    <footer class="bg-black py-6">
+        <p class="text-white font-mont text-3xl">© 2024 The Caffeine Lane</p>
     </footer>
     {% endblock %}
 </body>
