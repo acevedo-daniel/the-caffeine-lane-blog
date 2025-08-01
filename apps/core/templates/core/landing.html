@@ -9,10 +9,8 @@
 {% block content %}
     <div class="bg-black flex flex-col items-center justify-center min-h-screen">
         <h1 class="font-bebas text-7xl mb-8 text-white tracking-wide ">THE CAFFEINE LANE</h1>
-        <form action="{% url 'home' %}">
-            <button type="submit" class="bg-white hover:bg-gray-100 text-black font-mont font-extrabold py-2 px-5 rounded-md shadow-lg text-2xl uppercase transition duration-300 ease-in-out transform hover:scale-105">
-                EXPLORE
-            </button>
-        </form>
+        <a href="{% url 'home' %}" class="bg-white hover:bg-gray-100 text-black font-mont font-extrabold py-2 px-5 rounded-md shadow-lg text-2xl uppercase transition duration-300 ease-in-out transform hover:scale-105">
+            EXPLORE
+        </a>
     </div>
 {% endblock %}
