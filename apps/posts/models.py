@@ -24,7 +24,7 @@ class Post(models.Model):
     title = models.CharField(max_length=200)
     slug = models.SlugField(max_length=250, unique=True, blank=True, null=True)
     content = models.TextField()
-    image = models.ImageField(upload_to='posts/', null=True, blank=True)
+    image = models.ImageField(upload_to='posts/media', null=True, blank=True)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     category = models.ManyToManyField(Category)
     status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='draft')
