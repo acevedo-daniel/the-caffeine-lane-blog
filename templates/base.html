@@ -1,12 +1,14 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}TheCaffeineLane{% endblock %}</title>
+    <title>{% block title %}The Caffeine Lane{% endblock %}</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -24,19 +26,32 @@
 <body>
     {% block header %}
     <header class="bg-black flex flex-col">
-    <div class="flex items-center justify-center pt-3 ">
-        <p class="text-white font-bebas text-3xl">THE CAFFEINE LANE</p>
-    </div>
-    <div class="flex items-center px-6 py-1 space-x-8">
-        <a href="{% url 'home' %}" class="font-bebas text-3xl text-white hover:text-red-500 transition">TCL</a>
-        <nav class="flex space-x-6 text-sm">
-            <a href="{% url 'home' %}" class="text-white font-mont font-bold uppercase hover:text-red-500 transition">Home</a>
-            <a href="#" class="text-white font-mont font-bold uppercase hover:text-red-500 transition">Builds</a>
-            <a href="#" class="text-white font-mont font-bold uppercase hover:text-red-500 transition">Harley</a>
-            <a href="#" class="text-white font-mont font-bold uppercase hover:text-red-500 transition">Shop</a>
-        </nav>
-    </div>
-</header>
+        <div class="flex justify-between items-center px-6 py-1">
+            <div class="flex space-x-2 text-white text-xs pt-0">
+                <a href="#" class="hover:text-red-500 transition"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" class="hover:text-red-500 transition"><i class="fab fa-instagram"></i></a>
+                <a href="#" class="hover:text-red-500 transition"><i class="fab fa-x-twitter"></i></a>
+            </div>
+
+            <a href="{% url 'landing' %}" class="text-white font-bebas text-3xl hover:text-red-500 transition">THE CAFFEINE LANE</a>
+
+            <div class="flex space-x-2">
+                <a href="#" class="text-white font-mont text-xs uppercase hover:text-red-500 transition px-3 py-1 border border-white rounded-md">Login</a>
+                <a href="#" class="bg-white text-black font-mont text-xs uppercase hover:bg-red-500 hover:text-white transition px-3 py-1 rounded-md">Registro</a>
+            </div>
+        </div>
+
+        <div class="flex items-center px-2 py-1 space-x-5">
+            <a href="{% url 'home' %}" class="flex items-center hover:opacity-80 transition">
+                <img src="{% static '\images\harley-davidson-logo.png' %}" alt="The Caffeine Lane Logo" class="h-12 w-auto">
+            </a>
+            <nav class="flex space-x-4 text-xs">
+                <a href="{% url 'home' %}" class="text-white font-mont font-bold uppercase hover:text-red-500 transition">Home</a>
+                <a href="{% url 'home' %}" class="text-white font-mont font-bold uppercase hover:text-red-500 transition">Builds</a>
+                <a href="{% url 'home' %}" class="text-white font-mont font-bold uppercase hover:text-red-500 transition">Harley</a>
+            </nav>
+        </div>
+    </header>
     {% endblock %}
     <main>
         {% block content %}{% endblock %}
