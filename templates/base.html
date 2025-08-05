@@ -37,13 +37,13 @@
 
             <div class="flex space-x-2">
                 <a href="#" class="text-white font-mont text-xs uppercase hover:text-red-500 transition px-3 py-1 border border-white rounded-md">Login</a>
-                <a href="#" class="bg-white text-black font-mont text-xs uppercase hover:bg-red-500 hover:text-white transition px-3 py-1 rounded-md">Registro</a>
+                <a href="#" class="bg-white text-black font-mont text-xs uppercase hover:bg-red-600 hover:text-white transition px-3 py-1 rounded-md">Registro</a>
             </div>
         </div>
 
         <div class="flex items-center px-2 py-1 space-x-5">
-            <a href="{% url 'home' %}" class="flex items-center hover:opacity-80 transition">
-                <img src="{% static '\images\harley-davidson-logo.png' %}" alt="The Caffeine Lane Logo" class="h-12 w-auto">
+            <a href="{% url 'home' %}" class="flex items-center transition-transform duration-300 hover:scale-110">
+            <img src="{% static '\images\caffeinelane-logo-2.png' %}" alt="The Caffeine Lane Logo" class="h-12 w-auto rounded-full">
             </a>
             <nav class="flex space-x-4 text-xs">
                 <a href="{% url 'home' %}" class="text-white font-mont font-bold uppercase hover:text-red-500 transition">Home</a>
