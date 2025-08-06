@@ -69,8 +69,70 @@
       {% endblock %}
     </main>
     {% block footer %}
-      <footer class="bg-black py-6">
-        <p class="text-white font-mont text-3xl">© 2024 The Caffeine Lane</p>
+      <footer class="bg-black pt-10 pb-12 text-white flex flex-col items-center px-4">
+        <!-- Footer main title -->
+        <div class="text-center mb-6">
+          <h2 class="font-bebas text-5xl md:text-7xl uppercase leading-none">THE CAFFEINE LANE</h2>
+        </div>
+
+        <!-- Three-column layout, centered -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 w-full max-w-6xl text-center">
+          <!-- Column: Navigation -->
+          <div>
+            <ul class="space-y-1 font-mont text-sm">
+              <li>
+                <a href="{% url 'home' %}" class="hover:text-gray-400 transition">Latest Posts</a>
+              </li>
+              <li>
+                <a href="{% url 'home' %}" class="hover:text-gray-400 transition">Builds & Features</a>
+              </li>
+              <li>
+                <a href="{% url 'home' %}" class="hover:text-gray-400 transition">How-To & Guides</a>
+              </li>
+              <li>
+                <a href="{% url 'home' %}" class="hover:text-gray-400 transition">Gear & Product Reviews</a>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Column: Logo + slogan -->
+          <div>
+            <img src="{% static 'images/caffeinelane-logo-2.png' %}" alt="The Caffeine Lane Logo" class="h-32 md:h-40 w-auto mx-auto mb-3 rounded-full" />
+            <p class="font-mont text-sm md:text-base font-light max-w-xs mx-auto mb-4">Welcome, runner. I see the fire in your eyes. The road is ours to ride.</p>
+
+            <!-- Social icons row -->
+            <div class="flex justify-center space-x-4 text-white text-lg">
+              <a href="#" class="hover:text-red-500 transition" title="Instagram"><i class="fab fa-instagram"></i></a>
+              <a href="#" class="hover:text-red-500 transition" title="Twitter"><i class="fab fa-x-twitter"></i></a>
+              <a href="#" class="hover:text-red-500 transition" title="Email"><i class="fas fa-envelope"></i></a>
+              <a href="#" class="hover:text-red-500 transition" title="Subscribe"><i class="fas fa-bell"></i></a>
+              <a href="#" class="hover:text-red-500 transition" title="Search"><i class="fas fa-magnifying-glass"></i></a>
+            </div>
+          </div>
+
+          <!-- Column: Information -->
+          <div>
+            <ul class="space-y-1 font-mont text-sm">
+              <li>
+                <a href="#" class="hover:text-gray-400 transition">About Us</a>
+              </li>
+              <li>
+                <a href="#" class="hover:text-gray-400 transition">Contact Us</a>
+              </li>
+              <li>
+                <a href="#" class="hover:text-gray-400 transition">Privacy Policy</a>
+              </li>
+              <li>
+                <a href="#" class="hover:text-gray-400 transition">Terms of Service</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Copyright -->
+        <div class="mt-10 pt-6 text-center">
+          <p class="font-mont text-xs text-white">© 2024 The Caffeine Lane. All rights reserved.</p>
+        </div>
       </footer>
     {% endblock %}
   </body>
