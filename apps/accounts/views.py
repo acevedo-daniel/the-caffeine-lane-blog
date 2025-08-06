@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth import login
+from django.contrib.auth import login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from .forms import CustomUserCreationForm, ProfileForm
@@ -28,3 +28,16 @@ def profile(request):
     else:
         form = ProfileForm(instance=request.user.profile)
     return render(request, 'accounts/profile.html', {'form': form})
+
+def custom_logout(request):
+    """
+    Vista personalizada de logout que acepta GET y POST
+    """
+    if request.method == 'POST':
+        # Si es POST, hacer logout y redirigir
+        logout(request)
+        messages.success(request, '¡Has cerrado sesión exitosamente!')
+        return redirect('home')
+    
+    # Si es GET, mostrar página de confirmación
+    return render(request, 'accounts/logout.html')

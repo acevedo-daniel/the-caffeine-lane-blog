@@ -36,8 +36,17 @@
             <a href="{% url 'landing' %}" class="text-white font-bebas text-3xl hover:text-red-500 transition">THE CAFFEINE LANE</a>
 
             <div class="flex space-x-2">
-                <a href="#" class="text-white font-mont text-xs uppercase hover:text-red-500 transition px-3 py-1 border border-white rounded-md">Login</a>
-                <a href="#" class="bg-white text-black font-mont text-xs uppercase hover:bg-red-600 hover:text-white transition px-3 py-1 rounded-md">Registro</a>
+                {% if user.is_authenticated %}
+                    <a href="{% url 'profile' %}" class="text-white font-mont text-xs uppercase hover:text-red-500 transition px-3 py-1 border border-white rounded-md">
+                        {{ user.username }}
+                    </a>
+                    <a href="{% url 'logout' %}" class="bg-red-600 text-white font-mont text-xs uppercase hover:bg-red-700 transition px-3 py-1 rounded-md">
+                        Salir
+                    </a>
+                {% else %}
+                    <a href="{% url 'login' %}" class="text-white font-mont text-xs uppercase hover:text-red-500 transition px-3 py-1 border border-white rounded-md">Login</a>
+                    <a href="{% url 'register' %}" class="bg-white text-black font-mont text-xs uppercase hover:bg-red-600 hover:text-white transition px-3 py-1 rounded-md">Registro</a>
+                {% endif %}
             </div>
         </div>
 
