@@ -1,65 +1,77 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}The Caffeine Lane{% endblock %}</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+      {% block title %}
+        The Caffeine Lane
+      {% endblock %}
+    </title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        mont: ['Montserrat', 'sans-serif'],
-                        bebas: ['Bebas Neue', 'sans-serif'],
-                    },
-                }
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              mont: ['Montserrat', 'sans-serif'],
+              bebas: ['Bebas Neue', 'sans-serif']
             }
+          }
         }
+      }
     </script>
-</head>
-<body>
+  </head>
+  <body>
     {% block header %}
-    <header class="bg-black flex flex-col">
-        <div class="flex justify-between items-center px-6 py-1">
-            <div class="flex space-x-2 text-white text-xs pt-0">
-                <a href="#" class="hover:text-red-500 transition"><i class="fab fa-facebook-f"></i></a>
-                <a href="#" class="hover:text-red-500 transition"><i class="fab fa-instagram"></i></a>
-                <a href="#" class="hover:text-red-500 transition"><i class="fab fa-x-twitter"></i></a>
-            </div>
-
-            <a href="{% url 'landing' %}" class="text-white font-bebas text-3xl hover:text-red-500 transition">THE CAFFEINE LANE</a>
-
-            <div class="flex space-x-2">
-                <a href="#" class="text-white font-mont text-xs uppercase hover:text-red-500 transition px-3 py-1 border border-white rounded-md">Login</a>
-                <a href="#" class="bg-white text-black font-mont text-xs uppercase hover:bg-red-600 hover:text-white transition px-3 py-1 rounded-md">Registro</a>
-            </div>
+      <header class="bg-black flex flex-col">
+        {# Top bar: Social icons #}
+        <div class="flex justify-between items-center px-6 py-3">
+          <div class="flex space-x-2 text-white text-xs pt-0">
+            <a href="#" class="hover:text-red-500 transition"><i class="fab fa-instagram"></i></a>
+            <a href="#" class="hover:text-red-500 transition"><i class="fab fa-x-twitter"></i></a>
+          </div>
         </div>
 
-        <div class="flex items-center px-2 py-1 space-x-5">
-            <a href="{% url 'home' %}" class="flex items-center transition-transform duration-300 hover:scale-110">
-            <img src="{% static '\images\caffeinelane-logo-2.png' %}" alt="The Caffeine Lane Logo" class="h-12 w-auto rounded-full">
-            </a>
-            <nav class="flex space-x-4 text-xs">
-                <a href="{% url 'home' %}" class="text-white font-mont font-bold uppercase hover:text-red-500 transition">Home</a>
-                <a href="{% url 'home' %}" class="text-white font-mont font-bold uppercase hover:text-red-500 transition">Builds</a>
-                <a href="{% url 'home' %}" class="text-white font-mont font-bold uppercase hover:text-red-500 transition">Harley</a>
-            </nav>
+        {# Main title section #}
+        <div class="flex items-center justify-center m-0">
+          <a href="{% url 'landing' %}" class="text-white font-bebas text-4xl transition-transform duration-300 hover:scale-110">THE CAFFEINE LANE</a>
         </div>
-    </header>
+      </header>
+
+      {# Sticky navigation bar #}
+      <div class="sticky top-0 z-50 bg-black flex justify-between items-center px-4 py-2 shadow-xl">
+        {# Left block: Logo + Nav links #}
+        <div class="flex items-center space-x-3">
+          <a href="{% url 'home' %}" class="flex items-center transition-transform duration-300 hover:scale-110"><img src="{% static '\images\caffeinelane-logo-2.png' %}" alt="The Caffeine Lane Logo" class="h-8 w-auto rounded-full" /></a>
+          <nav class="flex space-x-4 text-xs">
+            <a href="{% url 'home' %}" class="text-white font-mont font-semibold uppercase hover:opacity-90 transition">HOME</a>
+            <a href="{% url 'home' %}" class="text-white font-mont font-semibold uppercase hover:opacity-90 transition">BUILDS</a>
+            <a href="{% url 'home' %}" class="text-white font-mont font-semibold uppercase hover:opacity-90 transition">GUIDES</a>
+            <a href="{% url 'home' %}" class="text-white font-mont font-semibold uppercase hover:opacity-90 transition">REVIEWS</a>
+          </nav>
+        </div>
+        {# Right block: Login/Register buttons #}
+        <div class="flex space-x-2">
+          <a href="#" class="text-white font-mont font-medium text-xs uppercase hover:bg-red-600 hover:text-white hover:border-red-600 transition px-3 py-1 border border-white rounded-full">LOGIN IN</a>
+          <a href="#" class="bg-white text-black font-mont font-medium text-xs uppercase hover:bg-red-600 hover:text-white transition px-3 py-1 rounded-full">REGISTER</a>
+        </div>
+      </div>
     {% endblock %}
     <main>
-        {% block content %}{% endblock %}
+      {% block content %}
+
+      {% endblock %}
     </main>
     {% block footer %}
-    <footer class="bg-black py-6">
+      <footer class="bg-black py-6">
         <p class="text-white font-mont text-3xl">© 2024 The Caffeine Lane</p>
-    </footer>
+      </footer>
     {% endblock %}
-</body>
+  </body>
 </html>
