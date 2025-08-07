@@ -56,10 +56,19 @@
             <a href="{% url 'home' %}" class="text-white font-mont font-semibold uppercase hover:opacity-90 transition">REVIEWS</a>
           </nav>
         </div>
-        {# Right block: Login/Register buttons #}
+        {# Right block: Login/Register buttons - ACTUALIZADO #}
         <div class="flex space-x-2">
-          <a href="#" class="text-white font-mont font-medium text-xs uppercase hover:bg-red-600 hover:text-white hover:border-red-600 transition px-3 py-1 border border-white rounded-full">LOGIN IN</a>
-          <a href="#" class="bg-white text-black font-mont font-medium text-xs uppercase hover:bg-red-600 hover:text-white transition px-3 py-1 rounded-full">REGISTER</a>
+          {% if user.is_authenticated %}
+            <a href="{% url 'profile' %}" class="text-white font-mont text-xs uppercase hover:text-red-500 transition px-3 py-1 border border-white rounded-md">
+              {{ user.username }}
+            </a>
+            <a href="{% url 'logout' %}" class="bg-red-600 text-white font-mont text-xs uppercase hover:bg-red-700 transition px-3 py-1 rounded-md">
+              Salir
+            </a>
+          {% else %}
+            <a href="{% url 'login' %}" class="text-white font-mont text-xs uppercase hover:text-red-500 transition px-3 py-1 border border-white rounded-md">LOGIN IN</a>
+            <a href="{% url 'register' %}" class="bg-white text-black font-mont text-xs uppercase hover:bg-red-600 hover:text-white transition px-3 py-1 rounded-md">REGISTER</a>
+          {% endif %}
         </div>
       </div>
     {% endblock %}

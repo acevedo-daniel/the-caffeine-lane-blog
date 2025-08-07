@@ -1,0 +1,164 @@
+{% extends "base.html" %}
+
+{% block title %}Registro - The Caffeine Lane{% endblock %}
+
+{% block header %}{% endblock %} {# Oculta el navbar #}
+
+
+{% block content %}
+<div class="min-h-screen bg-black flex flex-col items-center justify-center py-12 px-4 relative overflow-hidden">
+    <!-- Fondo sutil -->
+    <div class="absolute inset-0 bg-gradient-to-b from-red-900/10 to-transparent pointer-events-none"></div>
+
+    <div class="max-w-md w-full space-y-8 text-center relative z-10">
+        <!-- Título con estilo de marca -->
+        <a href="{% url 'home' %}" class="text-5xl font-bebas text-white tracking-wider hover:text-red-500 transition duration-300">
+            THE CAFFEINE LANE
+        </a>
+        <p class="mt-3 text-lg text-gray-300 font-mont uppercase tracking-wide">
+            Únete a la comunidad
+        </p>
+
+        <!-- Mensajes de éxito -->
+        {% if messages %}
+            {% for message in messages %}
+                <div class="bg-green-600 text-white px-5 py-3 rounded-lg text-sm font-mont mt-4 shadow-lg">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+
+        <!-- Formulario -->
+        <form class="mt-8 space-y-6" method="post">
+            {% csrf_token %}
+
+            <!-- Campo: Username -->
+            <div class="space-y-3">
+                <label for="{{ form.username.id_for_label }}" class="block text-sm font-mont font-bold text-gray-300 uppercase tracking-wide">
+                    Usuario
+                </label>
+                {{ form.username }}
+                {% if form.username.errors %}
+                    <div class="text-red-400 text-xs text-left font-mont mt-1">
+                        {% for error in form.username.errors %}{{ error }}{% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+
+            <!-- Nombre y Apellido en dos columnas -->
+            <div class="grid grid-cols-2 gap-4">
+                <div class="space-y-3">
+                    <label for="{{ form.first_name.id_for_label }}" class="block text-sm font-mont font-bold text-gray-300 uppercase tracking-wide">
+                        Nombre
+                    </label>
+                    {{ form.first_name }}
+                    {% if form.first_name.errors %}
+                        <div class="text-red-400 text-xs text-left font-mont mt-1">
+                            {% for error in form.first_name.errors %}{{ error }}{% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+
+                <div class="space-y-3">
+                    <label for="{{ form.last_name.id_for_label }}" class="block text-sm font-mont font-bold text-gray-300 uppercase tracking-wide">
+                        Apellido
+                    </label>
+                    {{ form.last_name }}
+                    {% if form.last_name.errors %}
+                        <div class="text-red-400 text-xs text-left font-mont mt-1">
+                            {% for error in form.last_name.errors %}{{ error }}{% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- Email -->
+            <div class="space-y-3">
+                <label for="{{ form.email.id_for_label }}" class="block text-sm font-mont font-bold text-gray-300 uppercase tracking-wide">
+                    Email
+                </label>
+                {{ form.email }}
+                {% if form.email.errors %}
+                    <div class="text-red-400 text-xs text-left font-mont mt-1">
+                        {% for error in form.email.errors %}{{ error }}{% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+
+            <!-- Contraseña 1 -->
+            <div class="space-y-3">
+                <label for="{{ form.password1.id_for_label }}" class="block text-sm font-mont font-bold text-gray-300 uppercase tracking-wide">
+                    Contraseña
+                </label>
+                {{ form.password1 }}
+                {% if form.password1.errors %}
+                    <div class="text-red-400 text-xs text-left font-mont mt-1">
+                        {% for error in form.password1.errors %}{{ error }}{% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+
+            <!-- Contraseña 2 -->
+            <div class="space-y-3">
+                <label for="{{ form.password2.id_for_label }}" class="block text-sm font-mont font-bold text-gray-300 uppercase tracking-wide">
+                    Confirmar contraseña
+                </label>
+                {{ form.password2 }}
+                {% if form.password2.errors %}
+                    <div class="text-red-400 text-xs text-left font-mont mt-1">
+                        {% for error in form.password2.errors %}{{ error }}{% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+
+            <!-- Botón de registro -->
+            <div class="mt-6">
+                <button type="submit"
+                        class="w-full py-3 px-6 bg-white text-black font-mont font-bold uppercase tracking-wider rounded-md
+                               hover:bg-red-600 hover:text-white transition-all duration-300 transform hover:scale-105 shadow-lg">
+                    <i class="fas fa-user-plus mr-2"></i>
+                    Crear Cuenta
+                </button>
+            </div>
+
+            <!-- Enlace a login -->
+            <p class="mt-6 text-sm font-mont text-gray-400">
+                ¿Ya tienes cuenta?
+                <a href="{% url 'login' %}" class="font-bold text-white hover:text-red-500 transition">
+                    Inicia sesión aquí
+                </a>
+            </p>
+        </form>
+    </div>
+</div>
+
+<!-- Estilos personalizados para los inputs -->
+<style>
+    input[type="text"],
+    input[type="email"],
+    input[type="password"] {
+        appearance: none;
+        background-color: rgba(55, 65, 81, 0.8); /* bg-gray-700 con opacidad */
+        border: 1px solid rgba(75, 85, 99, 0.8); /* border-gray-600 */
+        color: white;
+        padding: 12px;
+        border-radius: 8px;
+        width: 100%;
+        font-family: 'Montserrat', sans-serif;
+    }
+
+    input[type="text"]:focus,
+    input[type="email"]:focus,
+    input[type="password"]:focus {
+        outline: none;
+        border-color: #ef4444; /* red-500 */
+        box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
+    }
+
+    input[type="text"]::placeholder,
+    input[type="email"]::placeholder,
+    input[type="password"]::placeholder {
+        color: rgba(156, 163, 175, 0.8); /* text-gray-400 con opacidad */
+    }
+</style>
+{% endblock %}
