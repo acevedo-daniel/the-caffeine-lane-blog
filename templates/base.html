@@ -1,74 +1,148 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}The Caffeine Lane{% endblock %}</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+      {% block title %}
+        The Caffeine Lane
+      {% endblock %}
+    </title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        mont: ['Montserrat', 'sans-serif'],
-                        bebas: ['Bebas Neue', 'sans-serif'],
-                    },
-                }
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              mont: ['Montserrat', 'sans-serif'],
+              bebas: ['Bebas Neue', 'sans-serif']
             }
+          }
         }
+      }
     </script>
-</head>
-<body>
+  </head>
+  <body>
     {% block header %}
-    <header class="bg-black flex flex-col">
-        <div class="flex justify-between items-center px-6 py-1">
-            <div class="flex space-x-2 text-white text-xs pt-0">
-                <a href="#" class="hover:text-red-500 transition"><i class="fab fa-facebook-f"></i></a>
-                <a href="#" class="hover:text-red-500 transition"><i class="fab fa-instagram"></i></a>
-                <a href="#" class="hover:text-red-500 transition"><i class="fab fa-x-twitter"></i></a>
-            </div>
-
-            <a href="{% url 'landing' %}" class="text-white font-bebas text-3xl hover:text-red-500 transition">THE CAFFEINE LANE</a>
-
-            <div class="flex space-x-2">
-                {% if user.is_authenticated %}
-                    <a href="{% url 'profile' %}" class="text-white font-mont text-xs uppercase hover:text-red-500 transition px-3 py-1 border border-white rounded-md">
-                        {{ user.username }}
-                    </a>
-                    <a href="{% url 'logout' %}" class="bg-red-600 text-white font-mont text-xs uppercase hover:bg-red-700 transition px-3 py-1 rounded-md">
-                        Salir
-                    </a>
-                {% else %}
-                    <a href="{% url 'login' %}" class="text-white font-mont text-xs uppercase hover:text-red-500 transition px-3 py-1 border border-white rounded-md">Login</a>
-                    <a href="{% url 'register' %}" class="bg-white text-black font-mont text-xs uppercase hover:bg-red-600 hover:text-white transition px-3 py-1 rounded-md">Registro</a>
-                {% endif %}
-            </div>
+      <header class="bg-black flex flex-col">
+        {# Top bar: Social icons #}
+        <div class="flex justify-between items-center px-6 py-3">
+          <div class="flex space-x-2 text-white text-xs pt-0">
+            <a href="#" class="hover:text-red-500 transition"><i class="fab fa-instagram"></i></a>
+            <a href="#" class="hover:text-red-500 transition"><i class="fab fa-x-twitter"></i></a>
+          </div>
         </div>
 
-        <div class="flex items-center px-2 py-1 space-x-5">
-            <a href="{% url 'home' %}" class="flex items-center transition-transform duration-300 hover:scale-110">
-            <img src="{% static '\images\caffeinelane-logo-2.png' %}" alt="The Caffeine Lane Logo" class="h-12 w-auto rounded-full">
+        {# Main title section #}
+        <div class="flex items-center justify-center m-0">
+          <a href="{% url 'landing' %}" class="text-white font-bebas text-4xl transition-transform duration-300 hover:scale-110">THE CAFFEINE LANE</a>
+        </div>
+      </header>
+
+      {# Sticky navigation bar #}
+      <div class="sticky top-0 z-50 bg-black flex justify-between items-center px-4 py-2 shadow-xl">
+        {# Left block: Logo + Nav links #}
+        <div class="flex items-center space-x-3">
+          <a href="{% url 'home' %}" class="flex items-center transition-transform duration-300 hover:scale-110"><img src="{% static '\images\caffeinelane-logo-2.png' %}" alt="The Caffeine Lane Logo" class="h-8 w-auto rounded-full" /></a>
+          <nav class="flex space-x-4 text-xs">
+            <a href="{% url 'home' %}" class="text-white font-mont font-semibold uppercase hover:opacity-90 transition">HOME</a>
+            <a href="{% url 'home' %}" class="text-white font-mont font-semibold uppercase hover:opacity-90 transition">BUILDS</a>
+            <a href="{% url 'home' %}" class="text-white font-mont font-semibold uppercase hover:opacity-90 transition">GUIDES</a>
+            <a href="{% url 'home' %}" class="text-white font-mont font-semibold uppercase hover:opacity-90 transition">REVIEWS</a>
+          </nav>
+        </div>
+        {# Right block: Login/Register buttons - ACTUALIZADO #}
+        <div class="flex space-x-2">
+          {% if user.is_authenticated %}
+            <a href="{% url 'profile' %}" class="text-white font-mont text-xs uppercase hover:text-red-500 transition px-3 py-1 border border-white rounded-md">
+              {{ user.username }}
             </a>
-            <nav class="flex space-x-4 text-xs">
-                <a href="{% url 'home' %}" class="text-white font-mont font-bold uppercase hover:text-red-500 transition">Home</a>
-                <a href="{% url 'home' %}" class="text-white font-mont font-bold uppercase hover:text-red-500 transition">Builds</a>
-                <a href="{% url 'home' %}" class="text-white font-mont font-bold uppercase hover:text-red-500 transition">Harley</a>
-            </nav>
+            <a href="{% url 'logout' %}" class="bg-red-600 text-white font-mont text-xs uppercase hover:bg-red-700 transition px-3 py-1 rounded-md">
+              Salir
+            </a>
+          {% else %}
+            <a href="{% url 'login' %}" class="text-white font-mont text-xs uppercase hover:text-red-500 transition px-3 py-1 border border-white rounded-md">LOGIN IN</a>
+            <a href="{% url 'register' %}" class="bg-white text-black font-mont text-xs uppercase hover:bg-red-600 hover:text-white transition px-3 py-1 rounded-md">REGISTER</a>
+          {% endif %}
         </div>
-    </header>
+      </div>
     {% endblock %}
     <main>
-        {% block content %}{% endblock %}
+      {% block content %}
+
+      {% endblock %}
     </main>
     {% block footer %}
-    <footer class="bg-black py-6">
-        <p class="text-white font-mont text-3xl">© 2024 The Caffeine Lane</p>
-    </footer>
+      <footer class="bg-black pt-10 pb-12 text-white flex flex-col items-center px-4">
+        <!-- Footer main title -->
+        <div class="text-center mb-6">
+          <h2 class="font-bebas text-5xl md:text-7xl uppercase leading-none">THE CAFFEINE LANE</h2>
+        </div>
+
+        <!-- Three-column layout, centered -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 w-full max-w-6xl text-center">
+          <!-- Column: Navigation -->
+          <div>
+            <ul class="space-y-1 font-mont text-sm">
+              <li>
+                <a href="{% url 'home' %}" class="hover:text-gray-400 transition">Latest Posts</a>
+              </li>
+              <li>
+                <a href="{% url 'home' %}" class="hover:text-gray-400 transition">Builds & Features</a>
+              </li>
+              <li>
+                <a href="{% url 'home' %}" class="hover:text-gray-400 transition">How-To & Guides</a>
+              </li>
+              <li>
+                <a href="{% url 'home' %}" class="hover:text-gray-400 transition">Gear & Product Reviews</a>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Column: Logo + slogan -->
+          <div>
+            <img src="{% static 'images/caffeinelane-logo-2.png' %}" alt="The Caffeine Lane Logo" class="h-32 md:h-40 w-auto mx-auto mb-3 rounded-full" />
+            <p class="font-mont text-sm md:text-base font-light max-w-xs mx-auto mb-4">Welcome, runner. I see the fire in your eyes. The road is ours to ride.</p>
+
+            <!-- Social icons row -->
+            <div class="flex justify-center space-x-4 text-white text-lg">
+              <a href="#" class="hover:text-red-500 transition" title="Instagram"><i class="fab fa-instagram"></i></a>
+              <a href="#" class="hover:text-red-500 transition" title="Twitter"><i class="fab fa-x-twitter"></i></a>
+              <a href="#" class="hover:text-red-500 transition" title="Email"><i class="fas fa-envelope"></i></a>
+              <a href="#" class="hover:text-red-500 transition" title="Subscribe"><i class="fas fa-bell"></i></a>
+              <a href="#" class="hover:text-red-500 transition" title="Search"><i class="fas fa-magnifying-glass"></i></a>
+            </div>
+          </div>
+
+          <!-- Column: Information -->
+          <div>
+            <ul class="space-y-1 font-mont text-sm">
+              <li>
+                <a href="#" class="hover:text-gray-400 transition">About Us</a>
+              </li>
+              <li>
+                <a href="#" class="hover:text-gray-400 transition">Contact Us</a>
+              </li>
+              <li>
+                <a href="#" class="hover:text-gray-400 transition">Privacy Policy</a>
+              </li>
+              <li>
+                <a href="#" class="hover:text-gray-400 transition">Terms of Service</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Copyright -->
+        <div class="mt-10 pt-6 text-center">
+          <p class="font-mont text-xs text-white">© 2024 The Caffeine Lane. All rights reserved.</p>
+        </div>
+      </footer>
     {% endblock %}
-</body>
+  </body>
 </html>
