@@ -10,17 +10,17 @@ def home(request):
     new_builds = Post.objects.filter(
         status='published',
         category__name='Builds'
-    ).order_by('-created_at')[:8]
+    ).order_by('-created_at')[:9]
 
     new_guides = Post.objects.filter(
         status='published',
         category__name='Guides'
-    ).order_by('-created_at')[:5]
+    ).order_by('-created_at')[:6]
 
     new_reviews = Post.objects.filter(
         status='published',
         category__name='Reviews'
-    ).order_by('-created_at')[:5]
+    ).order_by('-created_at')[:4]
 
     total_posts = Post.objects.filter(status='published').count()
     categories = Category.objects.all()
