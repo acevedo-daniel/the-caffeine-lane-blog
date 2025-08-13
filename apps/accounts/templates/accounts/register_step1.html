@@ -1,113 +1,132 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}
-  Registration - The Caffeine Lane
-{% endblock %}
+{% block title %}Join Us - The Caffeine Lane{% endblock %}
 
-{% block header %}
-
-{% endblock %}
-
-{% block footer %}
-
-{% endblock %}
+{% block header %}{% endblock %} {# Ocultar navbar #}
+{% block footer %}{% endblock %} {# Ocultar footer #}
 
 {% block content %}
-  <div class="min-h-screen bg-black flex items-center justify-center py-12 px-4 relative overflow-hidden">
-    <div class="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-10 max-w-5xl w-full">
-      <!-- Columna izquierda: Tarjeta del formulario -->
-      <div class="bg-white rounded-2xl p-10 text-center w-full max-w-md mx-auto">
-        <div class="container mx-auto px-4">
-          <a href="{% url 'home' %}" class="text-xl font-bebas text-black hover:text-stone-800 transition">THE CAFFEINE LANE</a>
-          <h2 class="text-4xl font-mont font-bold uppercase text-black pt-2 hover:text-stone-800 transition">Create your account</h2>
-        </div>
-        {% if messages %}
-          {% for message in messages %}
-            <div class="bg-green-600 text-white px-5 py-3 rounded-lg text-sm font-mont mt-4 shadow-lg">{{ message }}</div>
-          {% endfor %}
-        {% endif %}
+<link rel="stylesheet" href="{% static 'css/accounts.css' %}">
 
-        <form class="block space-y-6" method="post" novalidate>
-          {% csrf_token %}
-          <div class="text-left space-y-1">
-            <label for="{{ form.email.id_for_label }}" class="text-xs font-mont font-basic tracking-wide text-black">Email Address</label>
-            <div class="relative">
-              <i class="fas fa-envelope absolute left-4 top-1/2 transform -translate-y-1/2"></i>
-              <input type="email" name="{{ form.email.html_name }}" id="{{ form.email.id_for_label }}" placeholder="Enter your email address" value="{{ form.email.value|default_if_none:'' }}" class="text-black pl-10 text-sm font-mont font-basic tracking-wide" required autofocus />
+<div class="min-h-screen bg-black flex items-center justify-center py-12 px-4 relative overflow-hidden">
+    <div class="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-10 max-w-6xl w-full">
+        
+        <!-- Columna izquierda: Formulario -->
+        <div class="register-container w-full max-w-md mx-auto">
+            <div class="text-center mb-8">
+                <a href="{% url 'home' %}" 
+                   class="text-2xl font-bebas text-black hover:text-stone-800 transition">
+                    THE CAFFEINE LANE
+                </a>
+                <h2 class="text-4xl font-mont font-bold uppercase text-black pt-2 hover:text-stone-800 transition">
+                    Join the Brotherhood
+                </h2>
+                <p class="mt-2 text-sm text-gray-600 font-mont">
+                    Start your journey with us
+                </p>
             </div>
-            {% if form.email.errors %}
-              <p class="font-mont text-red-600 text-xs mt-1">{{ form.email.errors.0 }}</p>
+
+            <!-- Mensajes -->
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="message-{{ message.tags }} mb-4">{{ message }}</div>
+                {% endfor %}
             {% endif %}
-          </div>
-          <button type="submit" class="w-full py-3 px-8 bg-black text-white font-mont font-medium tracking-wider rounded-full hover:bg-stone-800 transition-all duration-300 transform hover:scale-105 shadow-lg flex items-center justify-center relative">
-            Next
-            <i class="fas fa-arrow-right absolute right-4 top-1/2 transform -translate-y-1/2"></i>
-          </button>
-        </form>
 
-        <p class="mt-4 text-xs font-mont font-normal text-gray-600">
-          Already have an account?
-          <a href="{% url 'login' %}" class="font-semibold text-black hover:text-stone-800 transition">Log in</a>
-        </p>
+            <!-- Formulario -->
+            <form id="register-form" class="space-y-6" method="post" novalidate>
+                {% csrf_token %}
 
-        <div class="flex items-center my-6">
-          <div class="flex-grow border-t border-gray-300"></div>
-          <span class="flex-shrink mx-4 text-black font-mont font-normal text-sm">Or login</span>
-          <div class="flex-grow border-t border-gray-300"></div>
+                <div class="space-y-2">
+                    <label for="{{ form.email.id_for_label }}" 
+                           class="block text-xs font-mont font-medium tracking-wide text-black uppercase">
+                        Email Address
+                    </label>
+                    <div class="relative">
+                        <i class="fas fa-envelope absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+                        {{ form.email }}
+                    </div>
+                    {% if form.email.errors %}
+                        {% for error in form.email.errors %}
+                            <span class="field-error">{{ error }}</span>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+
+                <button type="submit" class="auth-btn-primary w-full">
+                    Continue
+                    <i class="fas fa-arrow-right ml-2"></i>
+                </button>
+            </form>
+
+            <!-- Enlaces adicionales -->
+            <p class="mt-6 text-xs font-mont text-gray-600 text-center">
+                Already have an account?
+                <a href="{% url 'login' %}" class="font-semibold text-black hover:text-stone-800 transition">
+                    Sign in
+                </a>
+            </p>
+
+            <!-- Separador -->
+            <div class="flex items-center my-6">
+                <div class="flex-grow border-t border-gray-300"></div>
+                <span class="flex-shrink mx-4 text-black font-mont text-sm">Or join with</span>
+                <div class="flex-grow border-t border-gray-300"></div>
+            </div>
+
+            <!-- Social buttons -->
+            <div class="flex justify-center gap-4">
+                <button class="bg-white text-black font-mont rounded-full h-12 px-6 shadow-md hover:scale-105 transition-all border flex items-center justify-center space-x-2" disabled>
+                    <i class="fab fa-google"></i>
+                    <span class="text-sm font-semibold hidden sm:inline">Google</span>
+                </button>
+                <button class="bg-white text-black font-mont rounded-full h-12 px-6 shadow-md hover:scale-105 transition-all border flex items-center justify-center space-x-2" disabled>
+                    <i class="fab fa-github"></i>
+                    <span class="text-sm font-semibold hidden sm:inline">GitHub</span>
+                </button>
+            </div>
+
+            <!-- Términos y condiciones -->
+            <p class="mt-6 text-xs text-black font-mont text-center leading-tight">
+                By registering, you agree to our
+                <a href="#" class="underline hover:text-stone-800">Terms of Service</a> and
+                <a href="#" class="underline hover:text-stone-800">Privacy Policy</a>.
+            </p>
         </div>
 
-        <div class="flex justify-center gap-4">
-          <!-- Botón de Google -->
-          <button class="bg-white text-black font-mont rounded-full h-12 px-6 shadow-md hover:scale-105 transition-all border flex items-center justify-center space-x-2">
-            <i class="fab fa-google"></i>
-            <span class="text-sm font-semibold hidden sm:inline">Google</span>
-          </button>
-          <!-- Botón de GitHub (Git) -->
-          <button class="bg-white text-black font-mont rounded-full h-12 px-6 shadow-md hover:scale-105 transition-all border flex items-center justify-center space-x-2">
-            <i class="fab fa-github"></i>
-            <span class="text-sm font-semibold hidden sm:inline">GitHub</span>
-          </button>
+        <!-- Columna derecha: Logo y bienvenida -->
+        <div class="hidden lg:flex flex-col items-center justify-center text-center">
+            <a href="{% url 'home' %}" class="transition-transform duration-300 hover:scale-105 mb-6">
+                <img src="{% static 'images/caffeinelane-logo-alternative-full.png' %}" 
+                     alt="The Caffeine Lane Logo" 
+                     class="h-64 w-auto rounded-full shadow-2xl" />
+            </a>
+            <div class="transition-transform duration-300 hover:scale-105 space-y-4">
+                <h2 class="text-4xl font-mont font-bold text-white">
+                    RIDE INTO THE BROTHERHOOD
+                </h2>
+                <p class="text-xl font-mont text-gray-300">
+                    Build your legacy. Share your ride.
+                </p>
+                <div class="flex justify-center space-x-8 text-gray-400 text-sm">
+                    <div class="text-center">
+                        <div class="text-2xl font-bold text-white">1000+</div>
+                        <div>Riders</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-2xl font-bold text-white">500+</div>
+                        <div>Builds</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-2xl font-bold text-white">100+</div>
+                        <div>Guides</div>
+                    </div>
+                </div>
+            </div>
         </div>
-
-        <p class="mt-6 text-xs text-black font-mont font-basic leading-tight">
-          By registering, you agree to our
-          <a href="#" class="font-mont font-basic text-black underline">Terms of Service</a> and
-          <a href="#" class="font-mont font-basic text-black underline">Privacy Policy</a>.
-        </p>
-      </div>
-
-      <!-- Columna derecha: Logo + bienvenida -->
-      <div class="hidden lg:flex flex-col items-center justify-center text-center">
-        <a href="{% url 'home' %}" class="transition-transform duration-300 hover:scale-105"><img src="{% static 'images/caffeinelane-logo-alternative-full.png' %}" alt="The Caffeine Lane Logo" class="h-56 w-auto mb-4 rounded-full" /></a>
-        <div class="transition-transform duration-300 hover:scale-105">
-          <h2 class="text-3xl font-mont font-medium text-white">RIDE INTO THE BROTHERHOOD</h2>
-          <p class="text-base font-mont text-gray-300 mt-2">Build your legacy. Share your ride.</p>
-        </div>
-      </div>
     </div>
-  </div>
-  <!-- Estilos para inputs -->
-  <style>
-    input {
-      appearance: none;
-      background-color: white;
-      border: 1px solid rgba(156, 163, 175, 0.8);
-      color: black;
-      padding: 12px;
-      border-radius: 12px;
-      width: 100%;
-      font-family: 'Montserrat', sans-serif;
-    }
-    
-    input:focus {
-      outline: none;
-      border-color: #000;
-      box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.1);
-    }
-    
-    input::placeholder {
-      color: rgba(107, 114, 128, 0.8);
-    }
-  </style>
+</div>
+
+<script src="{% static 'js/accounts.js' %}"></script>
 {% endblock %}

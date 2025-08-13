@@ -1,0 +1,268 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Edit Profile - The Caffeine Lane{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/edit_profile.css' %}">
+
+<div class="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-100 py-10 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-4xl mx-auto">
+
+        <!-- Encabezado -->
+        <header class="text-center mb-10">
+            <h1 class="text-4xl font-bold text-gray-800 font-bebas tracking-wide flex items-center justify-center gap-3">
+                <i class="fas fa-user-edit text-red-600"></i>
+                Edit Your Profile
+            </h1>
+            <p class="text-gray-500 mt-2">Update your information, photo, and preferences</p>
+        </header>
+
+        <!-- Mensajes de feedback -->
+        {% if messages %}
+            <div class="mb-6 space-y-3" aria-live="polite">
+                {% for message in messages %}
+                    <div class="p-4 rounded-lg border-l-4 shadow-sm text-sm flex items-center gap-2
+                        {% if message.tags == 'error' %}
+                            bg-red-50 border-red-400 text-red-700
+                        {% elif message.tags == 'success' %}
+                            bg-green-50 border-green-400 text-green-700
+                        {% else %}
+                            bg-blue-50 border-blue-400 text-blue-700
+                        {% endif %}"
+                        role="alert">
+                        <i class="
+                            {% if message.tags == 'error' %}
+                                fas fa-exclamation-triangle
+                            {% elif message.tags == 'success' %}
+                                fas fa-check-circle
+                            {% else %}
+                                fas fa-info-circle
+                            {% endif %}
+                            "></i>
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        <!-- Formulario principal -->
+        <form method="post" enctype="multipart/form-data" class="bg-white rounded-2xl shadow-xl p-6 md:p-10 border border-gray-200" novalidate>
+            {% csrf_token %}
+
+            <!-- Errores generales del formulario -->
+            {% if form.non_field_errors %}
+                <div class="mb-6 p-4 bg-red-50 border border-red-200 text-red-700 rounded-lg text-sm" role="alert">
+                    <div class="flex items-center gap-2">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <ul class="list-disc pl-5">
+                            {% for error in form.non_field_errors %}
+                                <li>{{ error }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            {% endif %}
+
+            <!-- Avatar con previsualización -->
+            <fieldset class="mb-8">
+                <legend class="block text-sm font-semibold text-gray-700 uppercase tracking-wide mb-3 flex items-center gap-2">
+                    <i class="fas fa-image text-red-500"></i>
+                    Profile Picture
+                </legend>
+
+                <div class="flex flex-col sm:flex-row items-center sm:items-start gap-6 mb-4">
+                    <!-- Previsualización -->
+                    <div class="relative">
+                        <img id="avatar-preview"
+                             src="{% if profile.avatar %}{{ profile.avatar.url }}{% else %}{% static 'img/caffeinelane-logo-small.png' %}{% endif %}"
+                             alt="Profile picture preview"
+                             class="w-24 h-24 rounded-full border-4 border-gray-100 shadow-md object-cover">
+                        <div class="absolute -bottom-1 -right-1 bg-red-500 text-white rounded-full p-1 shadow">
+                            <i class="fas fa-camera text-xs"></i>
+                        </div>
+                    </div>
+
+                    <!-- Información y archivo -->
+                    <div class="text-center sm:text-left">
+                        <p class="text-gray-600 text-sm">Current image</p>
+                        {% if profile.avatar %}
+                            <a href="{{ profile.avatar.url }}" target="_blank" class="text-red-600 text-xs hover:underline inline-flex items-center mt-1">
+                                <i class="fas fa-external-link-alt mr-1"></i> View full size
+                            </a>
+                        {% else %}
+                            <p class="text-gray-400 text-xs mt-1">No image uploaded</p>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <!-- Input de archivo -->
+                <div>
+                    <label for="{{ form.avatar.id_for_label }}" class="sr-only">Upload new profile picture</label>
+                    {{ form.avatar }}
+                    {% if form.avatar.errors %}
+                        <div class="mt-2 text-red-600 text-xs" role="alert">{{ form.avatar.errors|join:", " }}</div>
+                    {% endif %}
+                    <p class="mt-2 text-xs text-gray-400 flex items-center gap-1">
+                        <i class="fas fa-info-circle"></i>
+                        JPG, PNG or GIF. Max 5MB.
+                    </p>
+                </div>
+            </fieldset>
+
+            <!-- Bio -->
+            <div class="mb-8">
+                <label for="{{ form.bio.id_for_label }}" class="block text-sm font-semibold text-gray-700 uppercase tracking-wide mb-3 flex items-center gap-2">
+                    <i class="fas fa-pen text-red-500"></i>
+                    Bio
+                </label>
+                {{ form.bio }}
+                {% if form.bio.errors %}
+                    <div class="mt-2 text-red-600 text-xs" role="alert">{{ form.bio.errors|join:", " }}</div>
+                {% endif %}
+                <p class="mt-2 text-xs text-gray-500">
+                    Tell us about your passion for motorcycles, coffee, or epic rides.
+                </p>
+            </div>
+
+            <!-- Website -->
+            <div class="mb-8">
+                <label for="{{ form.personal_url.id_for_label }}" class="block text-sm font-semibold text-gray-700 uppercase tracking-wide mb-3 flex items-center gap-2">
+                    <i class="fas fa-globe text-red-500"></i>
+                    Personal Website / Social
+                </label>
+                {{ form.personal_url }}
+                {% if form.personal_url.errors %}
+                    <div class="mt-2 text-red-600 text-xs" role="alert">{{ form.personal_url.errors|join:", " }}</div>
+                {% endif %}
+            </div>
+
+            <!-- Fecha de nacimiento -->
+            <div class="mb-8">
+                <label for="{{ form.birth_date.id_for_label }}" class="block text-sm font-semibold text-gray-700 uppercase tracking-wide mb-3 flex items-center gap-2">
+                    <i class="fas fa-birthday-cake text-red-500"></i>
+                    Birth Date
+                </label>
+                {{ form.birth_date }}
+                {% if form.birth_date.errors %}
+                    <div class="mt-2 text-red-600 text-xs" role="alert">{{ form.birth_date.errors|join:", " }}</div>
+                {% endif %}
+                <p class="mt-2 text-xs text-gray-500">We won't show your full birth date publicly.</p>
+            </div>
+
+            <!-- Género y Moto -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-10">
+                <!-- Género -->
+                <div>
+                    <label for="{{ form.gender.id_for_label }}" class="block text-sm font-semibold text-gray-700 uppercase tracking-wide mb-3 flex items-center gap-2">
+                        <i class="fas fa-venus-mars text-red-500"></i>
+                        Gender
+                    </label>
+                    {{ form.gender }}
+                    {% if form.gender.errors %}
+                        <div class="mt-2 text-red-600 text-xs" role="alert">{{ form.gender.errors|join:", " }}</div>
+                    {% endif %}
+                </div>
+
+                <!-- Moto -->
+                <div>
+                    <label for="id_has_moto" class="block text-sm font-semibold text-gray-700 uppercase tracking-wide mb-3 flex items-center gap-2">
+                        <i class="fas fa-motorcycle text-red-500"></i>
+                        Own a Motorcycle?
+                    </label>
+                    <select name="has_moto" id="id_has_moto" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-red-500 focus:border-red-500">
+                        <option value="">---------</option>
+                        <option value="True" {% if form.has_moto.value == True %}selected{% endif %}>Yes</option>
+                        <option value="False" {% if form.has_moto.value == False %}selected{% endif %}>No</option>
+                    </select>
+                    {% if form.has_moto.errors %}
+                        <div class="mt-2 text-red-600 text-xs" role="alert">{{ form.has_moto.errors|join:", " }}</div>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- Botones de acción -->
+            <div class="flex flex-col sm:flex-row gap-4 pt-6 border-t border-gray-100">
+                <button type="submit"
+                        class="flex-1 bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white font-semibold py-3 px-8 rounded-lg shadow-md transition transform hover:scale-105 flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2">
+                    <i class="fas fa-save mr-3"></i>
+                    Save Changes
+                </button>
+                <a href="{% url 'profile' %}"
+                   class="flex-1 py-3 px-8 bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold rounded-lg border border-gray-300 transition text-center flex items-center justify-center hover:shadow focus:outline-none focus:ring-2 focus:ring-gray-400"
+                   tabindex="0">
+                    <i class="fas fa-times mr-2"></i>
+                    Cancel
+                </a>
+            </div>
+        </form>
+
+        <!-- Enlace a cambio de contraseña -->
+        <div class="mt-8 text-center">
+            <a href="{% url 'password_change' %}"
+               class="inline-flex items-center text-red-600 hover:text-red-700 font-medium text-sm focus:underline focus:outline-none focus:ring-2 focus:ring-red-300 rounded px-2 py-1">
+                <i class="fas fa-key mr-2"></i>
+                Change Password
+            </a>
+        </div>
+    </div>
+</div>
+
+<!-- Script para previsualizar avatar -->
+<script>
+document.getElementById('id_avatar')?.addEventListener('change', function(e) {
+    const preview = document.getElementById('avatar-preview');
+    const file = e.target.files[0];
+    if (file) {
+        // Validación de tamaño (máx 5MB)
+        if (file.size > 5 * 1024 * 1024) {
+            alert('The image is too large. Please upload a file smaller than 5MB.');
+            e.target.value = ''; // Limpia el input
+            return;
+        }
+
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            preview.src = e.target.result;
+        };
+        reader.readAsDataURL(file);
+    }
+});
+</script>
+
+<style>
+/* Estilos personalizados para selects */
+select {
+    appearance: none;
+    background-color: #fff;
+    border: 1px solid #d1d5db;
+    border-radius: 0.375rem;
+    padding: 0.5rem 1.5rem 0.5rem 0.75rem;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    color: #25262b;
+    width: 100%;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e");
+    background-position: right 0.75rem center;
+    background-repeat: no-repeat;
+    background-size: 1.2em;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+select:hover {
+    border-color: #9ca3af;
+}
+
+select:focus {
+    outline: none;
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 0.25rem rgba(59, 130, 246, 0.25);
+}
+
+/* Mejora visual para errores */
+.text-red-600.text-xs {
+    margin-top: 0.25rem;
+}
+</style>
+
+{% endblock %}

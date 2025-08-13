@@ -1,85 +1,157 @@
-{% extends "base.html" %}
+{% extends 'base.html' %}
+{% load static %}
 
-{% block title %}Perfil - The Caffeine Lane{% endblock %}
-
-
+{% block title %}{{ user.username }}'s Profile - The Caffeine Lane{% endblock %}
 
 {% block content %}
-<div class="min-h-screen bg-black flex flex-col items-center justify-center py-12 px-4 relative overflow-hidden">
-    <!-- Fondo sutil -->
-     
-    <div class="absolute bg-black flex flex-col inset-0 from-red-900/10 to-transparent pointer-events-none"></div>
+<link rel="stylesheet" href="{% static 'css/profile.css' %}">
 
-    <div class="max-w-lg w-full bg-gray-900 rounded-xl shadow-2xl overflow-hidden border border-gray-700 relative z-10">
+<div class="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-100 py-10 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-4xl mx-auto">
+
         <!-- Encabezado del perfil -->
-        <div class="bg-gradient-to-r from-black to-gray-800 px-8 py-6 text-center">
-            <div class="w-24 h-24 mx-auto bg-red-600 rounded-full flex items-center justify-center text-white text-3xl font-bebas uppercase border-4 border-gray-700">
-                {{ user.first_name|default:user.username|first|upper }}
-                <span class="sr-only">Avatar de {{ user.get_full_name|default:user.username }}</span>
+        <header class="bg-white rounded-2xl shadow-lg p-8 text-center border border-gray-200">
+            <!-- Avatar -->
+            <div class="relative w-32 h-32 mx-auto mb-4">
+                {% if profile.avatar %}
+                    <img src="{{ profile.avatar.url }}" alt="Profile picture of {{ user.get_full_name|default:user.username }}"
+                         class="w-full h-full rounded-full object-cover border-4 border-red-100 shadow-md">
+                {% else %}
+                    <div class="w-full h-full rounded-full bg-white border-4 border-red-100 shadow-md flex items-center justify-center text-red-700 text-4xl font-bold uppercase">
+                        {{ user.first_name|default:user.username|first|upper }}
+                    </div>
+                {% endif %}
             </div>
-            <h1 class="mt-4 text-3xl font-bebas text-white">{{ user.get_full_name|default:user.username }}</h1>
-            <p class="text-gray-400 font-mont text-sm">{{ user.email }}</p>
-        </div>
 
-        <!-- Información del perfil -->
-        <div class="p-8 space-y-5">
-          <form method="post" enctype="multipart/form-data" class="space-y-4">
-            {% csrf_token %}
-            {% if messages %}
-              {% for message in messages %}
-                <div class="bg-green-600 text-white px-5 py-3 rounded-lg text-sm font-mont mt-2 shadow-lg">{{ message }}</div>
-              {% endfor %}
-            {% endif %}
-            {% if form.non_field_errors %}
-              <div class="bg-red-100 border border-red-400 text-red-700 px-3 py-2 rounded mb-2 text-xs font-mont">
-                {% for error in form.non_field_errors %}<div>{{ error }}</div>{% endfor %}
-              </div>
-            {% endif %}
-            <div>
-              <label class="block text-xs font-mont text-gray-400 uppercase mb-1">Bio</label>
-              {{ form.bio }}
-              {% if form.bio.errors %}<div class="text-red-400 text-xs mt-1">{{ form.bio.errors.0 }}</div>{% endif %}
-            </div>
-            <div>
-              <label class="block text-xs font-mont text-gray-400 uppercase mb-1">Avatar</label>
-              {{ form.avatar }}
-              {% if form.avatar.errors %}<div class="text-red-400 text-xs mt-1">{{ form.avatar.errors.0 }}</div>{% endif %}
-            </div>
-            <div>
-              <label class="block text-xs font-mont text-gray-400 uppercase mb-1">Personal URL</label>
-              {{ form.personal_url }}
-              {% if form.personal_url.errors %}<div class="text-red-400 text-xs mt-1">{{ form.personal_url.errors.0 }}</div>{% endif %}
-            </div>
-            <div>
-              <label class="block text-xs font-mont text-gray-400 uppercase mb-1">Birth Date</label>
-              {{ form.birth_date }}
-              {% if form.birth_date.errors %}<div class="text-red-400 text-xs mt-1">{{ form.birth_date.errors.0 }}</div>{% endif %}
-            </div>
-            <div>
-              <label class="block text-xs font-mont text-gray-400 uppercase mb-1">Gender</label>
-              {{ form.gender }}
-              {% if form.gender.errors %}<div class="text-red-400 text-xs mt-1">{{ form.gender.errors.0 }}</div>{% endif %}
-            </div>
-            <div>
-              <label class="block text-xs font-mont text-gray-400 uppercase mb-1">Do you have a motorcycle?</label>
-              {{ form.has_moto }}
-              {% if form.has_moto.errors %}<div class="text-red-400 text-xs mt-1">{{ form.has_moto.errors.0 }}</div>{% endif %}
-            </div>
-            <button type="submit" class="w-full py-2 px-6 bg-black text-white font-mont font-medium tracking-wider rounded-full hover:bg-stone-800 transition-all duration-300 transform hover:scale-105 shadow flex items-center justify-center relative mt-2 text-sm">Save Changes</button>
-          </form>
-        </div>
+            <!-- Nombre y email -->
+            <h1 class="text-4xl font-bold text-gray-800 font-bebas tracking-wide">
+                {{ user.get_full_name|default:user.username }}
+            </h1>
+            <p class="text-gray-500 text-sm mt-1">{{ user.email }}</p>
 
-        <!-- Acciones -->
-        <div class="px-8 py-6 bg-gray-800 flex flex-col sm:flex-row gap-3 justify-center">
-            <a href="{% url 'password_change' %}"
-               class="inline-block py-2 px-6 bg-gray-700 text-white font-mont text-sm uppercase rounded-md hover:bg-red-600 transition text-center">
-                Cambiar Contraseña
+            <!-- Badge: Motorcycle Owner -->
+            {% if profile.has_moto %}
+                <span class="inline-flex items-center mt-3 px-5 py-1.5 bg-red-500 text-white text-sm font-medium rounded-full shadow-sm">
+                    <i class="fas fa-motorcycle mr-2"></i>
+                    Motorcycle Owner
+                </span>
+            {% endif %}
+        </header>
+
+        <!-- Información personal -->
+        <section class="mt-8 bg-white rounded-xl shadow-lg p-8 border border-gray-200">
+            <h2 class="text-2xl font-bold text-gray-800 font-bebas mb-6 border-b border-gray-200 pb-3 flex items-center gap-2">
+                <i class="fas fa-user-circle text-red-500"></i>
+                About Me
+            </h2>
+
+            <!-- Bio -->
+            {% if profile.bio %}
+                <p class="text-gray-700 leading-relaxed mb-6">{{ profile.bio }}</p>
+            {% else %}
+                <p class="text-gray-500 italic mb-6">No bio yet. Tell us about your love for coffee and motorcycles!</p>
+            {% endif %}
+
+            <!-- Información detallada en grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-5 text-sm text-gray-600">
+                <!-- Website -->
+                {% if profile.personal_url %}
+                    <div class="flex items-center">
+                        <i class="fas fa-globe text-red-500 mr-3"></i>
+                        <strong class="w-24">Website:</strong>
+                        <a href="{{ profile.personal_url }}" target="_blank"
+                           class="text-red-600 hover:underline transition"
+                           title="Visit external website">
+                            {{ profile.personal_url|truncatechars:25 }}
+                        </a>
+                    </div>
+                {% endif %}
+
+                <!-- Birth Date -->
+                {% if profile.birth_date %}
+                    <div class="flex items-center">
+                        <i class="fas fa-birthday-cake text-red-500 mr-3"></i>
+                        <strong class="w-24">Birth Date:</strong>
+                        <span>{{ profile.birth_date|date:"M d, Y" }}</span>
+                    </div>
+                {% endif %}
+
+                <!-- Gender -->
+                {% if profile.gender %}
+                    <div class="flex items-center">
+                        <i class="fas fa-venus-mars text-red-500 mr-3"></i>
+                        <strong class="w-24">Gender:</strong>
+                        <span>{{ profile.get_gender_display }}</span>
+                    </div>
+                {% endif %}
+
+                <!-- Member Since -->
+                <div class="flex items-center">
+                    <i class="fas fa-calendar-alt text-red-500 mr-3"></i>
+                    <strong class="w-24">Joined:</strong>
+                    <span>{{ user.date_joined|date:"M Y" }}</span>
+                </div>
+
+                <!-- Posts Published -->
+                <div class="flex items-center">
+                    <i class="fas fa-newspaper text-red-500 mr-3"></i>
+                    <strong class="w-24">Posts:</strong>
+                    <span>{{ published_count }} published</span>
+                </div>
+
+                <!-- Drafts -->
+                <div class="flex items-center">
+                    <i class="fas fa-file-alt text-red-500 mr-3"></i>
+                    <strong class="w-24">Drafts:</strong>
+                    <span>{{ draft_count }}</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Acciones del usuario -->
+        <div class="mt-8 flex flex-wrap justify-center gap-4">
+            <a href="{% url 'edit_profile' %}"
+               class="flex items-center px-6 py-3 bg-red-600 hover:bg-red-700 text-white font-semibold rounded-lg shadow transition transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2">
+                <i class="fas fa-edit mr-2"></i>
+                Edit Profile
             </a>
+
+            <a href="{% url 'password_change' %}"
+               class="flex items-center px-6 py-3 bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold rounded-lg border border-gray-300 transition hover:shadow focus:outline-none focus:ring-2 focus:ring-gray-400">
+                <i class="fas fa-key mr-2"></i>
+                Change Password
+            </a>
+
             <a href="{% url 'logout' %}"
-               class="inline-block py-2 px-6 bg-white text-black font-mont text-sm font-bold uppercase rounded-md hover:bg-red-600 hover:text-white transition text-center">
-                Cerrar Sesión
+               class="flex items-center px-6 py-3 bg-gray-600 hover:bg-gray-700 text-white font-semibold rounded-lg shadow transition transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2">
+                <i class="fas fa-sign-out-alt mr-2"></i>
+                Sign Out
             </a>
         </div>
     </div>
 </div>
+
+<!-- Estilos personalizados para consistencia con edit_profile -->
+<style>
+    .font-bebas {
+        font-family: 'Bebas Neue', sans-serif;
+    }
+
+    /* Iconos alineados verticalmente */
+    .flex.items-center i {
+        width: 16px;
+        opacity: 0.8;
+    }
+
+    /* Transiciones suaves */
+    .transition {
+        transition: all 0.2s ease-in-out;
+    }
+
+    /* Ajuste para enlaces truncados */
+    a:hover {
+        text-decoration: underline;
+    }
+</style>
+
 {% endblock %}

@@ -1,93 +1,138 @@
 {% extends 'base.html' %}
+{% load static %}
 
-{% block title %}
-  Iniciar Sesión - TheCaffeineLane
-{% endblock %}
+{% block title %}Login - The Caffeine Lane{% endblock %}
 
-{% block header %}
-
-{% endblock %}
-
-{% block footer %}
-
-{% endblock %}
+{% block header %}{% endblock %} {# Ocultar navbar #}
+{% block footer %}{% endblock %} {# Ocultar footer #}
 
 {% block content %}
-  <div class="min-h-screen bg-black flex flex-col items-center justify-center py-12 px-4 relative overflow-hidden">
+<link rel="stylesheet" href="{% static 'css/accounts.css' %}">
+
+<div class="min-h-screen bg-black flex flex-col items-center justify-center py-12 px-4 relative overflow-hidden">
     <!-- Fondo sutil -->
     <div class="absolute inset-0 bg-gradient-to-b from-red-900/10 to-transparent pointer-events-none"></div>
 
-    <div class="max-w-md w-full space-y-8 text-center relative z-10">
-      <a href="{% url 'home' %}" class="text-5xl font-bebas text-white tracking-wider hover:text-red-500 transition duration-300">THE CAFFEINE LANE</a>
-      <p class="mt-3 text-lg text-gray-300 font-mont uppercase tracking-wide">Inicia sesión en tu cuenta</p>
-
-      <!-- Mensajes de error -->
-      {% if form.non_field_errors %}
-        <div class="bg-red-600 text-white px-5 py-3 rounded-lg text-sm font-mont mt-4 shadow-lg">
-          {% for error in form.non_field_errors %}
-            {{ error }}
-          {% endfor %}
+    <div class="auth-container max-w-md w-full space-y-8 text-center relative z-10">
+        <!-- Logo y título -->
+        <div>
+            <a href="{% url 'home' %}" 
+               class="text-5xl font-bebas text-white tracking-wider hover:text-red-500 transition duration-300">
+                THE CAFFEINE LANE
+            </a>
+            <p class="mt-3 text-lg text-gray-300 font-mont uppercase tracking-wide">
+                Welcome Back, Rider
+            </p>
         </div>
-      {% endif %}
 
-      {% if messages %}
-        {% for message in messages %}
-          <div class="bg-green-600 text-white px-5 py-3 rounded-lg text-sm font-mont mt-4 shadow-lg">{{ message }}</div>
-        {% endfor %}
-      {% endif %}
+        <!-- Mensajes -->
+        {% if form.non_field_errors %}
+            {% for error in form.non_field_errors %}
+                <div class="message-error">{{ error }}</div>
+            {% endfor %}
+        {% endif %}
 
-      <form class="mt-8 space-y-6" method="post">
-        {% csrf_token %}
+        {% if messages %}
+            {% for message in messages %}
+                <div class="message-{{ message.tags }}">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
 
-        <!-- Campo: Username -->
-        <div class="space-y-3">
-          <label for="{{ form.username.id_for_label }}" class="block text-sm font-mont font-bold text-gray-300 uppercase tracking-wide">Usuario</label>
-          {{ form.username }}
-          {% if form.username.errors %}
-            <div class="text-red-400 text-xs text-left font-mont mt-1">
-              {% for error in form.username.errors %}
-                {{ error }}
-              {% endfor %}
+        <!-- Formulario -->
+        <form id="login-form" class="mt-8 space-y-6" method="post">
+            {% csrf_token %}
+
+            <!-- Campo: Username/Email -->
+            <div class="space-y-3">
+                <label for="{{ form.username.id_for_label }}" 
+                       class="block text-sm font-mont font-bold text-gray-300 uppercase tracking-wide">
+                    Username or Email
+                </label>
+                {{ form.username }}
+                {% if form.username.errors %}
+                    {% for error in form.username.errors %}
+                        <span class="field-error">{{ error }}</span>
+                    {% endfor %}
+                {% endif %}
             </div>
-          {% endif %}
-        </div>
 
-        <!-- Campo: Contraseña -->
-        <div class="space-y-3">
-          <label for="{{ form.password.id_for_label }}" class="block text-sm font-mont font-bold text-gray-300 uppercase tracking-wide">Contraseña</label>
-          {{ form.password }}
-          {% if form.password.errors %}
-            <div class="text-red-400 text-xs text-left font-mont mt-1">
-              {% for error in form.password.errors %}
-                {{ error }}
-              {% endfor %}
+            <!-- Campo: Contraseña -->
+            <div class="space-y-3">
+                <label for="{{ form.password.id_for_label }}" 
+                       class="block text-sm font-mont font-bold text-gray-300 uppercase tracking-wide">
+                    Password
+                </label>
+                <div class="relative">
+                    {{ form.password }}
+                    <button type="button" 
+                            class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-white"
+                            onclick="togglePassword('{{ form.password.id_for_label }}')">
+                        <i class="fas fa-eye" id="password-toggle"></i>
+                    </button>
+                </div>
+                {% if form.password.errors %}
+                    {% for error in form.password.errors %}
+                        <span class="field-error">{{ error }}</span>
+                    {% endfor %}
+                {% endif %}
             </div>
-          {% endif %}
+
+            <!-- Recordarme y recuperar contraseña -->
+            <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 text-sm">
+                <div class="flex items-center">
+                    <input id="remember-me" name="remember-me" type="checkbox" 
+                           class="auth-checkbox" />
+                    <label for="remember-me" class="ml-2 font-mont text-gray-400">
+                        Remember me
+                    </label>
+                </div>
+
+                <a href="{% url 'password_reset' %}" class="auth-link">
+                    Forgot your password?
+                </a>
+            </div>
+
+            <!-- Botón de login -->
+            <div class="mt-6">
+                <button type="submit" class="auth-btn-primary w-full">
+                    <i class="fas fa-sign-in-alt mr-2"></i>
+                    Sign In
+                </button>
+            </div>
+
+            <!-- Enlace a registro -->
+            <p class="mt-6 text-sm font-mont text-gray-400">
+                Don't have an account?
+                <a href="{% url 'register_step1' %}" class="auth-link-primary">
+                    Join the Brotherhood
+                </a>
+            </p>
+        </form>
+
+        <!-- Social login (futuro) -->
+        <div class="mt-8">
+            <div class="relative">
+                <div class="absolute inset-0 flex items-center">
+                    <div class="w-full border-t border-gray-600"></div>
+                </div>
+                <div class="relative flex justify-center text-sm">
+                    <span class="px-2 bg-black text-gray-400 font-mont">Or continue with</span>
+                </div>
+            </div>
+
+            <div class="mt-6 grid grid-cols-2 gap-3">
+                <button class="auth-btn-secondary" disabled>
+                    <i class="fab fa-google mr-2"></i>
+                    Google
+                </button>
+                <button class="auth-btn-secondary" disabled>
+                    <i class="fab fa-github mr-2"></i>
+                    GitHub
+                </button>
+            </div>
         </div>
-
-        <!-- Recordarme y recuperar contraseña -->
-        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 text-sm">
-          <div class="flex items-center">
-            <input id="remember-me" name="remember-me" type="checkbox" class="h-4 w-4 bg-gray-800 border-gray-600 rounded focus:ring-red-500 text-red-600" />
-            <label for="remember-me" class="ml-2 font-mont text-gray-400">Recordarme</label>
-          </div>
-
-          <a href="{% url 'password_reset' %}" class="font-mont text-gray-400 hover:text-red-500 transition">¿Olvidaste tu contraseña?</a>
-        </div>
-
-        <!-- Botón de login -->
-        <div class="mt-6">
-          <button type="submit" class="w-full py-3 px-6 bg-white text-black font-mont font-bold uppercase tracking-wider rounded-md hover:bg-red-600 hover:text-white transition-all duration-300 transform hover:scale-105 shadow-lg">
-            <i class="fas fa-sign-in-alt mr-2"></i>
-            Iniciar Sesión
-          </button>
-        </div>
-
-        <p class="mt-6 text-sm font-mont text-gray-400">
-          ¿No tienes cuenta?
-          <a href="{% url 'register_step1' %}" class="font-bold text-white hover:text-red-500 transition">Regístrate aquí</a>
-        </p>
-      </form>
     </div>
-  </div>
+</div>
+
+<script src="{% static 'js/accounts.js' %}"></script>
 {% endblock %}
