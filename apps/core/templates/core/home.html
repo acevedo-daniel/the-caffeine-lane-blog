@@ -1,52 +1,73 @@
-{% extends 'base.html' %}
-
+{% extends "base.html" %}
 {% block title %}
   Home - TheCaffeineLane
-{% endblock %}
-
+{% endblock title %}
 {% block content %}
-  <script src="https://cdn.jsdelivr.net/npm/lucide@latest/dist/umd/lucide.min.js"></script>
-
-  {# Sección del Carrusel Principal #}
+  {# Main Carousel Section #}
   {% if banner_posts %}
     <section class="relative w-full h-[420px] md:h-[650px] overflow-hidden shadow-xl">
-      <div id="carousel-container" class="absolute inset-0 flex transition-transform duration-500 ease-in-out">
+      <div id="carousel-container"
+           class="absolute inset-0 flex transition-transform duration-500 ease-in-out">
         {% for post in banner_posts %}
-          <div class="carousel-slide relative flex-none w-full h-full bg-cover bg-center" style="background-image: url('{{ post.image.url }}');">
-            <div class="absolute inset-0 bg-black bg-opacity-20"></div>
-
+          <div class="carousel-slide relative flex-none w-full h-full bg-cover bg-center"
+               style="background-image: url('{{ post.image.url }}')">
+            <div class="absolute inset-0 bg-black bg-opacity-40"></div>
             <div class="relative z-10 flex flex-col justify-end px-12 py-6 md:px-20 md:py-12 w-full h-full text-white">
               <div class="max-w-3xl">
                 <div class="text-sm font-light mb-2">
-                  <span class="font-bold">{{ post.author.username }}</span> -{% for category in post.category.all %}
-                    <span>{{ category.name }}{% if not forloop.last %}, {% endif %}</span>
+                  <span class="font-bold">{{ post.author.username }}</span> -
+                  {% for category in post.category.all %}
+                    <span>{{ category.name }}
+                      {% if not forloop.last %},{% endif %}
+                    </span>
                   {% endfor %}
                 </div>
                 <h2 class="font-bebas text-4xl md:text-6xl leading-tight mb-2">{{ post.title }}</h2>
                 <p class="font-mont text-lg md:text-xl font-light mb-4">{{ post.content|truncatewords:25 }}</p>
-                <a href="#" class="inline-block bg-white text-black font-bold font-mont py-3 px-8 rounded-full transition duration-300 ease-in-out transform hover:scale-105 hover:bg-red-600 hover:text-white">Read more</a>
+                <a href="{% url "post_detail" post.slug %}"
+                   class="inline-block bg-white text-black font-bold font-mont py-3 px-8 rounded-full transition duration-300 ease-in-out transform hover:scale-105 hover:bg-red-600 hover:text-white">Read more</a>
               </div>
             </div>
           </div>
         {% endfor %}
       </div>
-
-      {# Botones de navegación del carrusel #}
-      <button id="prev-btn" class="absolute top-1/2 left-4 transform -translate-y-1/2 bg-white bg-opacity-30 hover:bg-opacity-50 text-white p-3 rounded-full z-20">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-left">
+      {# Carousel navigation buttons #}
+      <button id="prev-btn"
+              class="absolute top-1/2 left-4 transform -translate-y-1/2 bg-white bg-opacity-30 hover:bg-opacity-50 text-white p-3 rounded-full z-20"
+              aria-label="Previous Slide">
+        <svg xmlns="http://www.w3.org/2000/svg"
+             width="24"
+             height="24"
+             viewBox="0 0 24 24"
+             fill="none"
+             stroke="currentColor"
+             stroke-width="2"
+             stroke-linecap="round"
+             stroke-linejoin="round"
+             class="lucide lucide-chevron-left">
           <path d="m15 18-6-6 6-6" />
         </svg>
       </button>
-      <button id="next-btn" class="absolute top-1/2 right-4 transform -translate-y-1/2 bg-white bg-opacity-30 hover:bg-opacity-50 text-white p-3 rounded-full z-20">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-right">
+      <button id="next-btn"
+              class="absolute top-1/2 right-4 transform -translate-y-1/2 bg-white bg-opacity-30 hover:bg-opacity-50 text-white p-3 rounded-full z-20"
+              aria-label="Next Slide">
+        <svg xmlns="http://www.w3.org/2000/svg"
+             width="24"
+             height="24"
+             viewBox="0 0 24 24"
+             fill="none"
+             stroke="currentColor"
+             stroke-width="2"
+             stroke-linecap="round"
+             stroke-linejoin="round"
+             class="lucide lucide-chevron-right">
           <path d="m9 18 6-6-6-6" />
         </svg>
       </button>
     </section>
   {% endif %}
-
   <div class="container mx-auto px-4">
-    {# Builds & Features - Original Card Design #}
+    {# Builds & Features Section #}
     <section class="mt-10">
       <div>
         <h2 class="font-mont font-semibold text-3xl mt-0">Builds & Features</h2>
@@ -54,15 +75,22 @@
       </div>
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {% for post in new_builds %}
-          <a href="{% url 'post_detail' post.slug %}" class="block">
-            <div class="bg-white rounded-lg overflow-hidden transition-transform duration-300 hover:scale-105">
+          <a href="{% url "post_detail" post.slug %}" class="block group">
+            <div class="bg-white rounded-lg overflow-hidden transition-transform duration-300 group-hover:scale-105">
               {% if post.image %}
-                <img src="{{ post.image.url }}" alt="{{ post.title }}" class="w-full h-64 object-cover" />
+                <img src="{{ post.image.url }}"
+                     alt="{{ post.title }}"
+                     class="w-full h-64 object-cover"
+                     width="400"
+                     height="256" />
               {% endif %}
               <div class="p-4">
                 <div class="text-xs text-gray-600 mb-1">
-                  <span class="font-bold text-gray-800">{{ post.author.username }}</span> -{% for category in post.category.all %}
-                    <span>{{ category.name }}{% if not forloop.last %}, {% endif %}</span>
+                  <span class="font-bold text-gray-800">{{ post.author.username }}</span> -
+                  {% for category in post.category.all %}
+                    <span>{{ category.name }}
+                      {% if not forloop.last %},{% endif %}
+                    </span>
                   {% endfor %}
                 </div>
                 <h3 class="text-lg font-bold text-gray-900">{{ post.title }}</h3>
@@ -72,29 +100,34 @@
         {% endfor %}
       </div>
       <div class="flex justify-center">
-        <a href="#" class="bg-white border-2 border-black shadow-sm text-black font-mont font-medium text-sm mt-8 py-3 px-48 rounded-full transition duration-300 hover:bg-black hover:text-white hover:border-black hover:scale-110">See more builds</a>
+        <a href="#"
+           class="bg-white border-2 border-black shadow-sm text-black font-mont font-medium text-sm mt-8 py-3 px-48 rounded-full transition duration-300 hover:bg-black hover:text-white hover:border-black hover:scale-110">See more builds</a>
       </div>
     </section>
-
-    {# How-To & Guides - Original Card Design #}
+    {# How-To & Guides Section #}
     <section class="mt-12">
       <div>
-        <h2 class="font-mont font-semibold text-3xl mt-0">How-To & Guides</h2> {# Adjusted H2 style #}
-        <h3 class="font-mont font-medium text-lg mt-2 mb-4">Master Your Next Project with Our Workshop Guides</h3> {# Adjusted H3 style #}
+        <h2 class="font-mont font-semibold text-3xl mt-0">How-To & Guides</h2>
+        <h3 class="font-mont font-medium text-lg mt-2 mb-4">Master Your Next Project with Our Workshop Guides</h3>
       </div>
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {# Original grid for 3 columns #}
         {% for post in new_guides %}
-          {# Using new_guides as specified #}
-          <a href="{% url 'post_detail' post.slug %}" class="block">
-            <div class="bg-white rounded-lg overflow-hidden transition-transform duration-300 hover:scale-105">
+          <a href="{% url "post_detail" post.slug %}" class="block group">
+            <div class="bg-white rounded-lg overflow-hidden transition-transform duration-300 group-hover:scale-105">
               {% if post.image %}
-                <img src="{{ post.image.url }}" alt="{{ post.title }}" class="w-full h-64 object-cover" />
+                <img src="{{ post.image.url }}"
+                     alt="{{ post.title }}"
+                     class="w-full h-64 object-cover"
+                     width="400"
+                     height="256" />
               {% endif %}
               <div class="p-4">
                 <div class="text-xs text-gray-600 mb-1">
-                  <span class="font-bold text-gray-800">{{ post.author.username }}</span> -{% for category in post.category.all %}
-                    <span>{{ category.name }}{% if not forloop.last %}, {% endif %}</span>
+                  <span class="font-bold text-gray-800">{{ post.author.username }}</span> -
+                  {% for category in post.category.all %}
+                    <span>{{ category.name }}
+                      {% if not forloop.last %},{% endif %}
+                    </span>
                   {% endfor %}
                 </div>
                 <h3 class="text-lg font-bold text-gray-900">{{ post.title }}</h3>
@@ -104,28 +137,34 @@
         {% endfor %}
       </div>
       <div class="flex justify-center">
-        <a href="#" class="bg-white border-2 border-black shadow-sm text-black font-mont font-medium text-sm mt-8 py-3 px-48 rounded-full transition duration-300 hover:bg-black hover:text-white hover:border-black hover:scale-110">See more guides</a>
+        <a href="#"
+           class="bg-white border-2 border-black shadow-sm text-black font-mont font-medium text-sm mt-8 py-3 px-48 rounded-full transition duration-300 hover:bg-black hover:text-white hover:border-black hover:scale-110">See more guides</a>
       </div>
     </section>
-
-    {# Gear & Product Reviews - 4 Column Grid Design #}
+    {# Gear & Product Reviews Section #}
     <section class="mt-12">
       <div>
-        <h2 class="font-mont font-semibold text-3xl mt-0">Gear & Product Reviews</h2> {# Adjusted H2 style #}
-        <h3 class="font-mont font-medium text-lg mt-2 mb-4">The Gear That Gets Us on the Road</h3> {# Adjusted H3 style #}
+        <h2 class="font-mont font-semibold text-3xl mt-0">Gear & Product Reviews</h2>
+        <h3 class="font-mont font-medium text-lg mt-2 mb-4">The Gear That Gets Us on the Road</h3>
       </div>
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
         {% for post in new_reviews %}
-          {# Using new_reviews as specified #}
-          <a href="{% url 'post_detail' post.slug %}" class="block">
-            <div class="overflow-hidden transition-transform duration-300 hover:scale-105">
+          <a href="{% url "post_detail" post.slug %}" class="block group">
+            <div class="overflow-hidden transition-transform duration-300 group-hover:scale-105">
               {% if post.image %}
-                <img src="{{ post.image.url }}" alt="{{ post.title }}" class="w-full h-48 object-cover" />
+                <img src="{{ post.image.url }}"
+                     alt="{{ post.title }}"
+                     class="w-full h-48 object-cover"
+                     width="300"
+                     height="192" />
               {% endif %}
               <div class="p-2">
                 <div class="text-xs text-gray-600 mb-1">
-                  <span class="font-bold text-gray-800">{{ post.author.username }}</span> -{% for category in post.category.all %}
-                    <span>{{ category.name }}{% if not forloop.last %}, {% endif %}</span>
+                  <span class="font-bold text-gray-800">{{ post.author.username }}</span> -
+                  {% for category in post.category.all %}
+                    <span>{{ category.name }}
+                      {% if not forloop.last %},{% endif %}
+                    </span>
                   {% endfor %}
                 </div>
                 <h3 class="text-base font-bold text-gray-900 leading-tight">{{ post.title }}</h3>
@@ -136,46 +175,44 @@
       </div>
     </section>
   </div>
-
+{% endblock content %}
+{% block scripts %}
+  {{ block.super }}
+  {# Scripts #}
   <script>
     document.addEventListener('DOMContentLoaded', () => {
-      const carouselContainer = document.getElementById('carousel-container')
-      const prevBtn = document.getElementById('prev-btn')
-      const nextBtn = document.getElementById('next-btn')
-      const slides = document.querySelectorAll('.carousel-slide')
-      const totalSlides = slides.length
-      let currentSlide = 0
-    
-      function showSlide(index) {
-        if (index >= totalSlides) {
-          currentSlide = 0
-        } else if (index < 0) {
-          currentSlide = totalSlides - 1
-        } else {
-          currentSlide = index
+      const carouselContainer = document.getElementById('carousel-container');
+      if (carouselContainer) {
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const slides = document.querySelectorAll('.carousel-slide');
+        const totalSlides = slides.length;
+        let currentSlide = 0;
+  
+        function showSlide(index) {
+          if (index >= totalSlides) {
+            currentSlide = 0;
+          } else if (index < 0) {
+            currentSlide = totalSlides - 1;
+          } else {
+            currentSlide = index;
+          }
+          const offset = -currentSlide * 100;
+          carouselContainer.style.transform = `translateX(${offset}%)`;
         }
-    
-        const offset = -currentSlide * 100
-        carouselContainer.style.transform = `translateX(${offset}%)`
+  
+        nextBtn.addEventListener('click', () => {
+          showSlide(currentSlide + 1);
+        });
+  
+        prevBtn.addEventListener('click', () => {
+          showSlide(currentSlide - 1);
+        });
+  
+        setInterval(() => {
+          showSlide(currentSlide + 1);
+        }, 5000);
       }
-    
-      // Event listener para el botón "Siguiente"
-      nextBtn.addEventListener('click', () => {
-        showSlide(currentSlide + 1)
-      })
-    
-      // Event listener para el botón "Anterior"
-      prevBtn.addEventListener('click', () => {
-        showSlide(currentSlide - 1)
-      })
-    
-      // Auto-play carousel (optional)
-      setInterval(() => {
-        showSlide(currentSlide + 1)
-      }, 5000) // Change slide every 5 seconds
-    })
-    
-    // Initialize Lucide icons
-    lucide.createIcons()
+    });
   </script>
-{% endblock %}
+{% endblock scripts %}

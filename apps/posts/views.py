@@ -1,46 +1,36 @@
-from django.shortcuts import render, get_object_or_404, redirect
-from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from .models import Post, Category, Comment
-from .forms import CommentForm
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import get_object_or_404, redirect, render
 
-def create_comment(form, post, user):
-    comment = form.save(commit=False)
-    comment.post = post
-    comment.user = user
-    comment.save()
-    return comment
+from .forms import CommentForm
+from .models import Comment, Post
+
 
 def post_detail(request, slug):
-    post = get_object_or_404(Post, slug=slug, status='published')
+    post = get_object_or_404(Post, slug=slug, status="published")
     comments = post.comments.filter(is_active=True, parent=None)
-    form = CommentForm()
-    
-    if request.method == 'POST' and request.user.is_authenticated:
-        form = CommentForm(request.POST)
+    form = CommentForm(request.POST or None)
+    if request.method == "POST":
+        if not request.user.is_authenticated:
+            messages.error(request, "You must be logged in to comment.")
+            return redirect("login")
+
         if form.is_valid():
-            create_comment(form, post, request.user)
-            messages.success(request, '¡Comentario agregado exitosamente!')
-            return redirect('post_detail', slug=post.slug)
-    
-    context = {
-        'post': post,
-        'comments': comments,
-        'form': form,
-    }
-    return render(request, 'posts/post_detail.html', context)
+            new_comment = form.save(commit=False)
+            new_comment.post = post
+            new_comment.author = request.user
+            new_comment.save()
 
-# Actualizar post_list existente
-def post_list(request):
-    new_posts = Post.objects.filter(status='published').order_by('-created_at')[:4]
-    harley_posts = Post.objects.filter(status='published', category__name='Harley Davidson').order_by('-created_at')[:6]
-    build_posts = Post.objects.filter(status='published', category__name='Builds').order_by('-created_at')[:3]
-    news_posts = Post.objects.filter(status='published', category__name='News').order_by('-created_at')[:3]
-
+            messages.success(request, "Comment added successfully!")
+            return redirect("post_detail", slug=post.slug)
+        else:
+            messages.error(
+                request,
+                "There was an error with your comment. Please try again.",
+            )
     context = {
-        'new_posts': new_posts,
-        'harley_posts': harley_posts,
-        'build_posts': build_posts,
-        'news_posts': news_posts,
+        "post": post,
+        "comments": comments,
+        "form": form,
     }
-    return render(request, 'posts/post_list.html', context)
+    return render(request, "posts/post_detail.html", context)

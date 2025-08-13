@@ -1,31 +1,59 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, PasswordChangeForm, PasswordResetForm, SetPasswordForm
 from django.contrib.auth.models import User
+<<<<<<< HEAD
 from django.core.exceptions import ValidationError
 import re
+=======
+>>>>>>> a2195e4a5cd436c32dd08022c448a8e011893b81
 
 from .models import Profile
 
 
+<<<<<<< HEAD
+=======
+# --- Este formulario permanece igual ---
+>>>>>>> a2195e4a5cd436c32dd08022c448a8e011893b81
 class EmailRegistrationForm(forms.Form):
     """Formulario para capturar email en el paso 1 del registro"""
     email = forms.EmailField(
         required=True,
+<<<<<<< HEAD
         widget=forms.EmailInput(attrs={
             "class": "register-input register-input-with-icon",
             "placeholder": "Enter your email address",
             "autocomplete": "email"
         }),
+=======
+        widget=forms.EmailInput(attrs={"placeholder": "Your email address"}),
+>>>>>>> a2195e4a5cd436c32dd08022c448a8e011893b81
     )
 
     def clean_email(self):
         email = self.cleaned_data.get("email")
         if User.objects.filter(email=email).exists():
+<<<<<<< HEAD
             raise ValidationError(
+=======
+            raise forms.ValidationError(
+>>>>>>> a2195e4a5cd436c32dd08022c448a8e011893b81
                 "A user with that email already exists. Please choose a different one."
             )
         return email
 
+<<<<<<< HEAD
+=======
+
+# --- Formulario de Paso 2 (Refactorizado) ---
+class RegistrationStep2Form(UserCreationForm):
+    """
+    Formulario refactorizado para definir los estilos y placeholders
+    directamente en los widgets, siguiendo las mejores prácticas de Django.
+    """
+
+    # Define una clase CSS común para reutilizarla
+    TEXT_INPUT_CLASS = "text-black text-xs font-mont font-light tracking-wide"
+>>>>>>> a2195e4a5cd436c32dd08022c448a8e011893b81
 
 class CustomRegistrationForm(UserCreationForm):
     """Formulario completo de registro (paso 2) con validaciones mejoradas"""
@@ -35,6 +63,7 @@ class CustomRegistrationForm(UserCreationForm):
 
     username = forms.CharField(
         label="What is your Username?",
+<<<<<<< HEAD
         max_length=30,
         widget=forms.TextInput(
             attrs={
@@ -45,38 +74,70 @@ class CustomRegistrationForm(UserCreationForm):
         ),
     )
     
+=======
+        widget=forms.TextInput(
+            attrs={
+                "placeholder": "Username",
+                "class": TEXT_INPUT_CLASS,
+                "autocomplete": "off",
+            }
+        ),
+    )
+>>>>>>> a2195e4a5cd436c32dd08022c448a8e011893b81
     password1 = forms.CharField(
         label="Enter a Password",
         widget=forms.PasswordInput(
             attrs={
+<<<<<<< HEAD
                 "class": INPUT_CLASS,
                 "placeholder": "Password",
+=======
+                "placeholder": "Password",
+                "class": TEXT_INPUT_CLASS,
+>>>>>>> a2195e4a5cd436c32dd08022c448a8e011893b81
                 "autocomplete": "new-password",
             }
         ),
     )
+<<<<<<< HEAD
     
+=======
+>>>>>>> a2195e4a5cd436c32dd08022c448a8e011893b81
     password2 = forms.CharField(
         label="Confirm your Password",
         widget=forms.PasswordInput(
             attrs={
+<<<<<<< HEAD
                 "class": INPUT_CLASS,
                 "placeholder": "Confirm Password",
+=======
+                "placeholder": "Confirm Password",
+                "class": TEXT_INPUT_CLASS,
+>>>>>>> a2195e4a5cd436c32dd08022c448a8e011893b81
                 "autocomplete": "new-password",
             }
         ),
     )
+<<<<<<< HEAD
     
+=======
+
+    # Define los campos personalizados con sus widgets
+>>>>>>> a2195e4a5cd436c32dd08022c448a8e011893b81
     first_name = forms.CharField(
         label="First Name",
         max_length=30,
         required=True,
         widget=forms.TextInput(
+<<<<<<< HEAD
             attrs={
                 "class": INPUT_CLASS,
                 "placeholder": "First Name",
                 "autocomplete": "given-name"
             }
+=======
+            attrs={"placeholder": "First Name", "class": TEXT_INPUT_CLASS}
+>>>>>>> a2195e4a5cd436c32dd08022c448a8e011893b81
         ),
     )
     
@@ -85,6 +146,7 @@ class CustomRegistrationForm(UserCreationForm):
         max_length=30,
         required=True,
         widget=forms.TextInput(
+<<<<<<< HEAD
             attrs={
                 "class": INPUT_CLASS,
                 "placeholder": "Last Name",
@@ -97,18 +159,34 @@ class CustomRegistrationForm(UserCreationForm):
         choices=[("M", "Male"), ("F", "Female"), ("O", "Other")],
         required=False,
         widget=forms.RadioSelect(attrs={"class": "radio-input"}),
+=======
+            attrs={"placeholder": "Last Name", "class": TEXT_INPUT_CLASS}
+        ),
+    )
+
+    # Campos de opciones (Radio buttons)
+    gender = forms.ChoiceField(
+        choices=[("M", "Male"), ("F", "Female")],
+        required=False,
+        widget=forms.RadioSelect,
+>>>>>>> a2195e4a5cd436c32dd08022c448a8e011893b81
         label="What is your gender?",
     )
     
     has_moto = forms.ChoiceField(
         choices=[("True", "Yes"), ("False", "No")],
         required=True,
+<<<<<<< HEAD
         widget=forms.RadioSelect(attrs={"class": "radio-input"}),
+=======
+        widget=forms.RadioSelect,
+>>>>>>> a2195e4a5cd436c32dd08022c448a8e011893b81
         label="Own a motorcycle?",
     )
 
     class Meta(UserCreationForm.Meta):
         model = User
+<<<<<<< HEAD
         fields = ("username", "first_name", "last_name")
 
     def clean_username(self):
@@ -128,6 +206,13 @@ class CustomRegistrationForm(UserCreationForm):
         if not re.match("^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$", last_name):
             raise ValidationError("Last name can only contain letters and spaces.")
         return last_name.strip().title()
+=======
+        fields = (
+            "username",
+            "first_name",
+            "last_name",
+        )  # password1 y password2 son manejados por UserCreationForm
+>>>>>>> a2195e4a5cd436c32dd08022c448a8e011893b81
 
     def save(self, commit=True, email=None):
         user = super().save(commit=False)
@@ -138,12 +223,18 @@ class CustomRegistrationForm(UserCreationForm):
             user.save()
             # Crear o actualizar el perfil asociado
             profile, created = Profile.objects.get_or_create(user=user)
+<<<<<<< HEAD
             profile.gender = self.cleaned_data.get("gender") or ""
+=======
+            profile.gender = self.cleaned_data.get("gender")
+            # Convertir la cadena 'True'/'False' a booleano para el modelo
+>>>>>>> a2195e4a5cd436c32dd08022c448a8e011893b81
             profile.has_moto = self.cleaned_data.get("has_moto") == "True"
             profile.save()
         return user
 
 
+<<<<<<< HEAD
 class CustomLoginForm(AuthenticationForm):
     """Formulario de login personalizado"""
     
@@ -246,12 +337,16 @@ class CustomSetPasswordForm(SetPasswordForm):
     )
 
 
+=======
+# --- Este formulario permanece igual ---
+>>>>>>> a2195e4a5cd436c32dd08022c448a8e011893b81
 class ProfileForm(forms.ModelForm):
     """Formulario para editar el perfil del usuario"""
     
     class Meta:
         model = Profile
         fields = ["bio", "avatar", "personal_url", "birth_date", "gender", "has_moto"]
+<<<<<<< HEAD
         widgets = {
             "bio": forms.Textarea(attrs={
                 "class": "profile-field",
@@ -307,3 +402,6 @@ class ProfileForm(forms.ModelForm):
                 raise ValidationError('La imagen no puede superar los 5MB.')
 
         return avatar
+=======
+        widgets = {"birth_date": forms.DateInput(attrs={"type": "date"})}
+>>>>>>> a2195e4a5cd436c32dd08022c448a8e011893b81

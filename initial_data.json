@@ -524,3 +524,530 @@
   }
 }
 ]
+
+[
+{
+  "model": "auth.user",
+  "pk": 1,
+  "fields": {
+    "password": "pbkdf2_sha256$1000000$NV8eYILchwYYcUZZkh0nSc$MlQxyo6y2l2i2bX+at6j3yd45fyEZHBzpzaqHM6mrHs=",
+    "last_login": null,
+    "is_superuser": true,
+    "username": "usuario",
+    "first_name": "",
+    "last_name": "",
+    "email": "",
+    "is_staff": true,
+    "is_active": true,
+    "date_joined": "2025-07-24T02:40:56.311Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 2,
+  "fields": {
+    "password": "pbkdf2_sha256$1000000$wAOW03rqmGDQbRHUGx46Xy$lhBdWWYTI4lcQRfzMUWY51ILKj1ps8/6JkNlxSDLgyo=",
+    "last_login": "2025-08-11T08:24:39.077Z",
+    "is_superuser": true,
+    "username": "mrdan",
+    "first_name": "",
+    "last_name": "",
+    "email": "mrdanielacevedo@gmail.com",
+    "is_staff": true,
+    "is_active": true,
+    "date_joined": "2025-08-01T01:28:49.091Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 3,
+  "fields": {
+    "password": "pbkdf2_sha256$1000000$9zdYy0VDrQa74zhrC6XyX1$rPxLP/zCYkrEcbgtPunCeCDytZp8pdBqcQxHzkwiUt8=",
+    "last_login": "2025-08-11T08:25:32.576Z",
+    "is_superuser": false,
+    "username": "julioelprofe",
+    "first_name": "julioelprofe",
+    "last_name": "julioelprofe",
+    "email": "maria@spa.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2025-08-11T08:16:03.457Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 4,
+  "fields": {
+    "password": "pbkdf2_sha256$1000000$thbseiK7YjuWAZSnQc4KWQ$8YSrhJQAiGR3ngX36fMRZQMZFvYUdHPF+HbmvHK+fuw=",
+    "last_login": "2025-08-11T08:23:31.716Z",
+    "is_superuser": false,
+    "username": "marito",
+    "first_name": "marito",
+    "last_name": "marito",
+    "email": "ana@spa.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2025-08-11T08:23:30.969Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 5,
+  "fields": {
+    "password": "pbkdf2_sha256$1000000$EAUc0TYYEdAySb87q4u9Qj$hZBmXt+9dEbjKUbNTbt56ml+kBTog4MjHp52bJx0/zs=",
+    "last_login": "2025-08-11T09:58:16.906Z",
+    "is_superuser": false,
+    "username": "wachiwachi",
+    "first_name": "wachiwachi",
+    "last_name": "wachiwachi",
+    "email": "dawdadwasdasd@gmail.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2025-08-11T09:58:16.190Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "posts.category",
+  "pk": 2,
+  "fields": {
+    "name": "Builds"
+  }
+},
+{
+  "model": "posts.category",
+  "pk": 3,
+  "fields": {
+    "name": "Reviews"
+  }
+},
+{
+  "model": "posts.category",
+  "pk": 4,
+  "fields": {
+    "name": "Guides"
+  }
+},
+{
+  "model": "posts.post",
+  "pk": 1,
+  "fields": {
+    "title": "Harley Davidson",
+    "slug": "harley-davidson",
+    "content": "Diseño icónico, sonido auténtico. Estas motos están diseñadas para horadar caminos de montaña y atravesar rugiendo a toda velocidad las calles de la ciudad.",
+    "image": "posts/media/coffeline-girl-1.jpg",
+    "author": 2,
+    "status": "published",
+    "created_at": "2025-08-01T01:33:50.420Z",
+    "updated_at": "2025-08-05T01:29:23.475Z",
+    "category": []
+  }
+},
+{
+  "model": "posts.post",
+  "pk": 2,
+  "fields": {
+    "title": "The British Bulldog: A Custom Norton Cafe Racer Build",
+    "slug": "the-british-bulldog-a-custom-norton-cafe-racer-build",
+    "content": "Builder Profile\r\n\r\nName: Arthur Finch\r\n\r\nNickname: \"Finchy\"\r\n\r\nLocation: Manchester, England\r\n\r\nBio: A lifelong motorcycle enthusiast and mechanic, Arthur has a passion for classic British bikes. He spends his weekends meticulously restoring and customizing vintage Nortons, Triumphs, and BSAs. \"The British Bulldog\" is his latest masterpiece, a testament to his dedication and skill.\r\n\r\nPost Content\r\n\r\nIn the world of custom motorcycles, some builds are more than just a machine; they're a statement. Arthur Finch, known to his mates as \"Finchy,\" has done just that with his stunning Norton cafe racer. A purist at heart, Finch started with a classic Norton as his canvas, stripping it down to its core and rebuilding it with a fierce, modern spirit.\r\n\r\nThe glossy black tank, adorned with the iconic gold Norton lettering, immediately catches the eye. It's a nod to the brand's rich heritage, but the rest of the bike tells a story of custom craftsmanship. The air filter, a vibrant splash of red, hints at the performance upgrades lurking beneath the surface. Every chrome detail, from the exhaust pipes to the engine casings, has been polished to a mirror shine, reflecting the hours of labor and love poured into this project.\r\n\r\nFinchy's \"British Bulldog\" is a perfect blend of old-school cool and modern-day engineering. The low-slung handlebars and single seat give it that unmistakable cafe racer stance, promising a thrilling ride. It’s a machine built for speed and style, a true head-turner that commands respect on the streets of Manchester. This build is a tribute to the golden age of British motorcycles, brought back to life by a passionate builder with a vision. Finchy hasn't just built a bike; he's crafted a legacy.",
+    "image": "posts/media/coffeineline-build-1.jpg",
+    "author": 2,
+    "status": "published",
+    "created_at": "2025-08-05T02:32:38.447Z",
+    "updated_at": "2025-08-05T02:54:10.617Z",
+    "category": [
+      2
+    ]
+  }
+},
+{
+  "model": "posts.post",
+  "pk": 3,
+  "fields": {
+    "title": "American Muscle: A Custom Cafe Racer by a U.S. Builder",
+    "slug": "american-muscle-a-custom-cafe-racer-by-a-us-builder",
+    "content": "Builder Profile\r\n\r\nName: Jake \"J-Bone\" Harrison\r\n\r\nNickname: \"J-Bone\"\r\n\r\nLocation: Austin, Texas, USA\r\n\r\nBio: Born and raised in the heart of Texas, Jake inherited his love for mechanics from his grandfather. He's been tinkering with engines since he was a kid, eventually specializing in custom bike builds. Known for his \"less is more\" philosophy, he focuses on clean lines and powerful performance. His builds are a perfect fusion of American muscle and cafe racer aesthetics.\r\n\r\nPost Content\r\n\r\nFrom the sprawling streets of Austin, Texas, comes a build that roars with American spirit. Jake \"J-Bone\" Harrison, a man who lives and breathes motorcycles, has unveiled his latest creation, and it’s a showstopper. This bike is a masterclass in custom craftsmanship, a testament to what happens when classic cafe racer style meets raw American power.\r\n\r\nJ-Bone’s philosophy is evident in every detail: every component serves a purpose, and what remains is a beautiful, minimalist machine. The bike’s core is a powerful engine that promises a thunderous rumble and exhilarating speed. The polished chrome and brushed metal finishes give it a rugged yet refined look, a perfect reflection of its Texan roots.\r\n\r\nThe attention to detail is remarkable. The sleek, black tank with its subtle gold pinstriping speaks of a bygone era, while the modern, high-performance air filter hints at the power within. The low-slung clip-on handlebars and a meticulously crafted single seat complete the classic cafe racer silhouette, ensuring a ride that is as aggressive as it is comfortable.\r\n\r\nJ-Bone’s American muscle cafe racer isn't just a custom build; it’s a piece of art on two wheels. It’s a bike that tells a story of late nights in the garage, a passion for performance, and a deep respect for motorcycle culture. This is more than a ride—it’s a statement, a rolling piece of Americana built for the open road.",
+    "image": "posts/media/coffeineline-build-2.jpg",
+    "author": 2,
+    "status": "published",
+    "created_at": "2025-08-05T02:33:45.725Z",
+    "updated_at": "2025-08-05T02:33:45.725Z",
+    "category": [
+      2
+    ]
+  }
+},
+{
+  "model": "posts.post",
+  "pk": 4,
+  "fields": {
+    "title": "London Calling: A Custom Build from the Streets of the UK",
+    "slug": "london-calling-a-custom-build-from-the-streets-of-the-uk",
+    "content": "Builder Profile\r\n\r\nName: Liam \"The Forge\" Bennett\r\n\r\nNickname: \"The Forge\"\r\n\r\nLocation: London, England\r\n\r\nBio: A seasoned metalworker and former blacksmith, Liam's hands-on approach to building is legendary in the London custom bike scene. He earned the nickname \"The Forge\" for his ability to shape and sculpt metal with a unique artistic flair. His builds are a perfect blend of industrial ruggedness and classic elegance, often featuring bespoke, hand-fabricated parts.\r\n\r\nPost Content\r\n\r\nFrom the gritty, creative heart of London comes a build that defies convention and turns heads on every corner. Liam Bennett, better known as \"The Forge,\" has brought his latest masterpiece to life, and it's a stunning representation of British engineering and artistry. This bike isn’t just a machine; it's a testament to the hands-on, meticulous craftsmanship that has long defined the UK custom scene.\r\n\r\nLiam's background as a metalworker is immediately evident in the bike's raw, powerful aesthetic. The exposed engine, a beautifully sculpted heart of the machine, is a focal point, its chrome components shining with a purpose. The clean, unadorned lines of the bodywork are a direct result of his \"less is more\" philosophy, where every part is essential, and nothing is superfluous.\r\n\r\nThe bike's personality is in its details. The custom-fabricated exhaust, a signature of Liam’s work, snakes elegantly along the side, promising a deep, throaty roar that echoes through city streets. The classic black tank with its gold accents hints at a rich heritage, while the modern touches—like the performance air intake—signal a build designed for both style and speed.\r\n\r\nLiam's \"London Calling\" build is a tribute to the city's vibrant subculture—a bike that's tough, stylish, and full of character. It's a machine built for the urban jungle, a custom creation that captures the spirit of London's legendary motorcycle scene. With this build, \"The Forge\" once again proves that true craftsmanship is timeless.",
+    "image": "posts/media/coffeineline-build-3.jpg",
+    "author": 2,
+    "status": "published",
+    "created_at": "2025-08-05T02:35:30.563Z",
+    "updated_at": "2025-08-05T02:35:30.563Z",
+    "category": [
+      2
+    ]
+  }
+},
+{
+  "model": "posts.post",
+  "pk": 5,
+  "fields": {
+    "title": "La Dolce Vita on Two Wheels: An Italian Cafe Racer Build",
+    "slug": "la-dolce-vita-on-two-wheels-an-italian-cafe-racer-build",
+    "content": "Content\r\nBuilder Profile\r\n\r\nName: Marco \"Il Professore\" Rossi\r\n\r\nNickname: \"Il Professore\" (The Professor)\r\n\r\nLocation: Milan, Italy\r\n\r\nBio: A former automotive designer, Marco brings a unique, artistic eye to the world of custom motorcycles. He is known as \"Il Professore\" for his encyclopedic knowledge of bike history and his meticulous, almost academic approach to design. His builds are celebrated for their elegance, balance, and a seamless blend of classic Italian style with high-performance engineering.\r\n\r\nPost Content\r\n\r\nFrom the fashion and design capital of the world, Milan, comes a custom build that embodies the very essence of Italian flair and passion. Marco Rossi, a man known in local circles as \"Il Professore,\" has once again proven his genius with this breathtaking cafe racer. This isn't just a motorcycle; it's a rolling piece of art that perfectly captures the spirit of \"la dolce vita\"—the sweet life.\r\n\r\n\"Il Professore's\" background in design is evident in every curve and line of this machine. The bike's silhouette is a masterpiece of balance and proportion, with a sleek, minimalist aesthetic that is both timeless and modern. The glossy black paint, offset by subtle yet striking gold details, evokes a sense of classic sophistication and speed.\r\n\r\nThe heart of the build is a powerful engine, meticulously tuned for a ride that is as smooth as it is exhilarating. Every component, from the finely crafted exhaust to the custom-made seat, has been chosen or fabricated with an unwavering commitment to quality and aesthetics. The bike’s clean, uncluttered look is a deliberate choice, allowing its elegant form and powerful function to speak for themselves.\r\n\r\nMarco's Italian cafe racer is a tribute to a culture that values beauty, speed, and craftsmanship above all else. It's a bike built for winding through the sun-drenched streets of Italy, a machine that turns every journey into a stylish adventure. \"Il Professore\" has not just built a custom motorcycle; he has created a two-wheeled ode to Italian design and passion.",
+    "image": "posts/media/coffeineline-build-4.jpg",
+    "author": 2,
+    "status": "published",
+    "created_at": "2025-08-05T02:39:07.773Z",
+    "updated_at": "2025-08-05T02:39:07.773Z",
+    "category": [
+      2
+    ]
+  }
+},
+{
+  "model": "posts.post",
+  "pk": 6,
+  "fields": {
+    "title": "Samba on Wheels: A Brazilian Cafe Racer Built with Soul",
+    "slug": "samba-on-wheels-a-brazilian-cafe-racer-built-with-soul",
+    "content": "Builder Profile\r\n\r\nName: João \"O Vento\" Silva\r\n\r\nNickname: \"O Vento\" (The Wind)\r\n\r\nLocation: São Paulo, Brazil\r\n\r\nBio: João started his journey in a small workshop in São Paulo, where he quickly earned the nickname \"O Vento\" for his fast, fluid style both in riding and in building. His creations are known for their vibrant energy, incorporating elements of Brazilian culture and a raw, passionate approach to mechanics. He believes a bike should not just be ridden, but felt.\r\n\r\nPost Content\r\n\r\nFrom the vibrant, pulsating heart of São Paulo emerges a build that’s as energetic and soulful as the city itself. João \"O Vento\" Silva, a master craftsman with a deep connection to his Brazilian roots, has created a cafe racer that is a true expression of \"samba on wheels.\" This isn’t just a custom bike; it's a celebration of passion, speed, and the unique spirit of Brazil.\r\n\r\nJoão’s work is characterized by a raw, powerful aesthetic that reflects the country’s diverse landscape and culture. The bike’s core is a robust engine, tuned for the kind of thrilling performance that could conquer the winding roads of the Brazilian countryside or the bustling streets of the city. The black and gold color scheme is a nod to a classic era, but with a modern, dynamic twist that feels distinctly Brazilian.\r\n\r\nEvery detail on this build tells a story. The polished chrome and brushed metal parts catch the light and seem to move even when standing still, a testament to João's fluid design philosophy. The sleek, streamlined bodywork and low-slung handlebars create that classic cafe racer profile, but with an unmistakable Brazilian swagger. The custom air intake, a striking touch of color and form, hints at the unbridled power waiting to be unleashed.\r\n\r\nJoão \"O Vento's\" creation is more than a custom motorcycle; it's a piece of art that pulsates with life. It embodies the rhythm, energy, and unyielding spirit of Brazil. This is a bike built to be ridden with gusto, to feel the wind, and to turn every journey into a passionate dance on two wheels.",
+    "image": "posts/media/coffeineline-build-5.jpg",
+    "author": 2,
+    "status": "published",
+    "created_at": "2025-08-05T02:39:47.215Z",
+    "updated_at": "2025-08-05T02:39:47.215Z",
+    "category": [
+      2
+    ]
+  }
+},
+{
+  "model": "posts.post",
+  "pk": 7,
+  "fields": {
+    "title": "Seoul Street Style: A Cafe Racer Built by a Korean Female Biker",
+    "slug": "seoul-street-style-a-cafe-racer-built-by-a-korean-female-biker",
+    "content": "Content\r\nBuilder Profile\r\n\r\nName: Hana \"The Craftsman\" Kim\r\n\r\nNickname: \"The Craftsman\"\r\n\r\nLocation: Seoul, South Korea\r\n\r\nBio: A graphic designer by day and a custom motorcycle builder by night, Hana has a deep passion for blending classic aesthetics with a modern, minimalist design sensibility. She earned the nickname \"The Craftsman\" for her meticulous attention to detail and her ability to create bikes that are as beautiful as they are powerful. Her work is a reflection of Seoul's dynamic blend of tradition and innovation.\r\n\r\nPost Content\r\n\r\nFrom the neon-lit streets and bustling energy of Seoul, a new kind of custom motorcycle has emerged, one that perfectly captures the city's unique spirit. Hana Kim, a builder known as \"The Craftsman,\" has created a cafe racer that is a masterpiece of modern design and classic cool. This isn't just a bike; it's a bold statement that challenges stereotypes and celebrates the fusion of art and engineering.\r\n\r\nHana's background in graphic design is evident in the bike's clean lines and striking color scheme. The minimalist black tank, adorned with subtle gold pinstriping, is a nod to timeless cafe racer style, while the overall silhouette is sharp and contemporary. Every component, from the low-profile handlebars to the custom-fabricated exhaust, has been carefully selected or crafted to create a bike that is both visually stunning and incredibly functional.\r\n\r\n\"The Craftsman's\" build is a testament to her 'less is more' philosophy. The engine, a powerful and reliable heart, is showcased beautifully, with polished chrome and brushed metal accents highlighting its mechanical beauty. The performance upgrades are seamlessly integrated, ensuring that this bike is not just a work of art but a thrilling ride that can handle the demanding streets of Seoul.\r\n\r\nHana's \"Seoul Street Style\" cafe racer is a powerful symbol of creativity and passion. It's a bike built with precision and soul, a reflection of a new generation of builders who are carving their own path. Her work proves that true craftsmanship knows no gender or cultural boundaries, and that the language of speed and style is universal.",
+    "image": "posts/media/coffeineline-build-6.jpg",
+    "author": 2,
+    "status": "published",
+    "created_at": "2025-08-05T02:40:25.015Z",
+    "updated_at": "2025-08-05T02:40:25.015Z",
+    "category": [
+      2
+    ]
+  }
+},
+{
+  "model": "posts.post",
+  "pk": 8,
+  "fields": {
+    "title": "The Tokyo Drifter: A Japanese Masterpiece of Minimalism and Power",
+    "slug": "the-tokyo-drifter-a-japanese-masterpiece-of-minimalism-and-power",
+    "content": "Builder Profile\r\n\r\nName: Kenji \"The Architect\" Tanaka\r\n\r\nNickname: \"The Architect\"\r\n\r\nLocation: Tokyo, Japan\r\n\r\nBio: Kenji, a graphic designer by trade, has a passion for precision and clean lines that extends from his work to his workshop. Known as \"The Architect,\" he meticulously plans every detail of his builds, often starting with a vintage Japanese motorcycle as his canvas. His philosophy is simple: remove anything that doesn't serve a purpose, and what remains should be a testament to form and function.\r\n\r\nPost Content\r\n\r\nFrom the high-tech, neon-drenched streets of Tokyo comes a build that perfectly embodies the Japanese philosophy of minimalist perfection. Kenji Tanaka, a man whose hands are as skilled with a wrench as they are with a design tablet, has unveiled his latest creation, and it's a breathtaking tribute to form, function, and the legacy of Japanese engineering.\r\n\r\nKenji’s \"Tokyo Drifter\" is built on the bones of a classic Honda, but its soul is a modern, aggressive expression of the cafe racer ethos. The bike's aesthetic is an exercise in restraint; a deep, rich metallic gray paint job is the only color, allowing the raw beauty of the polished engine and the meticulously crafted frame to take center stage. Every line is intentional, every curve purposeful.\r\n\r\nThe attention to detail is what sets this build apart. The custom-fabricated exhaust, a single pipe that snakes elegantly along the side, is a work of art in itself, promising a deep, resonant roar. The cockpit is as clean as a drawing board, with a single, streamlined speedometer and low-slung clip-ons that invite an aggressive riding posture. The hand-stitched leather seat is a touch of classic craftsmanship on an otherwise futuristic machine.\r\n\r\nKenji's \"Tokyo Drifter\" is more than just a bike; it's a rolling piece of art that speaks the universal language of speed and style with a distinctly Japanese accent. It is a powerful reminder that true elegance lies not in what is added, but in what is left to be admired. \"The Architect\" has created a machine that is as fast as it is beautiful, a perfect fusion of heritage and innovation.",
+    "image": "posts/media/coffeineline-build-7.jpg",
+    "author": 2,
+    "status": "published",
+    "created_at": "2025-08-06T05:23:18.111Z",
+    "updated_at": "2025-08-06T05:23:18.111Z",
+    "category": [
+      2
+    ]
+  }
+},
+{
+  "model": "posts.post",
+  "pk": 9,
+  "fields": {
+    "title": "From the Outback: A Custom Build from Down Under",
+    "slug": "from-the-outback-a-custom-build-from-down-under",
+    "content": "Content\r\nBuilder Profile\r\n\r\nName: Liam \"The Wombat\" Cooper\r\n\r\nNickname: \"The Wombat\"\r\n\r\nLocation: Melbourne, Australia\r\n\r\nBio: A true-blue Aussie, Liam earned his nickname for his tenacity and no-nonsense approach to building. He's a former mechanic who now dedicates his free time to customizing bikes, with a particular love for classic Japanese UJMs (Universal Japanese Motorcycles). His builds are known for their rugged durability, powerful performance, and a distinctive style that reflects the harsh, beautiful Australian landscape.\r\n\r\nPost Content\r\n\r\nFrom the sun-drenched streets of Melbourne, a custom build has emerged that roars with the spirit of the Australian outback. Liam Cooper, affectionately known as \"The Wombat\" for his tireless work ethic, has crafted a cafe racer that is as tough and unyielding as the land it was born from. This bike is a powerful statement, blending classic cafe racer lines with a raw, muscular aesthetic that is uniquely Australian.\r\n\r\n\"The Wombat's\" build is a testament to his practical, no-frills philosophy. The bike's core is a robust engine that has been meticulously tuned for both city riding and long hauls on dusty, open roads. The paint job, a matte charcoal gray, gives the bike a utilitarian feel, while the polished metal components—from the custom exhaust to the engine casings—shine with a purpose, reflecting hours of dedicated craftsmanship.\r\n\r\nThe attention to detail is subtle but significant. The leather seat, hand-stitched and worn, tells a story of countless kilometers. The low-slung handlebars and stripped-back frame give it that classic cafe racer silhouette, but with a rugged, resilient edge. This isn't a show pony; it's a workhorse built for speed and endurance, a machine designed to be ridden hard and fast.\r\n\r\nLiam's \"Outback\" custom is a celebration of the Australian riding culture—a bike that is at home navigating the urban sprawl or disappearing into the vast, beautiful wilderness. \"The Wombat\" has created more than a motorcycle; he's built a rolling piece of Australian grit, a machine with a heart of steel and a soul of adventure.",
+    "image": "posts/media/coffeineline-build-8.jpg",
+    "author": 2,
+    "status": "published",
+    "created_at": "2025-08-06T05:24:20.813Z",
+    "updated_at": "2025-08-06T05:24:20.813Z",
+    "category": [
+      2
+    ]
+  }
+},
+{
+  "model": "posts.post",
+  "pk": 10,
+  "fields": {
+    "title": "Viking Spirit: A Brutal Custom Build from Sweden",
+    "slug": "viking-spirit-a-brutal-custom-build-from-sweden",
+    "content": "Content\r\nBuilder Profile\r\n\r\nName: Erik \"The Hammer\" Larsen\r\n\r\nNickname: \"The Hammer\"\r\n\r\nLocation: Stockholm, Sweden\r\n\r\nBio: Erik is a man who believes in building things to last. A metal fabricator by profession, he brings a rugged, minimalist, and functional design philosophy to his custom builds. Known as \"The Hammer\" for his strength and direct approach to his craft, his bikes are often characterized by raw, exposed metal, clean lines, and an almost brutalist aesthetic that pays homage to the strength and resilience of his Viking ancestors.\r\n\r\nPost Content\r\n\r\nFrom the cold, clear light of Scandinavia emerges a custom build that is a study in raw power and functional beauty. Erik Larsen, known throughout the Swedish custom scene as \"The Hammer,\" has created a cafe racer that is as unyielding and direct as the landscape of his homeland. This isn’t a bike of delicate flourishes; it's a machine built with brutalist efficiency and a heart of steel.\r\n\r\n\"The Hammer's\" philosophy is evident in every piece of this build. The bike's frame, stripped bare, is its own visual statement. The raw, brushed metal finish of the tank and fenders, sealed with a clear coat, reveals the honest texture of the material itself. There are no decals, no unnecessary ornamentation—just the pure, unadulterated form of the machine. The result is a bike that feels strong, capable, and ready for anything.\r\n\r\nThe engine, a robust and powerful block, is the focal point, its mechanics proudly on display. Erik has chosen a custom exhaust system that is as much an architectural element as it is a performance part, promising a deep, guttural roar that would echo through the fjords. The low-slung, blacked-out handlebars and single seat give the bike its aggressive cafe racer stance, a nod to speed and a defiant attitude.\r\n\r\nErik's \"Viking Spirit\" build is a tribute to the power of simplicity and the beauty of honest craftsmanship. It’s a bike that doesn’t shout for attention; it commands it through its sheer presence and purposeful design. With this build, \"The Hammer\" proves that some of the most beautiful creations are those that are built to be tough, powerful, and truly timeless.",
+    "image": "posts/media/coffeineline-build-9.jpg",
+    "author": 2,
+    "status": "published",
+    "created_at": "2025-08-06T05:24:56.838Z",
+    "updated_at": "2025-08-06T05:24:56.838Z",
+    "category": [
+      2
+    ]
+  }
+},
+{
+  "model": "posts.post",
+  "pk": 11,
+  "fields": {
+    "title": "Rewiring Your Cafe Racer for a Clean, Minimalist Look",
+    "slug": "rewiring-your-cafe-racer-for-a-clean-minimalist-look",
+    "content": "Content\r\nPost Content\r\n\r\nIn the world of cafe racers, true beauty lies in what's removed, not just what's added. And while a beautiful tank and a sleek seat are a great start, a messy nest of tangled wires can ruin the entire minimalist aesthetic. The electrical system of a vintage motorcycle can be intimidating, but with a solid plan, you can transform a chaotic wiring harness into a clean, simple, and reliable system that truly makes your build shine. This guide will walk you through the essential steps to clean up your wiring and achieve that perfect, uncluttered look.\r\n\r\nStep 1: The Blueprint - Plan Your System\r\n\r\nBefore you touch a single wire, you need a plan. On a piece of paper, draw out a simple diagram of your bike's electrical system. Decide what you need (headlight, taillight, ignition) and what you can safely eliminate (the giant old turn signals, unnecessary gauges, a bulky horn). This is your chance to simplify everything. Modern components like a compact fuse box, a smaller battery, or an all-in-one taillight can make this process far easier.\r\n\r\nStep 2: The Right Tools for the Job\r\n\r\nYou'll need more than just a pair of wire cutters. Gather your essential tools: a quality wire stripper, a set of crimpers, a soldering iron, a multimeter to test continuity, and a variety of heat shrink tubing. Using quality tools and materials is the difference between a reliable system and one that leaves you stranded.\r\n\r\nStep 3: The Great Deconstruction\r\n\r\nCarefully begin to strip away the old, bulky wiring harness. As you go, label everything. Take photos and make notes. This is a critical step; don’t rush it. Identify the wires you've decided to keep and gently remove the rest. The goal is to separate the essential wires from the garbage. Once you have a clean slate, you can start building your new, minimalist harness.\r\n\r\nStep 4: Building the New Harness\r\n\r\nWith your blueprint in hand, start laying out your new, simplified harness. Route the wires along the frame in the most direct and hidden path possible. Use high-quality automotive-grade wire. Solder and heat shrink every connection for maximum durability and reliability. The beauty of this step is that you are building a system specifically for your bike, with no extra clutter.\r\n\r\nStep 5: Tucking and Hiding\r\n\r\nThis is where your vision comes to life. Find clever ways to hide the electronics. Many builders use a small, custom-made electronics tray or box that fits neatly under the seat or within the frame. Use zip ties or wire clamps to secure the wires tightly to the frame, ensuring nothing hangs loose. The goal is for the final result to look so clean that people wonder where the electronics even are.\r\n\r\nRewiring your cafe racer is a daunting but incredibly rewarding task. A clean wiring job not only makes your bike look fantastic but also improves its reliability. Take your time, plan meticulously, and soon you'll have a machine that is as functional as it is beautiful, with nothing left to hide.",
+    "image": "posts/media/coffeine-line-guides-1.jpg",
+    "author": 2,
+    "status": "published",
+    "created_at": "2025-08-06T05:26:32.533Z",
+    "updated_at": "2025-08-06T05:26:32.533Z",
+    "category": [
+      4
+    ]
+  }
+},
+{
+  "model": "posts.post",
+  "pk": 12,
+  "fields": {
+    "title": "Mastering the Stance: How to Build a Custom Seat for Your Cafe Racer",
+    "slug": "mastering-the-stance-how-to-build-a-custom-seat-for-your-cafe-racer",
+    "content": "Content\r\nPost Content\r\n\r\nThe seat is the soul of a cafe racer’s profile. It’s what gives the bike its classic, aggressive stance and ties the whole aesthetic together. While many builders opt for a pre-made seat, creating a custom seat from scratch is one of the most rewarding projects you can take on. It allows you to tailor the shape, style, and feel to your exact vision. This guide will take you through the essential steps to build a custom seat—complete with a fiberglass cowl—that will give your bike a truly unique and professional finish.\r\n\r\nStep 1: The Blueprint - Create Your Mockup\r\n\r\nBefore you start working with messy materials, create a mockup of your seat and cowl shape. Use cardboard, foam, or even a piece of wood to sketch out the shape you want. Pay close attention to the lines of your bike's frame and tank to ensure a seamless flow. A good mockup is crucial for getting the perfect proportions before you commit to fiberglass.\r\n\r\nStep 2: Building the Foundation - The Seat Pan\r\n\r\nUsing a sturdy piece of fiberglass or steel, cut and shape the base of your seat pan. It needs to fit snugly over your bike’s subframe. You can use masking tape and plastic wrap directly on the frame to create a mold for your fiberglass, ensuring a perfect fit. This pan will be the foundation for both the foam padding and the fiberglass cowl.\r\n\r\nStep 3: Sculpting the Cowl\r\n\r\nThe cowl, or \"hump,\" is the iconic part of a cafe racer seat. Using your mockup as a guide, you'll build this section with fiberglass mat and resin. Lay down a few layers of fiberglass, making sure to saturate them thoroughly with resin. Once cured, you can sand and fill to get a smooth, perfect shape. This is where your artistic vision comes to life, so take your time to achieve the ideal form.\r\n\r\nStep 4: The Comfort Factor - Shaping the Foam\r\n\r\nWith your pan and cowl ready, it's time to shape the foam. Use a high-density upholstery foam and an electric carving knife or a sharp razor to cut it to shape. The foam should be thick enough for comfort but not so bulky that it ruins the profile. Glue the foam securely to the seat pan and begin to sand and shape it to create smooth transitions and a comfortable riding surface.\r\n\r\nStep 5: The Final Touch - Upholstery\r\n\r\nThis is the final and most visible step. Choose your material—leather, vinyl, or a durable marine-grade fabric are all great options. Cut your fabric to shape, leaving enough material to wrap around the pan. Using a staple gun, carefully stretch and secure the material to the underside of the seat pan. The key here is to pull the fabric taut to avoid any wrinkles or sagging.\r\n\r\nBuilding a custom seat is a true test of a builder's patience and vision, but the result is a one-of-a-kind piece that elevates your bike's entire aesthetic. Follow these steps, and you'll not only have a unique seat but also the pride of having built it with your own two hands.",
+    "image": "posts/media/coffeine-line-guides-2.jpg",
+    "author": 2,
+    "status": "published",
+    "created_at": "2025-08-06T05:27:03.590Z",
+    "updated_at": "2025-08-06T05:27:03.590Z",
+    "category": [
+      4
+    ]
+  }
+},
+{
+  "model": "posts.post",
+  "pk": 13,
+  "fields": {
+    "title": "Tuning Your Carbs: A Beginner's Guide to Better Performance",
+    "slug": "tuning-your-carbs-a-beginners-guide-to-better-performance",
+    "content": "Post Content\r\n\r\nThere’s nothing quite like the sound of a perfectly tuned engine. For builders working with vintage motorcycles, getting the carburetors just right is one of the most rewarding and crucial steps. A poorly tuned carb can lead to frustrating performance issues like sputtering, backfiring, and sluggish acceleration. A well-tuned set, however, can unlock the true potential of your bike. This guide will walk you through the basics of carburetor tuning, giving you the knowledge to get your engine running smoothly and powerfully.\r\n\r\nStep 1: Understand the Basics\r\n\r\nA carburetor’s job is to mix air and fuel in the correct ratio for combustion. This ratio changes depending on throttle position, engine speed, and load. Your goal is to adjust the carburetors to deliver an optimal air-fuel mixture at different stages of riding. The key components you'll be adjusting are the idle mixture screw, the idle speed screw, and the jetting (for more advanced tuning).",
+    "image": "posts/media/coffeine-line-guides-3.jpg",
+    "author": 2,
+    "status": "published",
+    "created_at": "2025-08-06T05:27:34.967Z",
+    "updated_at": "2025-08-06T05:27:34.967Z",
+    "category": [
+      4
+    ]
+  }
+},
+{
+  "model": "posts.post",
+  "pk": 14,
+  "fields": {
+    "title": "De-Rusting and Restoring a Vintage Fuel Tank",
+    "slug": "de-rusting-and-restoring-a-vintage-fuel-tank",
+    "content": "Post Content\r\n\r\nFor many builders, the heart of a cafe racer project lies in finding a beautiful, vintage fuel tank. But more often than not, these classic tanks come with a hidden problem: rust. Internal rust can clog fuel lines, foul carburetors, and be a constant headache. However, with some patience and the right tools, you can bring an old tank back to life. This guide will walk you through the process of de-rusting, sealing, and restoring a vintage fuel tank to make it look as good on the inside as it does on the outside.\r\n\r\nStep 1: Inspect and Prepare the Tank\r\n\r\nFirst, inspect the tank for any major holes or leaks. If there are any, they’ll need to be repaired with a professional weld before you proceed. Once you're sure it's structurally sound, remove the fuel cap, petcock (fuel valve), and any other fittings. Block these openings with corks or rubber stoppers to prevent chemicals from leaking out. Make sure the tank is completely empty of any old fuel.\r\n\r\nStep 2: The Rust Removal Process\r\n\r\nThere are a few methods for removing rust, but the most common and effective is using a chemical rust remover. You can buy specialized rust removers designed for fuel tanks. Following the product instructions, pour the solution into the tank and slosh it around to coat the entire interior. Leave it to work for the recommended time, which can range from a few hours to overnight. For stubborn rust, you can add some ball bearings or small bolts and shake the tank vigorously to help scrape away the rust.\r\n\r\nStep 3: Cleaning and Neutralizing\r\n\r\nAfter the rust remover has done its job, pour out the solution. You'll likely see a lot of rust flakes and debris come out. Rinse the tank thoroughly with water and then with a neutralizing solution (often a mix of baking soda and water) to stop the chemical reaction. Make sure every last drop is removed. Let the tank dry completely. A hairdryer or a heat gun on a low setting can speed this up. It's crucial that the tank is bone dry before the next step.\r\n\r\nStep 4: Sealing the Interior\r\n\r\nTo prevent rust from returning, you need to seal the inside of the tank. There are excellent fuel tank sealers on the market that are resistant to gasoline. Pour the sealer into the tank and rotate it slowly to ensure every surface is coated. The sealer will fill any tiny pinholes and create a smooth, rust-proof barrier. Follow the manufacturer's instructions for curing time, which can take up to several days.\r\n\r\nStep 5: Reassembly and Final Checks\r\n\r\nOnce the sealer is completely cured, you can reattach the petcock and fuel cap. Make sure all fittings have new gaskets to ensure a tight seal. Before you add fuel, give the tank a final inspection to confirm there are no leaks. Once you're confident, you can fill it up and hit the road.\r\n\r\nRestoring a rusty fuel tank is a meticulous process, but the result is a clean, reliable, and beautiful centerpiece for your cafe racer. With these steps, you’ll not only solve a common problem but also add a layer of professional craftsmanship to your project.",
+    "image": "posts/media/coffeine-line-guides-4.jpg",
+    "author": 2,
+    "status": "published",
+    "created_at": "2025-08-06T05:28:03.249Z",
+    "updated_at": "2025-08-06T05:28:03.249Z",
+    "category": [
+      4
+    ]
+  }
+},
+{
+  "model": "posts.post",
+  "pk": 15,
+  "fields": {
+    "title": "The Builder's Toolbox: 10 Essential Tools for Your Cafe Racer Project",
+    "slug": "the-builders-toolbox-10-essential-tools-for-your-cafe-racer-project",
+    "content": "Content\r\nPost Content\r\n\r\nEvery great build starts with a great set of tools. While some custom projects require specialized equipment, the beauty of the cafe racer scene is that you can accomplish most of your goals with a solid, well-stocked toolbox. Whether you’re just getting started or you’re a seasoned builder looking to upgrade, having the right tools can save you time, money, and a lot of frustration. Here are 10 essential tools that every cafe racer builder should have in their garage.\r\n\r\n1. The Wrench and Socket Set\r\n\r\nThis is the foundation of any mechanic's toolbox. A quality set of combination wrenches and a socket set with both metric and standard sizes will cover 90% of the bolts and nuts you'll encounter. Look for sets that include a variety of extensions and swivel heads to reach those tricky spots.\r\n\r\n2. The Impact Driver and Drill\r\n\r\nAn impact driver is a game-changer for breaking loose stubborn, rusted bolts. A good quality cordless drill is invaluable for everything from drilling holes for a new fender to wire-brushing rust off a frame. Don't skimp on these; they'll pay for themselves in time saved.\r\n\r\n3. The Grinder and Angle Grinder\r\n\r\nFor cutting, shaping, and grinding metal, an angle grinder is an absolute necessity. From cutting off old mounting tabs to shaping a new subframe, this tool is your best friend. Always use proper safety gear, including safety glasses and gloves.\r\n\r\n4. The Welder (MIG or TIG)\r\n\r\nWhile some builds can be done without welding, having a welder opens up a world of possibilities. A basic MIG welder is great for beginners and can handle most frame modifications, tab additions, and exhaust work.\r\n\r\n5. The Multimeter\r\n\r\nA crucial tool for any electrical work. A multimeter allows you to test for voltage, continuity, and resistance, helping you troubleshoot shorts and ensure your new wiring harness is working correctly.\r\n\r\n6. The Torque Wrench\r\n\r\nThis tool is non-negotiable for engine and critical chassis work. A torque wrench ensures you tighten bolts to the manufacturer's specified tension, preventing stripped threads or loose parts that can lead to catastrophic failure.\r\n\r\n7. The Tire Changing Tools\r\n\r\nIf you plan on doing your own tire work, a set of tire irons and a bead breaker will save you a trip to the shop. It's a skill that takes practice, but it's incredibly satisfying to master.\r\n\r\n8. The Soldering Iron\r\n\r\nFor building a reliable, professional-looking wiring harness, a soldering iron and heat shrink tubing are a must. Soldered connections are far more secure and durable than crimped connections.\r\n\r\n9. The Vice Grips and Pliers\r\n\r\nA set of various pliers—needle-nose, slip-joint, and especially vice grips—are essential for holding, twisting, and pulling parts. Vice grips are particularly useful for gripping parts that are too hot or difficult to hold by hand.\r\n\r\n10. The Service Manual\r\n\r\nWhile not a physical tool, a factory service manual for your specific bike is the most important tool you can have. It provides detailed diagrams, torque specs, and step-by-step instructions that are invaluable for any build.\r\n\r\nBuilding a cafe racer is a labor of love, and having the right tools makes the journey so much smoother. Invest in quality tools, keep them organized, and you'll be well-equipped to tackle any challenge your project throws your way.",
+    "image": "posts/media/coffeine-line-guides-5.jpg",
+    "author": 2,
+    "status": "published",
+    "created_at": "2025-08-06T05:28:29.474Z",
+    "updated_at": "2025-08-06T05:28:29.474Z",
+    "category": [
+      4
+    ]
+  }
+},
+{
+  "model": "posts.post",
+  "pk": 16,
+  "fields": {
+    "title": "The Perfect Stance: Dropping Your Cafe Racer's Front End",
+    "slug": "the-perfect-stance-dropping-your-cafe-racers-front-end",
+    "content": "Content\r\nPost Content\r\n\r\nA core element of the cafe racer aesthetic is its low, aggressive, and purposeful stance. One of the most effective and accessible ways to achieve this look is by \"dropping\" the front end of your bike. This simple modification not only gives your bike that classic, forward-leaning posture but also slightly sharpens the steering, offering a more responsive ride. This guide will walk you through the steps to safely and effectively lower the front of your bike without a lot of specialized tools.\r\n\r\nStep 1: Understand the Goal and the Dangers\r\n\r\nThe goal is to raise the fork tubes up through the triple clamps. This lowers the front of the bike relative to the wheels. The danger lies in raising them too far, which can cause the front fender or the bottom of the triple clamp to hit the tire on a hard bump. Always check for clearance with the suspension fully compressed before you ride. A safe starting point is typically 1-2 inches (25-50mm) above the top of the triple clamp.\r\n\r\nStep 2: Prepare the Bike and Your Tools\r\n\r\nYou'll need to get the bike off the ground. A front stand is ideal, but a solid center stand or a jack under the engine will also work, as long as the front wheel is completely off the ground. You'll need an appropriately sized socket wrench to loosen the triple clamp bolts and a torque wrench to tighten them back up. A measuring tape or a ruler is also essential for a precise drop.\r\n\r\nStep 3: Loosen the Bolts\r\n\r\nCarefully loosen the bolts on the top triple clamp (the top piece that holds the forks). Then, loosen the bolts on the bottom triple clamp. Do not remove them completely, just loosen them enough so that the fork tubes can slide freely. As you do this, you might notice the front of the bike start to drop slightly.\r\n\r\nStep 4: Measure and Adjust\r\n\r\nWith the bolts loose, you can now carefully slide the fork tubes up through the triple clamps. Using your ruler or tape measure, ensure that both sides are raised to the exact same height. This is crucial for keeping the steering geometry balanced and the ride safe. Once you have the desired height, a good practice is to tighten the top triple clamp bolts slightly to hold the forks in place.\r\n\r\nStep 5: Tighten Everything Down\r\n\r\nUsing your torque wrench, tighten the bolts on the lower triple clamp first, followed by the bolts on the upper triple clamp. It’s important to tighten them to the manufacturer's specified torque to prevent the forks from slipping, which could be extremely dangerous. Once everything is torqued down, give the forks a final check to ensure they are at the same height and that there is sufficient clearance with the fender and wheel.\r\n\r\nDropping the front end of your cafe racer is a simple yet powerful modification. It instantly improves the bike's look and feel, giving it that classic, purpose-built stance. With this guide, you can achieve that perfect profile safely and confidently in your own garage.",
+    "image": "posts/media/coffeine-line-guides-6.jpg",
+    "author": 2,
+    "status": "published",
+    "created_at": "2025-08-06T05:28:58.947Z",
+    "updated_at": "2025-08-06T05:28:58.947Z",
+    "category": [
+      4
+    ]
+  }
+},
+{
+  "model": "posts.post",
+  "pk": 17,
+  "fields": {
+    "title": "Review: The Biltwell Gringo - Style and Soul for the Cafe Racer",
+    "slug": "review-the-biltwell-gringo-style-and-soul-for-the-cafe-racer",
+    "content": "Content\r\nPost Content\r\n\r\nIn the world of custom motorcycles, every piece of gear you choose is a reflection of your style, and no item is more personal than your helmet. The Biltwell Gringo is an icon in the cafe racer scene, a helmet that promises a vintage look without compromising modern safety standards. But does it live up to the hype? We put the Gringo to the test to give you a full, honest review of its aesthetics, comfort, and functionality.\r\n\r\nAesthetics: An Ode to the Past\r\n\r\nThe Gringo's defining feature is its stunning, retro aesthetic. With a simple, rounded shell and a large eye-port, it’s a direct throwback to the helmets of the 1970s. Biltwell offers a fantastic range of colors and finishes, from glossy solids to metallic flakes, ensuring there’s a Gringo to match any build. The clean lines and minimalist design make it the perfect companion for a stripped-down cafe racer, providing a look that is both timeless and effortlessly cool.\r\n\r\nComfort and Fit: Padding and Precision\r\n\r\nThe interior of the Gringo is lined with a comfortable, diamond-stitched padding that feels great against the skin. The helmet fits true to size for most riders, with a snug feel that’s essential for safety. The padding is removable, making it easy to clean after a long, dusty ride. We found it to be comfortable for urban commutes and short-to-medium length rides, with no major pressure points or discomfort.\r\n\r\nFeatures and Functionality: Simple by Design\r\n\r\nTrue to its retro spirit, the Gringo is a no-frills helmet. It lacks the modern conveniences of integrated sun visors or complex ventilation systems. The most notable feature—or lack thereof—is the absence of a face shield. The Gringo is designed to be worn with goggles or one of Biltwell’s optional bubble shields, which snap on securely. This minimalist approach is a part of its charm but also its main drawback. At highway speeds, wind noise is a factor, and without a shield, your face is exposed to the elements.\r\n\r\nSafety and Verdict\r\n\r\nThe Biltwell Gringo is DOT certified, meaning it meets the necessary safety standards. The shell is sturdy, and the D-ring chin strap provides a secure and reliable fit. It’s a well-made helmet that you can feel confident riding in.\r\n\r\nOur Final Take: The Biltwell Gringo is the perfect helmet for the style-conscious urban rider who values aesthetics above all else. Its stunning looks and comfortable fit are a perfect match for any cafe racer. However, if your rides involve long stretches of high-speed highway or unpredictable weather, you may want to consider a different helmet with more modern features. For cruising through the city and looking the part, there's no better choice.",
+    "image": "posts/media/coffeine-line-reviews-1.jpg",
+    "author": 2,
+    "status": "published",
+    "created_at": "2025-08-06T05:29:49.682Z",
+    "updated_at": "2025-08-06T05:29:49.682Z",
+    "category": [
+      3
+    ]
+  }
+},
+{
+  "model": "posts.post",
+  "pk": 18,
+  "fields": {
+    "title": "Review: The Cone Engineering Shorty Exhaust - Sound, Style, and Power",
+    "slug": "review-the-cone-engineering-shorty-exhaust-sound-style-and-power",
+    "content": "Content\r\nPost Content\r\n\r\nWhen it comes to building a cafe racer, the exhaust system is not just about performance; it’s a crucial element of the bike’s aesthetic and a huge part of its voice. The Cone Engineering Shorty Perforated Muffler has become a favorite among builders for its clean lines, powerful sound, and quality construction. But does this popular exhaust live up to its reputation? We bolted one on to find out.\r\n\r\nAesthetics: The Perfect Finish\r\n\r\nThe first thing you notice about the Cone Engineering Shorty is its beautiful simplicity. The clean, cylindrical design and short length are a perfect fit for the minimalist cafe racer look. The perforated core is visible from the rear, giving it an aggressive, race-inspired vibe. The polished stainless steel finish is impeccable, and the quality of the welds and mounting points is top-notch. It’s a piece of hardware that looks custom-made, adding a high-end touch to any build.\r\n\r\nSound: The Heart of the Machine\r\n\r\nIf there’s one thing this exhaust is known for, it’s the sound. The Shorty provides a deep, guttural rumble at idle that turns into a sharp, powerful bark under throttle. It's loud, but not excessively so, with a low-frequency tone that sounds purposeful and powerful. It perfectly captures the raw, mechanical spirit of a cafe racer. While it might be a bit too much for some neighborhoods, it’s music to the ears of any enthusiast.\r\n\r\nPerformance and Build Quality: Designed for Power\r\n\r\nCone Engineering exhausts are made in the USA and the quality is evident. The stainless steel construction is durable and resistant to rust, meaning it will hold up to years of riding. The perforated core is designed for optimal exhaust flow, and while we can't give specific dyno numbers, we can say that the bike felt more responsive and eager to rev. The short length and straight-through design help the engine breathe better, contributing to a noticeable increase in power and a more aggressive throttle response.\r\n\r\nInstallation: A Builder's Dream\r\n\r\nOne of the best features of this exhaust is its versatility. It comes with a variety of adapters, making it easy to fit on a wide range of bikes. The simple mounting clamp and a single mounting point make installation a breeze, even for a beginner.\r\n\r\nOur Final Take: The Cone Engineering Shorty Perforated Muffler is an outstanding choice for any cafe racer project. It ticks all the boxes: beautiful, simple aesthetics, a powerful and raw sound that commands attention, and high-quality construction that is built to last. While it might be too loud for some, for the builder who wants their bike to look and sound the part, this exhaust is a perfect fit. It’s a testament to the fact that sometimes, the best things are simple, clean, and beautifully made.",
+    "image": "posts/media/coffeine-line-reviews-2.jpg",
+    "author": 2,
+    "status": "published",
+    "created_at": "2025-08-06T05:30:19.549Z",
+    "updated_at": "2025-08-06T05:30:19.549Z",
+    "category": [
+      3
+    ]
+  }
+},
+{
+  "model": "posts.post",
+  "pk": 19,
+  "fields": {
+    "title": "Review: The Cognito Moto Triple Tree - Precision and Style for Your Front End",
+    "slug": "review-the-cognito-moto-triple-tree-precision-and-style-for-your-front-end",
+    "content": "Content\r\nPost Content\r\n\r\nIn the world of custom builds, sometimes the most impactful changes are the ones you don't immediately notice. The triple tree, or top and bottom clamps, is one of those components. It's the lynchpin that connects your forks, handlebars, and front wheel, and a quality aftermarket triple tree can dramatically improve both the aesthetics and the handling of your bike. Cognito Moto has earned a sterling reputation for its precision-machined triple trees, and we decided to see if their parts truly live up to the hype.\r\n\r\nAesthetics: Clean, Modern, and Machined Perfection\r\n\r\nThe Cognito Moto triple tree is a masterclass in modern design and engineering. Made from billet aluminum, the finish is impeccable. The clean, smooth lines and minimalist design instantly upgrade the front end of any cafe racer, giving it a sophisticated, custom look. The integrated key switch mount and the option for a hidden top nut create an incredibly clean cockpit. This component doesn't just hold things together; it becomes a central, beautiful feature of the bike.\r\n\r\nFunctionality and Performance: A Tighter, Sharper Ride\r\n\r\nBeyond the looks, the real benefit of a quality triple tree is in the ride. The Cognito Moto piece is significantly more rigid than the stock stamped steel clamps found on many vintage bikes. This rigidity reduces front-end flex, leading to a much more precise and responsive steering feel. The bike feels more planted and stable through corners, giving you a greater sense of confidence. It’s a subtle but powerful upgrade that truly transforms the handling.\r\n\r\nInstallation: A Builder's Challenge, Made Easier\r\n\r\nWhile installing a triple tree is not a beginner's job, Cognito Moto's products are designed with the builder in mind. They often come pre-drilled for your specific application and are engineered to fit with minimal hassle. The comprehensive instructions and online resources they provide are a huge help, making a complex process far more manageable. The part is a direct bolt-on for many popular bikes, saving you from a lot of custom fabrication.\r\n\r\nOur Final Take: The Cognito Moto triple tree is a premium, high-end component that justifies its price tag with exceptional quality and performance. If you're building a cafe racer and you're serious about both the aesthetics and the handling, this is a part you should not overlook. It's the kind of subtle, well-engineered upgrade that separates a good build from a great one. With its flawless finish and superior rigidity, it's a piece of precision engineering that elevates the entire motorcycle.",
+    "image": "posts/media/coffeine-line-reviews-3.jpg",
+    "author": 2,
+    "status": "published",
+    "created_at": "2025-08-06T05:30:46.797Z",
+    "updated_at": "2025-08-06T05:30:46.797Z",
+    "category": [
+      3
+    ]
+  }
+},
+{
+  "model": "posts.post",
+  "pk": 20,
+  "fields": {
+    "title": "Review: The Motogadget Motoscope Mini - A Tiny Display with a Big Impact",
+    "slug": "review-the-motogadget-motoscope-mini-a-tiny-display-with-a-big-impact",
+    "content": "Title\r\nReview: The Motogadget Motoscope Mini - A Tiny Display with a Big Impact\r\n\r\nSlug\r\nmotogadget-motoscope-mini-review\r\n\r\nContent\r\nPost Content\r\n\r\nFor a cafe racer, the dash is often the first thing to go. The bulky, oversized gauges of a vintage bike clash with the clean, minimalist lines of a custom build. The Motogadget Motoscope Mini is a popular solution, offering a sleek, incredibly compact display that hides a surprising amount of information. We installed one on a project bike to see if this tiny tech marvel is worth the investment.\r\n\r\nAesthetics: Less is More\r\n\r\nThe Motoscope Mini is a masterpiece of minimalist design. It's so small you can almost hide it completely, leaving the handlebars completely uncluttered. The black anodized aluminum housing is beautifully machined and feels incredibly solid. The digital display itself is a bright, clear LED that is easy to read in all light conditions, from the brightest sun to the darkest night. It’s the perfect choice for a builder who wants to show a speedometer and nothing else, or for those who want to hide it completely in the top triple tree.\r\n\r\nFunctionality: Small Package, Big Data\r\n\r\nDon't let the size fool you—the Motoscope Mini is packed with features. It displays speed, RPMs (tachometer), trip distance, total mileage, and time. All of this information is accessible through a single, discreet button. The unit also has LED indicator lights for turn signals, high beams, and a neutral light, allowing you to get rid of the bulky indicator cluster on your stock dash. It's a complete solution in a tiny package.\r\n\r\nInstallation: A Wiring Challenge, Made Worth It\r\n\r\nInstalling the Motoscope Mini is not a simple plug-and-play job. It requires careful wiring and a good understanding of your bike's electrical system. The unit comes with a detailed manual and a color-coded wiring harness, but it’s still a task best suited for a builder with some electrical experience. However, the end result is well worth the effort. The reward is a perfectly clean, integrated cockpit that is both functional and beautiful.\r\n\r\nOur Final Take: The Motogadget Motoscope Mini is a premium component for a premium build. It’s expensive and the installation can be a challenge, but the payoff is immense. The combination of its flawless design, impressive functionality, and small footprint makes it a favorite among high-end builders. If you’re looking to create a truly minimalist cafe racer and want to eliminate all the visual clutter from your cockpit without sacrificing essential information, the Motoscope Mini is the ultimate choice. It's a testament to the idea that sometimes, the best things come in the smallest packages.",
+    "image": "posts/media/coffeine-line-reviews-4.jpg",
+    "author": 2,
+    "status": "published",
+    "created_at": "2025-08-06T05:31:10.922Z",
+    "updated_at": "2025-08-06T05:31:10.922Z",
+    "category": [
+      3
+    ]
+  }
+},
+{
+  "model": "accounts.profile",
+  "pk": 1,
+  "fields": {
+    "user": 1,
+    "bio": "",
+    "gender": "",
+    "birth_date": null,
+    "avatar": "avatars/default.png",
+    "personal_url": "",
+    "has_moto": false,
+    "created_at": "2025-08-11T02:27:12.177Z",
+    "updated_at": "2025-08-11T02:27:12.177Z"
+  }
+},
+{
+  "model": "accounts.profile",
+  "pk": 2,
+  "fields": {
+    "user": 2,
+    "bio": "",
+    "gender": "",
+    "birth_date": null,
+    "avatar": "avatars/default.png",
+    "personal_url": "",
+    "has_moto": false,
+    "created_at": "2025-08-11T02:27:12.287Z",
+    "updated_at": "2025-08-11T08:24:39.136Z"
+  }
+},
+{
+  "model": "accounts.profile",
+  "pk": 3,
+  "fields": {
+    "user": 3,
+    "bio": "",
+    "gender": "",
+    "birth_date": null,
+    "avatar": "avatars/default.png",
+    "personal_url": "",
+    "has_moto": false,
+    "created_at": "2025-08-11T08:16:03.893Z",
+    "updated_at": "2025-08-11T08:25:32.631Z"
+  }
+},
+{
+  "model": "accounts.profile",
+  "pk": 4,
+  "fields": {
+    "user": 4,
+    "bio": "",
+    "gender": "",
+    "birth_date": null,
+    "avatar": "avatars/default.png",
+    "personal_url": "",
+    "has_moto": false,
+    "created_at": "2025-08-11T08:23:31.408Z",
+    "updated_at": "2025-08-11T08:23:31.799Z"
+  }
+},
+{
+  "model": "accounts.profile",
+  "pk": 5,
+  "fields": {
+    "user": 5,
+    "bio": "",
+    "gender": "",
+    "birth_date": null,
+    "avatar": "avatars/default.png",
+    "personal_url": "",
+    "has_moto": false,
+    "created_at": "2025-08-11T09:58:16.602Z",
+    "updated_at": "2025-08-11T09:58:16.981Z"
+  }
+}
+]
