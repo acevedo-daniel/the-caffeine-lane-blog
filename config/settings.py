@@ -99,14 +99,10 @@ AUTH_PASSWORD_VALIDATORS = [
         "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
     },
     {
-<<<<<<< HEAD
         'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
         'OPTIONS': {
             'min_length': 8,
         }
-=======
-        "NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",
->>>>>>> a2195e4a5cd436c32dd08022c448a8e011893b81
     },
     {
         "NAME": "django.contrib.auth.password_validation.CommonPasswordValidator",
@@ -151,13 +147,12 @@ LOGOUT_REDIRECT_URL = "home"
 # Si usas login social
 SOCIAL_AUTH_LOGIN_REDIRECT_URL = "home"
 
-<<<<<<< HEAD
 # Configuración de email (para desarrollo - usar console backend)
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 # Para producción, usar configuración real de email:
 # EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-# EMAIL_HOST = 'smtp.gmail.com'  # o tu proveedor de email
+# EMAIL_HOST = 'smtp.gmail.com'  # o tu proveedor de email
 # EMAIL_PORT = 587
 # EMAIL_USE_TLS = True
 # EMAIL_HOST_USER = 'tu_email@gmail.com'
@@ -182,6 +177,5 @@ AUTHENTICATION_BACKENDS = [
 SESSION_COOKIE_AGE = 86400 * 7  # 7 días
 SESSION_EXPIRE_AT_BROWSER_CLOSE = False
 SESSION_SAVE_EVERY_REQUEST = True
-=======
+
 NPM_BIN_PATH = "C:/Program Files/nodejs/npm.cmd"
->>>>>>> a2195e4a5cd436c32dd08022c448a8e011893b81

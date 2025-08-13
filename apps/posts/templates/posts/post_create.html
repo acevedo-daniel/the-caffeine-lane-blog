@@ -1,0 +1,356 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Crear Post - The Caffeine Lane{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/posts.css' %}">
+
+<div class="post-form-container">
+    <div class="text-center mb-8">
+        <h1 class="text-4xl font-bebas text-gray-900 mb-4">Crear Nuevo Post</h1>
+        <p class="text-lg text-gray-600 font-mont">
+            Comparte tu historia, build o aventura con la comunidad
+        </p>
+    </div>
+
+    <!-- Mensajes -->
+    {% if messages %}
+        {% for message in messages %}
+            <div class="message-{{ message.tags }} mb-6">
+                {{ message }}
+                <button type="button" onclick="this.parentNode.remove()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    <form id="post-form" method="post" enctype="multipart/form-data" class="post-form">
+        {% csrf_token %}
+
+        <!-- Errores generales del formulario -->
+        {% if form.non_field_errors %}
+            <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-6">
+                {% for error in form.non_field_errors %}
+                    <div>{{ error }}</div>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        <!-- Título -->
+        <div class="form-group">
+            <label for="{{ form.title.id_for_label }}" class="form-label">
+                {{ form.title.label }}
+            </label>
+            {{ form.title }}
+            {% if form.title.errors %}
+                {% for error in form.title.errors %}
+                    <span class="form-error">{{ error }}</span>
+                {% endfor %}
+            {% endif %}
+            <div class="form-help">
+                Un título atractivo y descriptivo para tu post
+            </div>
+        </div>
+
+        <!-- Contenido -->
+        <div class="form-group">
+            <label for="{{ form.content.id_for_label }}" class="form-label">
+                {{ form.content.label }}
+            </label>
+            {{ form.content }}
+            {% if form.content.errors %}
+                {% for error in form.content.errors %}
+                    <span class="form-error">{{ error }}</span>
+                {% endfor %}
+            {% endif %}
+            <div class="form-help">
+                Escribe el contenido principal de tu post. Puedes usar párrafos y saltos de línea.
+            </div>
+        </div>
+
+        <!-- Extracto -->
+        <div class="form-group">
+            <label for="{{ form.excerpt.id_for_label }}" class="form-label">
+                {{ form.excerpt.label }} (Opcional)
+            </label>
+            {{ form.excerpt }}
+            {% if form.excerpt.errors %}
+                {% for error in form.excerpt.errors %}
+                    <span class="form-error">{{ error }}</span>
+                {% endfor %}
+            {% endif %}
+            <div class="form-help">
+                Breve descripción que aparecerá en las listas de posts (se genera automáticamente si se deja vacío)
+            </div>
+        </div>
+
+        <!-- Imagen destacada -->
+        <div class="form-group">
+            <label for="{{ form.image.id_for_label }}" class="form-label">
+                {{ form.image.label }} (Opcional)
+            </label>
+            {{ form.image }}
+            {% if form.image.errors %}
+                {% for error in form.image.errors %}
+                    <span class="form-error">{{ error }}</span>
+                {% endfor %}
+            {% endif %}
+            <div class="form-help">
+                Imagen principal del post (máximo 5MB). formatos: JPG, PNG, GIF, WebP
+            </div>
+        </div>
+
+        <!-- Grid para categorías y configuraciones -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <!-- Categorías -->
+            <div class="form-group">
+                <label class="form-label">{{ form.category.label }}</label>
+                <div class="space-y-2 max-h-40 overflow-y-auto border border-gray-300 rounded p-3 bg-gray-50">
+                    {% for checkbox in form.category %}
+                        <div class="flex items-center">
+                            {{ checkbox.tag }}
+                            <label for="{{ checkbox.id_for_label }}" class="ml-2 text-sm font-mont">
+                                {{ checkbox.choice_label }}
+                            </label>
+                        </div>
+                    {% endfor %}
+                </div>
+                {% if form.category.errors %}
+                    {% for error in form.category.errors %}
+                        <span class="form-error">{{ error }}</span>
+                    {% endfor %}
+                {% endif %}
+                <div class="form-help">
+                    Selecciona hasta 3 categorías que mejor describan tu post
+                </div>
+            </div>
+
+            <!-- Estado y opciones -->
+            <div class="space-y-4">
+                <div class="form-group">
+                    <label for="{{ form.status.id_for_label }}" class="form-label">
+                        {{ form.status.label }}
+                    </label>
+                    {{ form.status }}
+                    {% if form.status.errors %}
+                        {% for error in form.status.errors %}
+                            <span class="form-error">{{ error }}</span>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+
+                <div class="form-group">
+                    <div class="flex items-center">
+                        {{ form.allow_comments }}
+                        <label for="{{ form.allow_comments.id_for_label }}" class="ml-2 form-label mb-0">
+                            {{ form.allow_comments.label }}
+                        </label>
+                    </div>
+                    <div class="form-help">
+                        Permite que otros usuarios comenten tu post
+                    </div>
+                </div>
+
+                {% if user.is_staff %}
+                    <div class="form-group">
+                        <div class="flex items-center">
+                            {{ form.is_featured }}
+                            <label for="{{ form.is_featured.id_for_label }}" class="ml-2 form-label mb-0">
+                                {{ form.is_featured.label }}
+                            </label>
+                        </div>
+                        <div class="form-help">
+                            Mostrar en el carrusel principal de la página de inicio
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- SEO (Opcional) -->
+        <details class="border border-gray-300 rounded p-4 mb-6">
+            <summary class="font-mont font-semibold cursor-pointer">
+                <i class="fas fa-search mr-2"></i>
+                Configuración SEO (Opcional)
+            </summary>
+            <div class="mt-4 space-y-4">
+                <div class="form-group">
+                    <label for="{{ form.meta_description.id_for_label }}" class="form-label">
+                        {{ form.meta_description.label }}
+                    </label>
+                    {{ form.meta_description }}
+                    {% if form.meta_description.errors %}
+                        {% for error in form.meta_description.errors %}
+                            <span class="form-error">{{ error }}</span>
+                        {% endfor %}
+                    {% endif %}
+                    <div class="form-help">
+                        Descripción que aparecerá en motores de búsqueda (máximo 160 caracteres)
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="{{ form.meta_keywords.id_for_label }}" class="form-label">
+                        {{ form.meta_keywords.label }}
+                    </label>
+                    {{ form.meta_keywords }}
+                    {% if form.meta_keywords.errors %}
+                        {% for error in form.meta_keywords.errors %}
+                            <span class="form-error">{{ error }}</span>
+                        {% endfor %}
+                    {% endif %}
+                    <div class="form-help">
+                        Palabras clave separadas por comas (ej: kawasaki, custom, build)
+                    </div>
+                </div>
+            </div>
+        </details>
+
+        <!-- Botones de acción -->
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+            <a href="{% url 'post_list' %}" class="btn-form-cancel">
+                <i class="fas fa-times mr-2"></i>
+                Cancelar
+            </a>
+            <button type="submit" class="btn-form-submit">
+                <i class="fas fa-save mr-2"></i>
+                Guardar Post
+            </button>
+        </div>
+    </form>
+
+    <!-- Tips de escritura -->
+    <div class="mt-12 bg-gray-50 rounded-lg p-6">
+        <h3 class="text-xl font-bebas text-gray-900 mb-4">
+            <i class="fas fa-lightbulb mr-2"></i>
+            Tips para un buen post
+        </h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm font-mont text-gray-700">
+            <ul class="space-y-2">
+                <li><i class="fas fa-check text-green-600 mr-2"></i>Usa un título descriptivo y atractivo</li>
+                <li><i class="fas fa-check text-green-600 mr-2"></i>Incluye una imagen de buena calidad</li>
+                <li><i class="fas fa-check text-green-600 mr-2"></i>Divide el contenido en párrafos</li>
+                <li><i class="fas fa-check text-green-600 mr-2"></i>Selecciona categorías relevantes</li>
+            </ul>
+            <ul class="space-y-2">
+                <li><i class="fas fa-check text-green-600 mr-2"></i>Revisa la ortografía antes de publicar</li>
+                <li><i class="fas fa-check text-green-600 mr-2"></i>Comparte tu experiencia personal</li>
+                <li><i class="fas fa-check text-green-600 mr-2"></i>Responde a los comentarios de tu post</li>
+                <li><i class="fas fa-check text-green-600 mr-2"></i>Guarda como borrador si no estás seguro</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<script src="{% static 'js/posts.js' %}"></script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Funcionalidad para remover vista previa de imagen
+    window.removeImagePreview = function() {
+        const preview = document.querySelector('.image-preview');
+        const input = document.querySelector('input[name="image"]');
+        if (preview) preview.remove();
+        if (input) input.value = '';
+    };
+
+    // Validación de límite de categorías
+    const categoryCheckboxes = document.querySelectorAll('input[name="category"]');
+    categoryCheckboxes.forEach(checkbox => {
+        checkbox.addEventListener('change', function() {
+            const checked = document.querySelectorAll('input[name="category"]:checked');
+            if (checked.length > 3) {
+                this.checked = false;
+                alert('Solo puedes seleccionar hasta 3 categorías.');
+            }
+        });
+    });
+});
+</script>
+
+<!-- Estilos adicionales específicos para este template -->
+<style>
+.form-checkbox {
+    width: 16px;
+    height: 16px;
+    border-radius: 4px;
+    border: 2px solid #d1d5db;
+    accent-color: var(--primary-color);
+}
+
+.form-checkbox:checked {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+details summary {
+    transition: all 0.3s ease;
+}
+
+details[open] summary {
+    color: var(--primary-color);
+}
+
+.image-preview {
+    position: relative;
+    display: inline-block;
+}
+
+.remove-preview {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    background: #ef4444;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+}
+
+.message-success, .message-error, .message-info {
+    padding: 12px 16px;
+    border-radius: 8px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.875rem;
+    position: relative;
+    margin-bottom: 1rem;
+}
+
+.message-success {
+    background: #10b981;
+    color: white;
+}
+
+.message-error {
+    background: #ef4444;
+    color: white;
+}
+
+.message-info {
+    background: #3b82f6;
+    color: white;
+}
+
+.message-success button,
+.message-error button,
+.message-info button {
+    position: absolute;
+    top: 50%;
+    right: 12px;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: inherit;
+    cursor: pointer;
+    font-size: 16px;
+}
+</style>
+{% endblock %}

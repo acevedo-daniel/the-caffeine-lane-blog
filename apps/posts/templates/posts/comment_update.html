@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Editar Comentario - The Caffeine Lane{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/posts.css' %}">
+
+<div class="post-form-container max-w-2xl">
+    <div class="text-center mb-8">
+        <h1 class="text-4xl font-bebas text-gray-900 mb-4">Editar Comentario</h1>
+        <p class="text-lg text-gray-600 font-mont">
+            Modifica tu comentario en: <a href="{{ comment.post.get_absolute_url }}" class="text-blue-600 hover:text-blue-800">{{ comment.post.title }}</a>
+        </p>
+    </div>
+
+    <form method="post" class="post-form">
+        {% csrf_token %}
+        
+        <div class="form-group">
+            <label for="{{ form.content.id_for_label }}" class="form-label">
+                Tu Comentario
+            </label>
+            {{ form.content }}
+            {% if form.content.errors %}
+                {% for error in form.content.errors %}
+                    <span class="form-error">{{ error }}</span>
+                {% endfor %}
+            {% endif %}
+            <div class="form-help">
+                Máximo 1000 caracteres
+            </div>
+        </div>
+
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+            <a href="{{ comment.post.get_absolute_url }}#comment-{{ comment.id }}" class="btn-form-cancel">
+                <i class="fas fa-times mr-2"></i>
+                Cancelar
+            </a>
+            <button type="submit" class="btn-form-submit">
+                <i class="fas fa-save mr-2"></i>
+                Actualizar Comentario
+            </button>
+        </div>
+    </form>
+</div>
+
+<script src="{% static 'js/posts.js' %}"></script>
+{% endblock %}

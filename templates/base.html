@@ -19,7 +19,6 @@
     </title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<<<<<<< HEAD
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
@@ -36,12 +35,6 @@
         }
       }
     </script>
-=======
-    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
-          rel="stylesheet" />
-    <link rel="stylesheet"
-          href="{% static 'vendor/fontawesome-free-7.0.0-web/css/all.min.css' %}" />
->>>>>>> a2195e4a5cd436c32dd08022c448a8e011893b81
   </head>
   <body>
     {% block header %}
@@ -87,7 +80,7 @@
           <nav class="flex space-x-4 text-xs">
             <a href="{% url 'home' %}"
                class="text-white font-mont font-semibold uppercase hover:text-red-500 transition">HOME</a>
-            <a href="{% url 'home' %}"
+            <a href="{% url 'post_list' %}"
                class="text-white font-mont font-semibold uppercase hover:text-red-500 transition">BUILDS</a>
             <a href="{% url 'home' %}"
                class="text-white font-mont font-semibold uppercase hover:text-red-500 transition">GUIDES</a>

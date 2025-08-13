@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Eliminar: {{ post.title }} - The Caffeine Lane{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/posts.css' %}">
+
+<div class="post-form-container">
+    <div class="text-center mb-8">
+        <div class="w-16 h-16 bg-red-600 rounded-full flex items-center justify-center text-white text-2xl mx-auto mb-4">
+            <i class="fas fa-exclamation-triangle"></i>
+        </div>
+        <h1 class="text-4xl font-bebas text-gray-900 mb-4">Eliminar Post</h1>
+        <p class="text-lg text-gray-600 font-mont">
+            ¿Estás seguro de que quieres eliminar este post?
+        </p>
+    </div>
+
+    <!-- Vista previa del post a eliminar -->
+    <div class="bg-gray-50 border border-gray-200 rounded-lg p-6 mb-8">
+        <h2 class="text-2xl font-bebas text-gray-900 mb-2">{{ post.title }}</h2>
+        <div class="text-sm text-gray-600 font-mont mb-4">
+            Por {{ post.author.get_full_name|default:post.author.username }} • 
+            {{ post.created_at|date:"d F Y" }} • 
+            {{ post.views_count }} visualizaciones • 
+            {{ post.get_comments_count }} comentarios
+        </div>
+        {% if post.image %}
+            <img src="{{ post.image.url }}" alt="{{ post.title }}" class="w-full h-48 object-cover rounded-lg mb-4">
+        {% endif %}
+        <p class="text-gray-700 font-mont">
+            {{ post.excerpt|default:post.content|truncatewords:30 }}
+        </p>
+    </div>
+
+    <!-- Advertencia -->
+    <div class="bg-red-50 border border-red-200 rounded-lg p-6 mb-8">
+        <div class="flex items-start">
+            <i class="fas fa-exclamation-triangle text-red-600 mr-3 mt-1"></i>
+            <div>
+                <h3 class="font-mont font-semibold text-red-800 mb-2">¡Atención! Esta acción no se puede deshacer</h3>
+                <ul class="text-sm text-red-700 font-mont space-y-1">
+                    <li>• El post será eliminado permanentemente</li>
+                    <li>• Se perderán todos los comentarios ({{ post.get_comments_count }})</li>
+                    <li>• Se perderá el historial de visualizaciones ({{ post.views_count }})</li>
+                    <li>• La imagen asociada también será eliminada</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Formulario de confirmación -->
+    <form method="post" class="text-center">
+        {% csrf_token %}
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+            <a href="{{ post.get_absolute_url }}" class="btn-form-cancel">
+                <i class="fas fa-arrow-left mr-2"></i>
+                No, mantener post
+            </a>
+            <button type="submit" class="btn-form-submit" style="background: #ef4444;" onmouseover="this.style.background='#dc2626'" onmouseout="this.style.background='#ef4444'">
+                <i class="fas fa-trash mr-2"></i>
+                Sí, eliminar definitivamente
+            </button>
+        </div>
+    </form>
+</div>
+
+<script src="{% static 'js/posts.js' %}"></script>
+{% endblock %}

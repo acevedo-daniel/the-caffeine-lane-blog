@@ -1,130 +1,286 @@
 {% extends 'base.html' %}
+{% load static %}
 
-{% block title %}{{ post.title }} - TheCaffeineLane{% endblock %}
+{% block title %}{{ post.title }} - The Caffeine Lane{% endblock %}
 
 {% block content %}
-<article class="max-w-4xl mx-auto px-4 py-8">
+<link rel="stylesheet" href="{% static 'css/posts.css' %}">
+
+<article class="post-detail">
     <!-- Header del post -->
-    <header class="mb-8">
-        <h1 class="text-4xl font-bold text-gray-900 mb-4">{{ post.title }}</h1>
-        <div class="flex items-center text-gray-600 mb-4">
-            <span>Por {{ post.author.get_full_name|default:post.author.username }}</span>
-            <span class="mx-2">•</span>
-            <span>{{ post.created_at|date:"d/m/Y" }}</span>
-            <span class="mx-2">•</span>
-            <span>{{ post.comments.count }} comentario{{ post.comments.count|pluralize }}</span>
+    <header class="post-header">
+        <h1 class="post-title">{{ post.title }}</h1>
+        
+        <div class="post-meta">
+            <div class="post-author-info">
+                <i class="fas fa-user"></i>
+                <a href="{% url 'author_posts' post.author.username %}" class="auth-link-primary">
+                    {{ post.author.get_full_name|default:post.author.username }}
+                </a>
+            </div>
+            <div>
+                <i class="fas fa-calendar"></i>
+                {{ post.created_at|date:"d F Y" }}
+            </div>
+            <div>
+                <i class="fas fa-clock"></i>
+                {{ reading_time }} min de lectura
+            </div>
+            <div>
+                <i class="fas fa-eye"></i>
+                {{ post.views_count }} visualizaciones
+            </div>
         </div>
-        {% for category in post.category.all %}
-            <span class="inline-block bg-blue-100 text-blue-800 text-sm px-3 py-1 rounded-full mr-2">
-                {{ category.name }}
-            </span>
-        {% endfor %}
+        
+        <!-- Categorías -->
+        <div class="flex justify-center gap-2 mb-4">
+            {% for category in post.category.all %}
+                <a href="{% url 'post_by_category' category.slug %}" 
+                   class="category-tag">
+                    {{ category.name }}
+                </a>
+            {% endfor %}
+        </div>
+        
+        <!-- Estado del post (solo visible para el autor o staff) -->
+        {% if post.status != 'published' and can_edit %}
+            <div class="bg-yellow-100 border border-yellow-400 text-yellow-700 px-4 py-3 rounded mb-4 text-center">
+                <i class="fas fa-exclamation-triangle mr-2"></i>
+                Este post está en estado: <strong>{{ post.get_status_display }}</strong>
+            </div>
+        {% endif %}
     </header>
 
-    <!-- Imagen principal -->
+    <!-- Imagen destacada -->
     {% if post.image %}
-    <div class="mb-8">
-        <img src="{{ post.image.url }}" alt="{{ post.title }}" 
-             class="w-full h-auto rounded-lg shadow-lg">
-    </div>
+        <div class="mb-8">
+            <img src="{{ post.image.url }}" 
+                 alt="{{ post.title }}" 
+                 class="post-featured-image">
+        </div>
     {% endif %}
 
     <!-- Contenido del post -->
-    <div class="prose prose-lg max-w-none mb-12">
+    <div class="post-content">
         {{ post.content|linebreaks }}
     </div>
 
-    <!-- Sección de comentarios -->
-    <section class="border-t pt-8">
-        <h3 class="text-2xl font-bold mb-6">
+    <!-- Acciones del post (editar, eliminar) -->
+    {% if can_edit or can_delete %}
+        <div class="post-actions">
+            {% if can_edit %}
+                <a href="{{ post.get_edit_url }}" class="btn-post-action btn-edit">
+                    <i class="fas fa-edit"></i>
+                    Editar Post
+                </a>
+            {% endif %}
+            {% if can_delete %}
+                <a href="{{ post.get_delete_url }}" class="btn-post-action btn-delete">
+                    <i class="fas fa-trash"></i>
+                    Eliminar Post
+                </a>
+            {% endif %}
+            <button onclick="sharePost('twitter', '{{ request.build_absolute_uri }}', '{{ post.title|escapejs }}')" class="btn-post-action">
+                <i class="fab fa-twitter"></i>
+                Compartir
+            </button>
+        </div>
+    {% endif %}
+
+    <!-- Compartir en redes sociales -->
+    <div class="flex justify-center gap-4 mt-8 p-4 bg-gray-50 rounded-lg">
+        <span class="font-mont text-sm text-gray-600 flex items-center">Compartir:</span>
+        <button onclick="sharePost('twitter', '{{ request.build_absolute_uri }}', '{{ post.title|escapejs }}')" class="text-blue-500 hover:text-blue-700">
+            <i class="fab fa-twitter text-xl"></i>
+        </button>
+        <button onclick="sharePost('facebook', '{{ request.build_absolute_uri }}', '{{ post.title|escapejs }}')" class="text-blue-600 hover:text-blue-800">
+            <i class="fab fa-facebook text-xl"></i>
+        </button>
+        <button onclick="sharePost('whatsapp', '{{ request.build_absolute_uri }}', '{{ post.title|escapejs }}')" class="text-green-500 hover:text-green-700">
+            <i class="fab fa-whatsapp text-xl"></i>
+        </button>
+        <button onclick="copyToClipboard('{{ request.build_absolute_uri }}')" class="text-gray-500 hover:text-gray-700">
+            <i class="fas fa-link text-xl"></i>
+        </button>
+    </div>
+</article>
+
+<!-- Sección de comentarios -->
+{% if post.allow_comments %}
+    <section class="comments-section">
+        <h3 class="comments-header">
+            <i class="fas fa-comments mr-2"></i>
             Comentarios ({{ comments.count }})
         </h3>
 
         <!-- Formulario para nuevo comentario -->
         {% if user.is_authenticated %}
-        <div class="mb-8 bg-gray-50 p-6 rounded-lg">
-            <h4 class="text-lg font-semibold mb-4">Deja tu comentario</h4>
-            <form method="post">
+            <form id="comment-form" method="post" action="{% url 'add_comment' post.slug %}" class="comment-form">
                 {% csrf_token %}
-                {{ form.content }}
-                <button type="submit" 
-                        class="mt-4 bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition">
-                    Comentar
+                <div class="mb-4">
+                    <label for="id_content" class="form-label">Tu comentario</label>
+                    {{ comment_form.content }}
+                    {% if comment_form.content.errors %}
+                        {% for error in comment_form.content.errors %}
+                            <span class="form-error">{{ error }}</span>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+                <button type="submit" class="btn-form-submit">
+                    <i class="fas fa-paper-plane mr-2"></i>
+                    Publicar Comentario
                 </button>
             </form>
-        </div>
         {% else %}
-        <div class="mb-8 bg-yellow-50 border border-yellow-200 p-4 rounded-lg">
-            <p class="text-yellow-800">
-                <a href="#" class="text-blue-600 hover:underline">Inicia sesión</a> 
-                para dejar un comentario.
-            </p>
-        </div>
+            <div class="comment-form text-center">
+                <p class="text-gray-600 font-mont mb-4">
+                    <i class="fas fa-lock mr-2"></i>
+                    Debes iniciar sesión para comentar
+                </p>
+                <a href="{% url 'login' %}?next={{ request.path }}" class="read-more-btn">
+                    Iniciar Sesión
+                </a>
+            </div>
         {% endif %}
 
         <!-- Lista de comentarios -->
-        <div class="space-y-6">
+        <div class="space-y-6 mt-8">
             {% for comment in comments %}
-            <div class="bg-white border border-gray-200 rounded-lg p-6">
-                <div class="flex items-center mb-3">
-                    <strong class="text-gray-900">
-                        {{ comment.author.get_full_name|default:comment.author.username }}
-                    </strong>
-                    <span class="text-gray-500 ml-2">
-                        {{ comment.created_at|date:"d/m/Y H:i" }}
-                    </span>
-                </div>
-                <p class="text-gray-700">{{ comment.content|linebreaks }}</p>
-                
-                <!-- Respuestas al comentario -->
-                {% for reply in comment.replies.all %}
-                <div class="ml-8 mt-4 border-l-2 border-gray-200 pl-4">
-                    <div class="flex items-center mb-2">
-                        <strong class="text-gray-900 text-sm">
-                            {{ reply.author.get_full_name|default:reply.author.username }}
-                        </strong>
-                        <span class="text-gray-500 ml-2 text-sm">
-                            {{ reply.created_at|date:"d/m/Y H:i" }}
-                        </span>
+                <div class="comment" id="comment-{{ comment.id }}" data-comment-id="{{ comment.id }}">
+                    <div class="comment-header">
+                        <div class="comment-author">
+                            <span class="comment-author-name">
+                                {{ comment.author.get_full_name|default:comment.author.username }}
+                            </span>
+                            <span class="comment-date">
+                                {{ comment.created_at|date:"d M Y H:i" }}
+                                {% if comment.is_edited %}
+                                    <i class="fas fa-edit text-xs" title="Editado"></i>
+                                {% endif %}
+                            </span>
+                        </div>
+                        
+                        <div class="comment-actions">
+                            {% if user.is_authenticated %}
+                                <button onclick="replyToComment('{{ comment.id }}')" class="btn-post-action" title="Responder">
+                                    <i class="fas fa-reply"></i>
+                                </button>
+                            {% endif %}
+                            {% if comment.can_edit user %}
+                                <a href="{% url 'comment_update' comment.pk %}" class="btn-post-action btn-edit" title="Editar">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+                            {% endif %}
+                            {% if comment.can_delete user %}
+                                <a href="{% url 'comment_delete' comment.pk %}" class="btn-post-action btn-delete" title="Eliminar">
+                                    <i class="fas fa-trash"></i>
+                                </a>
+                            {% endif %}
+                        </div>
                     </div>
-                    <p class="text-gray-700 text-sm">{{ reply.content|linebreaks }}</p>
+                    
+                    <div class="comment-content">
+                        {{ comment.content|linebreaks }}
+                    </div>
+                    
+                    <!-- Respuestas al comentario -->
+                    {% for reply in comment.replies.all %}
+                        <div class="comment comment-reply" id="comment-{{ reply.id }}">
+                            <div class="comment-header">
+                                <div class="comment-author">
+                                    <span class="comment-author-name">
+                                        {{ reply.author.get_full_name|default:reply.author.username }}
+                                    </span>
+                                    <span class="comment-date">
+                                        {{ reply.created_at|date:"d M Y H:i" }}
+                                        {% if reply.is_edited %}
+                                            <i class="fas fa-edit text-xs" title="Editado"></i>
+                                        {% endif %}
+                                    </span>
+                                </div>
+                                
+                                <div class="comment-actions">
+                                    {% if reply.can_edit user %}
+                                        <a href="{% url 'comment_update' reply.pk %}" class="btn-post-action btn-edit" title="Editar">
+                                            <i class="fas fa-edit"></i>
+                                        </a>
+                                    {% endif %}
+                                    {% if reply.can_delete user %}
+                                        <a href="{% url 'comment_delete' reply.pk %}" class="btn-post-action btn-delete" title="Eliminar">
+                                            <i class="fas fa-trash"></i>
+                                        </a>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            
+                            <div class="comment-content">
+                                {{ reply.content|linebreaks }}
+                            </div>
+                        </div>
+                    {% endfor %}
                 </div>
-                {% endfor %}
-            </div>
             {% empty %}
-            <p class="text-gray-500 text-center py-8">
-                Sé el primero en comentar este post.
-            </p>
+                <div class="empty-state">
+                    <div class="empty-state-icon">
+                        <i class="fas fa-comments"></i>
+                    </div>
+                    <h3 class="empty-state-title">Sin comentarios aún</h3>
+                    <p class="empty-state-description">
+                        Sé el primero en comentar este post y comenzar la conversación.
+                    </p>
+                </div>
             {% endfor %}
         </div>
     </section>
-</article>
+{% endif %}
 
 <!-- Posts relacionados -->
-<section class="max-w-4xl mx-auto px-4 py-8 border-t">
-    <h3 class="text-2xl font-bold mb-6">Posts Relacionados</h3>
-    <div class="grid md:grid-cols-3 gap-6">
-        {% for related_post in post.category.all.0.post_set.all|slice:":3" %}
-        {% if related_post != post %}
-        <article class="bg-white rounded-lg shadow-md overflow-hidden">
-            {% if related_post.image %}
-            <img src="{{ related_post.image.url }}" alt="{{ related_post.title }}" 
-                 class="w-full h-48 object-cover">
-            {% endif %}
-            <div class="p-4">
-                <h4 class="font-semibold mb-2">
-                    <a href="{% url 'post_detail' related_post.slug %}" 
-                       class="hover:text-blue-600">
-                        {{ related_post.title }}
-                    </a>
-                </h4>
-                <p class="text-gray-600 text-sm">
-                    {{ related_post.created_at|date:"d/m/Y" }}
-                </p>
-            </div>
-        </article>
-        {% endif %}
-        {% endfor %}
-    </div>
-</section>
+{% if related_posts %}
+    <section class="mt-12 border-t pt-8">
+        <h3 class="text-2xl font-bebas text-gray-900 mb-6 text-center">Posts Relacionados</h3>
+        <div class="grid md:grid-cols-3 gap-6">
+            {% for related_post in related_posts %}
+                <article class="post-card">
+                    {% if related_post.image %}
+                        <img src="{{ related_post.image.url }}" 
+                             alt="{{ related_post.title }}" 
+                             class="post-card-image">
+                    {% endif %}
+                    <div class="post-card-content">
+                        <h4 class="post-card-title">
+                            <a href="{{ related_post.get_absolute_url }}">{{ related_post.title }}</a>
+                        </h4>
+                        <p class="post-card-excerpt">
+                            {{ related_post.excerpt|default:related_post.content|truncatewords:15 }}
+                        </p>
+                        <div class="post-card-footer">
+                            <a href="{{ related_post.get_absolute_url }}" class="read-more-btn">
+                                Leer más
+                            </a>
+                        </div>
+                    </div>
+                </article>
+            {% endfor %}
+        </div>
+    </section>
+{% endif %}
+
+<script src="{% static 'js/posts.js' %}"></script>
+
+<!-- Script para copiar al portapapeles -->
+<script>
+function copyToClipboard(text) {
+    navigator.clipboard.writeText(text).then(() => {
+        // Mostrar mensaje temporal
+        const message = document.createElement('div');
+        message.textContent = '¡Enlace copiado!';
+        message.className = 'fixed top-4 right-4 bg-green-600 text-white px-4 py-2 rounded-lg z-50';
+        document.body.appendChild(message);
+        
+        setTimeout(() => {
+            document.body.removeChild(message);
+        }, 2000);
+    });
+}
+</script>
 {% endblock %}
