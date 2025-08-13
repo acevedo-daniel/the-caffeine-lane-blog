@@ -35,13 +35,25 @@
       {# Top bar: Social icons #}
       <div class="flex justify-between items-center px-6 py-3">
         <div class="flex space-x-2 text-white text-xs pt-0">
-          <a href="#" class="hover:text-red-500 transition" title="Instagram"
+          <a
+            href="#"
+            class="hover:text-red-500 transition"
+            title="Instagram"
+            aria-label="Visit our Instagram"
             ><i class="fab fa-instagram"></i
           ></a>
-          <a href="#" class="hover:text-red-500 transition" title="Twitter"
+          <a
+            href="#"
+            class="hover:text-red-500 transition"
+            title="Twitter"
+            aria-label="Visit our Twtter"
             ><i class="fab fa-x-twitter"></i
           ></a>
-          <a href="#" class="hover:text-red-500 transition" title="Email"
+          <a
+            href="#"
+            class="hover:text-red-500 transition"
+            title="Email"
+            aria-label="Contact us by Email"
             ><i class="fas fa-envelope"></i
           ></a>
           <a
@@ -75,7 +87,7 @@
           href="{% url 'home' %}"
           class="flex items-center transition-transform duration-300 hover:scale-110"
           ><img
-            src="{% static '\images\caffeinelane-logo-small.png' %}"
+            src="{% static 'images/caffeinelane-logo-small.png' %}"
             alt="The Caffeine Lane Logo"
             class="h-8 w-auto rounded-full"
         /></a>
