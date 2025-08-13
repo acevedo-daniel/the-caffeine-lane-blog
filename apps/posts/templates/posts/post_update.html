@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Editar: {{ post.title }} - The Caffeine Lane{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/posts.css' %}">
+
+<div class="post-form-container">
+    <div class="text-center mb-8">
+        <h1 class="text-4xl font-bebas text-gray-900 mb-4">Editar Post</h1>
+        <p class="text-lg text-gray-600 font-mont">
+            Actualiza tu historia, build o aventura
+        </p>
+        <a href="{{ post.get_absolute_url }}" class="text-blue-600 hover:text-blue-800 font-mont text-sm">
+            <i class="fas fa-eye mr-1"></i>
+            Ver post actual
+        </a>
+    </div>
+
+    <!-- El resto del contenido es igual al template de create, pero con form pre-rellenado -->
+    <form id="post-form" method="post" enctype="multipart/form-data" class="post-form">
+        {% csrf_token %}
+        
+        <!-- Aquí va todo el mismo contenido que post_create.html -->
+        <!-- Solo cambian los botones finales: -->
+        
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+            <a href="{{ post.get_absolute_url }}" class="btn-form-cancel">
+                <i class="fas fa-times mr-2"></i>
+                Cancelar
+            </a>
+            <button type="submit" class="btn-form-submit">
+                <i class="fas fa-save mr-2"></i>
+                Actualizar Post
+            </button>
+        </div>
+    </form>
+</div>
+
+<script src="{% static 'js/posts.js' %}"></script>
+{% endblock %}

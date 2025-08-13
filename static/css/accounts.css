@@ -1,0 +1,343 @@
+/* ==============================================
+   ACCOUNTS STYLES - The Caffeine Lane
+   ============================================== */
+
+/* Inputs comunes para formularios */
+.auth-input {
+    appearance: none;
+    background-color: rgba(55, 65, 81, 0.9);
+    border: 1px solid rgba(75, 85, 99, 0.8);
+    color: white;
+    padding: 14px 16px;
+    border-radius: 12px;
+    width: 100%;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.875rem;
+    transition: all 0.3s ease;
+}
+
+.auth-input:focus {
+    outline: none;
+    border-color: #ef4444;
+    box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.15);
+    background-color: rgba(55, 65, 81, 1);
+}
+
+.auth-input::placeholder {
+    color: rgba(156, 163, 175, 0.8);
+    font-size: 0.8rem;
+}
+
+/* Inputs específicos para el registro blanco */
+.register-input {
+    appearance: none;
+    background-color: white;
+    border: 2px solid rgba(156, 163, 175, 0.4);
+    color: black;
+    padding: 14px 16px;
+    padding-left: 16px; /* Para inputs sin icono */
+    border-radius: 12px;
+    width: 100%;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.875rem;
+    transition: all 0.3s ease;
+}
+
+.register-input:focus {
+    outline: none;
+    border-color: #000;
+    box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.1);
+}
+
+.register-input::placeholder {
+    color: rgba(107, 114, 128, 0.7);
+    font-size: 0.8rem;
+}
+
+/* Input con icono */
+.register-input-with-icon {
+    padding-left: 44px;
+}
+
+/* Botones principales */
+.auth-btn-primary {
+    background: linear-gradient(135deg, #000 0%, #333 100%);
+    color: white;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 14px 28px;
+    border-radius: 50px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.auth-btn-primary:hover {
+    background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(239, 68, 68, 0.3);
+}
+
+/* Botón secundario */
+.auth-btn-secondary {
+    background: transparent;
+    color: white;
+    border: 2px solid white;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 12px 26px;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.auth-btn-secondary:hover {
+    background: white;
+    color: black;
+    transform: translateY(-2px);
+}
+
+/* Radio buttons personalizados */
+.radio-container {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.radio-option {
+    position: relative;
+}
+
+.radio-option input[type="radio"] {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.radio-option label {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 80px;
+    padding: 10px 16px;
+    background: white;
+    color: black;
+    border: 2px solid #ddd;
+    border-radius: 50px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    user-select: none;
+}
+
+.radio-option input[type="radio"]:checked + label {
+    background: black;
+    color: white;
+    border-color: black;
+    transform: scale(1.05);
+}
+
+.radio-option label:hover {
+    border-color: #666;
+    transform: translateY(-1px);
+}
+
+/* Mensajes de error y éxito */
+.message-error {
+    background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+    color: white;
+    padding: 12px 16px;
+    border-radius: 8px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.875rem;
+    font-weight: 500;
+    margin-bottom: 16px;
+    box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
+}
+
+.message-success {
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    color: white;
+    padding: 12px 16px;
+    border-radius: 8px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.875rem;
+    font-weight: 500;
+    margin-bottom: 16px;
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+}
+
+.message-info {
+    background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+    color: white;
+    padding: 12px 16px;
+    border-radius: 8px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.875rem;
+    font-weight: 500;
+    margin-bottom: 16px;
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+}
+
+/* Errores de campos específicos */
+.field-error {
+    color: #ef4444;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 500;
+    margin-top: 6px;
+    display: block;
+}
+
+/* Enlaces */
+.auth-link {
+    color: #9ca3af;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.875rem;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.auth-link:hover {
+    color: #ef4444;
+}
+
+.auth-link-primary {
+    color: white;
+    font-weight: 600;
+}
+
+.auth-link-primary:hover {
+    color: #ef4444;
+}
+
+/* Contenedores de formulario */
+.auth-container {
+    background: rgba(17, 24, 39, 0.95);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(55, 65, 81, 0.5);
+    border-radius: 16px;
+    padding: 32px;
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+}
+
+.register-container {
+    background: white;
+    border-radius: 16px;
+    padding: 32px 28px;
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+}
+
+/* Checkbox personalizado */
+.auth-checkbox {
+    appearance: none;
+    width: 18px;
+    height: 18px;
+    background: rgba(55, 65, 81, 0.8);
+    border: 2px solid rgba(75, 85, 99, 0.8);
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.auth-checkbox:checked {
+    background: #ef4444;
+    border-color: #ef4444;
+}
+
+.auth-checkbox:checked::after {
+    content: '✓';
+    display: block;
+    color: white;
+    font-size: 12px;
+    text-align: center;
+    line-height: 14px;
+    font-weight: bold;
+}
+
+/* Animaciones */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.fade-in-up {
+    animation: fadeInUp 0.6s ease forwards;
+}
+
+/* Loading spinner */
+.auth-loading {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    border-top-color: white;
+    animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .auth-container,
+    .register-container {
+        padding: 24px 20px;
+        margin: 16px;
+    }
+    
+    .radio-container {
+        gap: 8px;
+    }
+    
+    .radio-option label {
+        min-width: 70px;
+        padding: 8px 12px;
+        font-size: 0.7rem;
+    }
+}
+
+/* Profile specific styles */
+.profile-avatar {
+    background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+    border: 4px solid rgba(55, 65, 81, 0.5);
+}
+
+.profile-field {
+    background: rgba(17, 24, 39, 0.8);
+    border: 1px solid rgba(55, 65, 81, 0.6);
+    color: white;
+    padding: 12px 16px;
+    border-radius: 8px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.875rem;
+    width: 100%;
+    transition: all 0.3s ease;
+}
+
+.profile-field:focus {
+    outline: none;
+    border-color: #ef4444;
+    box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.15);
+}
+

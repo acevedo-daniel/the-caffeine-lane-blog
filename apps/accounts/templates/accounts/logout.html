@@ -1,29 +1,26 @@
 {% extends 'base.html' %}
+{% load static %}
 
-{% block title %}Cerrar Sesión - TheCaffeineLane{% endblock %}
+{% block title %}Cerrar Sesión - The Caffeine Lane{% endblock %}
 
-{% block header %}{% endblock %} {# Oculta el navbar #}
-
+{# Removido el navbar de esta página #}
 
 {% block content %}
-<div class="min-h-screen bg-black flex flex-col items-center justify-center py-12 px-4 relative overflow-hidden">
-    <div class="max-w-md w-full space-y-8">
+<div class="min-h-screen bg-white flex flex-col items-center justify-center py-12 px-4 relative overflow-hidden"> {# Cambiado a fondo blanco puro #}
+    <div class="max-w-md w-full space-y-6 animate-fade-in-up bg-gray-50 p-8 rounded-lg shadow-xl"> {# Cambiado el fondo a un gris muy claro para que resalte #}
         <div class="text-center">
-            <a href="{% url 'home' %}" class="text-5xl font-bebas text-white tracking-wider hover:text-red-500 transition duration-300">
+            <a href="{% url 'home' %}" class="text-5xl font-bebas text-gray-800 tracking-wider hover:text-red-500 transition duration-300" aria-label="Ir a la página de inicio"> {# Texto cambiado a oscuro #}
                 THE CAFFEINE LANE
             </a>
-            
         </div>
         <div class="text-center">
-            <h2 class="text-4xl font-bebas text-white mb-4">
-                ¡Hasta pronto, {{ user.get_full_name|default:user.username }}!
+            <h2 class="text-4xl font-bebas text-gray-800 mb-4"> {# Texto cambiado a oscuro #}
+                ¡Hasta pronto, {{ user.get_full_name|default:user.username|title }}!
             </h2>
-            
-            <p class="text-lg text-gray-300 font-mont mb-2">
+            <p class="text-lg text-gray-700 font-mont mb-2"> {# Texto cambiado a oscuro #}
                 ¿Estás seguro que quieres cerrar sesión?
             </p>
-            
-            <p class="text-sm text-gray-400 font-mont">
+            <p class="text-sm text-gray-600 font-mont"> {# Texto cambiado a oscuro #}
                 Nos vemos en la próxima aventura sobre dos ruedas
             </p>
         </div>
@@ -32,25 +29,26 @@
         <div class="space-y-4">
             <form method="post" action="{% url 'logout' %}" class="space-y-4">
                 {% csrf_token %}
-                
-                <!-- Botón de confirmar logout -->
-                <button type="submit" 
-                        class="group relative w-full flex justify-center py-3 px-4 border border-transparent text-sm font-mont font-bold rounded-lg text-white bg-red-600 hover:bg-red-700 transition duration-300 ease-in-out transform hover:scale-105">
+                <button type="submit"
+                        class="group relative w-full flex justify-center py-3 px-4 border border-transparent text-sm font-mont font-bold rounded-lg text-white bg-red-600 hover:bg-red-700 transition duration-300 ease-in-out transform hover:scale-105"
+                        aria-label="Confirmar cerrar sesión">
                     Sí, cerrar sesión
                 </button>
             </form>
-            
+
             <!-- Botón de cancelar -->
-            <a href="{% url 'home' %}" class="group relative w-full flex justify-center py-3 px-4 border border-gray-600 text-sm font-mont font-bold rounded-lg text-white bg-transparent hover:bg-white hover:text-black transition duration-300 ease-in-out transform hover:scale-105">
+            <a href="{% url 'home' %}"
+               class="group relative w-full flex justify-center py-3 px-4 border border-gray-400 text-gray-800 bg-transparent hover:bg-gray-100 hover:text-black transition duration-300 ease-in-out transform hover:scale-105 rounded-lg font-mont font-bold text-sm" {# Texto y borde cambiados #}
+               aria-label="Volver a la página de inicio">
                 No, volver al inicio
             </a>
         </div>
 
         <!-- Información adicional -->
         <div class="text-center mt-8">
-            <div class="bg-gray-800 bg-opacity-50 rounded-lg p-4 border border-gray-600">
-                <h3 class="text-lg font-bebas text-white mb-2">¿Por qué cerrar sesión?</h3>
-                <ul class="text-sm text-gray-300 font-mont space-y-1">
+            <div class="bg-gray-100 rounded-lg p-4 border border-gray-300"> {# Fondo y borde cambiados #}
+                <h3 class="text-lg font-bebas text-gray-800 mb-2">¿Por qué cerrar sesión?</h3> {# Texto cambiado a oscuro #}
+                <ul class="text-sm text-gray-700 font-mont space-y-1 text-left mx-auto max-w-xs"> {# Texto cambiado a oscuro #}
                     <li>• Tu sesión se mantendrá segura</li>
                     <li>• Puedes iniciar sesión en cualquier momento</li>
                     <li>• Tus comentarios y perfil se mantendrán</li>
@@ -59,25 +57,24 @@
         </div>
 
         <!-- Links útiles -->
-        <div class="flex justify-center space-x-6 text-sm">
-            <a href="{% url 'home' %}" class="text-gray-400 hover:text-red-500 transition font-mont">
+        <div class="flex justify-center space-x-6 text-sm mt-6"> {# Eliminado mb-12 para reducir el espacio inferior #}
+            <a href="{% url 'home' %}" class="text-gray-600 hover:text-red-500 transition font-mont" aria-label="Ir a la página de inicio"> {# Texto cambiado a oscuro #}
                 Inicio
             </a>
-            <span class="text-gray-600">•</span>
-            <a href="{% url 'post_list' %}" class="text-gray-400 hover:text-red-500 transition font-mont">
+            <span class="text-gray-500">•</span> {# Separador cambiado a oscuro #}
+            <a href="{% url 'home' %}" class="text-gray-600 hover:text-red-500 transition font-mont" aria-label="Ir al blog de posts"> {# Texto cambiado a oscuro #}
                 Blog
             </a>
-            <!-- <span class="text-gray-600">•</span>
-            <a href="#" class="text-gray-400 hover:text-red-500 transition font-mont">
-                Ayuda
-            </a> -->
+            {# Puedes descomentar esto si tienes una página de ayuda en el futuro #}
+            {# <span class="text-gray-500">•</span> #}
+            {# <a href="#" class="text-gray-600 hover:text-red-500 transition font-mont">Ayuda</a> #}
         </div>
     </div>
 </div>
 
 <!-- Mensaje de despedida animado -->
 <div class="fixed bottom-4 right-4 z-50">
-    <div class="bg-black text-white px-4 py-2 rounded-lg shadow-lg font-mont text-sm animate-pulse">
+    <div class="bg-gray-800 text-white px-4 py-2 rounded-lg shadow-lg font-mont text-sm animate-pulse"> {# Fondo y texto cambiados #}
         <i class="fas fa-motorcycle mr-2 text-red-500"></i>
         Mantén el motor encendido...
     </div>
@@ -94,16 +91,28 @@
             transform: translateY(0);
         }
     }
+
+    .animate-fade-in-up {
+        animation: fadeInUp 0.5s ease-out forwards;
+        opacity: 0; /* Asegura que el elemento empiece invisible */
+    }
+
+    .animate-pulse {
+        animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    }
+
+    @keyframes pulse {
+        0%, 100% { opacity: 1; }
+        50% { opacity: .5; }
+    }
 </style>
 
 <script>
-    // Agregar animación a los elementos cuando se carga la página
     document.addEventListener('DOMContentLoaded', function() {
-        const elements = document.querySelectorAll('.space-y-8 > div, .space-y-4 > *');
-        elements.forEach((element, index) => {
+        const elementsToAnimate = document.querySelectorAll('.animate-fade-in-up');
+        elementsToAnimate.forEach((element, index) => {
             element.style.animationDelay = `${index * 0.1}s`;
-            element.classList.add('animate-fade-in-up');
         });
     });
 </script>
-{% endblock %}
+{% endblock content %}
