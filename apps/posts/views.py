@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404, redirect, render
 
 from .forms import CommentForm
-from .models import Comment, Post
+from .models import Category, Comment, Post
 
 
 def post_detail(request, slug):
@@ -34,3 +34,48 @@ def post_detail(request, slug):
         "form": form,
     }
     return render(request, "posts/post_detail.html", context)
+
+
+def category_view(request, category_slug):
+    category = get_object_or_404(Category, slug=category_slug)
+    posts = Post.objects.filter(category=category, status="published").order_by(
+        "-created_at"
+    )
+    context = {
+        "category": category,
+        "posts": posts,
+    }
+    return render(request, "posts/category_view.html", context)
+
+
+@login_required
+def comment_edit(request, comment_id):
+    comment = get_object_or_404(Comment, pk=comment_id)
+    if request.user != comment.author:
+        messages.error(request, "You do not have permission to edit this comment.")
+        return redirect("post_detail", slug=comment.post.slug)
+
+    form = CommentForm(request.POST or None, instance=comment)
+    if form.is_valid():
+        form.save()
+        messages.success(request, "Comment edited successfully.")
+        return redirect("post_detail", slug=comment.post.slug)
+
+    context = {"form": form, "comment": comment}
+    return render(request, "posts/comment_edit.html", context)
+
+
+@login_required
+def comment_delete(request, comment_id):
+    comment = get_object_or_404(Comment, pk=comment_id)
+    if request.user != comment.author:
+        messages.error(request, "You do not have permission to delete this comment.")
+        return redirect("post_detail", slug=comment.post.slug)
+
+    if request.method == "POST":
+        comment.delete()
+        messages.success(request, "Comment deleted successfully.")
+        return redirect("post_detail", slug=comment.post.slug)
+
+    context = {"comment": comment}
+    return render(request, "posts/comment_delete_confirm.html", context)

@@ -1,109 +1,52 @@
-{% extends 'base.html' %}
-
-{% block title %}Cerrar Sesión - TheCaffeineLane{% endblock %}
-
-{% block header %}{% endblock %} {# Oculta el navbar #}
-
-
+{% extends "base.html" %}
+{% load static %}
+{% block title %}
+    Log Out - The Caffeine Lane
+{% endblock title %}
+{% block header %}
+{% endblock header %}
+{% block footer %}
+{% endblock footer %}
 {% block content %}
-<div class="min-h-screen bg-black flex flex-col items-center justify-center py-12 px-4 relative overflow-hidden">
-    <div class="max-w-md w-full space-y-8">
-        <div class="text-center">
-            <a href="{% url 'home' %}" class="text-5xl font-bebas text-white tracking-wider hover:text-red-500 transition duration-300">
-                THE CAFFEINE LANE
-            </a>
-            
-        </div>
-        <div class="text-center">
-            <h2 class="text-4xl font-bebas text-white mb-4">
-                ¡Hasta pronto, {{ user.get_full_name|default:user.username }}!
-            </h2>
-            
-            <p class="text-lg text-gray-300 font-mont mb-2">
-                ¿Estás seguro que quieres cerrar sesión?
-            </p>
-            
-            <p class="text-sm text-gray-400 font-mont">
-                Nos vemos en la próxima aventura sobre dos ruedas
-            </p>
-        </div>
-
-        <!-- Formulario de confirmación de logout -->
-        <div class="space-y-4">
-            <form method="post" action="{% url 'logout' %}" class="space-y-4">
-                {% csrf_token %}
-                
-                <!-- Botón de confirmar logout -->
-                <button type="submit" 
-                        class="group relative w-full flex justify-center py-3 px-4 border border-transparent text-sm font-mont font-bold rounded-lg text-white bg-red-600 hover:bg-red-700 transition duration-300 ease-in-out transform hover:scale-105">
-                    Sí, cerrar sesión
-                </button>
-            </form>
-            
-            <!-- Botón de cancelar -->
-            <a href="{% url 'home' %}" class="group relative w-full flex justify-center py-3 px-4 border border-gray-600 text-sm font-mont font-bold rounded-lg text-white bg-transparent hover:bg-white hover:text-black transition duration-300 ease-in-out transform hover:scale-105">
-                No, volver al inicio
-            </a>
-        </div>
-
-        <!-- Información adicional -->
-        <div class="text-center mt-8">
-            <div class="bg-gray-800 bg-opacity-50 rounded-lg p-4 border border-gray-600">
-                <h3 class="text-lg font-bebas text-white mb-2">¿Por qué cerrar sesión?</h3>
-                <ul class="text-sm text-gray-300 font-mont space-y-1">
-                    <li>• Tu sesión se mantendrá segura</li>
-                    <li>• Puedes iniciar sesión en cualquier momento</li>
-                    <li>• Tus comentarios y perfil se mantendrán</li>
-                </ul>
+    <div class="min-h-screen bg-black flex items-center justify-center py-12 px-4 relative overflow-hidden">
+        <div class="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-10 max-w-5xl w-full">
+            {# Left Column: Form Card #}
+            <div class="bg-white rounded-2xl p-10 text-center w-full max-w-md mx-auto flex flex-col justify-center">
+                <div class="container mx-auto px-4">
+                    <a href="{% url "home" %}"
+                       class="text-xl font-bebas text-black hover:text-stone-800 transition">THE CAFFEINE LANE</a>
+                    <h2 class="text-4xl font-mont font-bold uppercase text-black pt-2 hover:text-stone-800 transition">Log Out</h2>
+                    <p class="mt-4 text-base font-mont text-gray-600">Are you sure you want to log out?</p>
+                </div>
+                <form class="w-full mt-8" method="post" action="{% url 'logout' %}">
+                    {% csrf_token %}
+                    <div class="space-y-4">
+                        <button type="submit"
+                                class="w-full py-3 px-8 bg-red-600 text-white font-mont font-medium tracking-wider rounded-full hover:bg-red-700 transition-all duration-300 transform hover:scale-105 shadow-lg flex items-center justify-center relative">
+                            Yes, Log Out
+                        </button>
+                        <a href="{% url 'home' %}"
+                           class="w-full py-3 px-8 bg-gray-200 text-black font-mont font-medium tracking-wider rounded-full hover:bg-gray-300 transition-all duration-300 transform hover:scale-105 shadow-lg flex items-center justify-center relative">
+                            Cancel
+                        </a>
+                    </div>
+                </form>
+            </div>
+            {# Right Column: Logo + Welcome Message #}
+            <div class="hidden lg:flex flex-col items-center justify-center text-center">
+                <a href="{% url "home" %}"
+                   class="transition-transform duration-300 hover:scale-105">
+                    <img src="{% static 'images/caffeinelane-logo-alternative-full.png' %}"
+                         alt="The Caffeine Lane Logo"
+                         class="h-56 w-auto mb-4 rounded-full"
+                         width="224"
+                         height="224" />
+                </a>
+                <div class="transition-transform duration-300 hover:scale-105">
+                    <h2 class="text-3xl font-mont font-medium text-white">RIDE SAFE, RIDE FREE</h2>
+                    <p class="text-base font-mont text-gray-300 mt-2">See you on the road again soon.</p>
+                </div>
             </div>
         </div>
-
-        <!-- Links útiles -->
-        <div class="flex justify-center space-x-6 text-sm">
-            <a href="{% url 'home' %}" class="text-gray-400 hover:text-red-500 transition font-mont">
-                Inicio
-            </a>
-            <span class="text-gray-600">•</span>
-            <a href="{% url 'post_list' %}" class="text-gray-400 hover:text-red-500 transition font-mont">
-                Blog
-            </a>
-            <!-- <span class="text-gray-600">•</span>
-            <a href="#" class="text-gray-400 hover:text-red-500 transition font-mont">
-                Ayuda
-            </a> -->
-        </div>
     </div>
-</div>
-
-<!-- Mensaje de despedida animado -->
-<div class="fixed bottom-4 right-4 z-50">
-    <div class="bg-black text-white px-4 py-2 rounded-lg shadow-lg font-mont text-sm animate-pulse">
-        <i class="fas fa-motorcycle mr-2 text-red-500"></i>
-        Mantén el motor encendido...
-    </div>
-</div>
-
-<style>
-    @keyframes fadeInUp {
-        from {
-            opacity: 0;
-            transform: translateY(30px);
-        }
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
-    }
-</style>
-
-<script>
-    // Agregar animación a los elementos cuando se carga la página
-    document.addEventListener('DOMContentLoaded', function() {
-        const elements = document.querySelectorAll('.space-y-8 > div, .space-y-4 > *');
-        elements.forEach((element, index) => {
-            element.style.animationDelay = `${index * 0.1}s`;
-            element.classList.add('animate-fade-in-up');
-        });
-    });
-</script>
-{% endblock %}
+{% endblock content %}

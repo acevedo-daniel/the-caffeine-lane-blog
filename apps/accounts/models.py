@@ -5,11 +5,15 @@ from django.dispatch import receiver
 
 
 class Profile(models.Model):
+    GENDER_CHOICES = [
+        ("M", "Male"),
+        ("F", "Female"),
+        ("O", "Other"),
+    ]
+
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     bio = models.TextField(max_length=500, blank=True)
-    gender = models.CharField(
-        max_length=10, choices=[("M", "Male"), ("F", "Female")], blank=True
-    )
+    gender = models.CharField(max_length=1, choices=GENDER_CHOICES, blank=True)
     birth_date = models.DateField(null=True, blank=True)
     avatar = models.ImageField(
         upload_to="avatars/", null=True, blank=True, default="avatars/default.png"

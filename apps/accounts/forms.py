@@ -5,7 +5,6 @@ from django.contrib.auth.models import User
 from .models import Profile
 
 
-# --- Este formulario permanece igual ---
 class EmailRegistrationForm(forms.Form):
     email = forms.EmailField(
         required=True,
@@ -21,17 +20,10 @@ class EmailRegistrationForm(forms.Form):
         return email
 
 
-# --- Formulario de Paso 2 (Refactorizado) ---
 class RegistrationStep2Form(UserCreationForm):
-    """
-    Formulario refactorizado para definir los estilos y placeholders
-    directamente en los widgets, siguiendo las mejores prácticas de Django.
-    """
 
-    # Define una clase CSS común para reutilizarla
     TEXT_INPUT_CLASS = "text-black text-xs font-mont font-light tracking-wide"
 
-    # Sobrescribe los campos heredados para añadir widgets personalizados
     username = forms.CharField(
         label="What is your Username?",
         widget=forms.TextInput(
@@ -63,7 +55,6 @@ class RegistrationStep2Form(UserCreationForm):
         ),
     )
 
-    # Define los campos personalizados con sus widgets
     first_name = forms.CharField(
         label="First Name",
         max_length=30,
@@ -81,7 +72,6 @@ class RegistrationStep2Form(UserCreationForm):
         ),
     )
 
-    # Campos de opciones (Radio buttons)
     gender = forms.ChoiceField(
         choices=[("M", "Male"), ("F", "Female")],
         required=False,
@@ -101,28 +91,41 @@ class RegistrationStep2Form(UserCreationForm):
             "username",
             "first_name",
             "last_name",
-        )  # password1 y password2 son manejados por UserCreationForm
+        )
 
     def save(self, commit=True, email=None):
-        # El método save de la clase padre ahora maneja first_name y last_name
         user = super().save(commit=False)
         if email:
             user.email = email
 
         if commit:
             user.save()
-            # Crear o actualizar el perfil asociado
             profile, created = Profile.objects.get_or_create(user=user)
             profile.gender = self.cleaned_data.get("gender")
-            # Convertir la cadena 'True'/'False' a booleano para el modelo
             profile.has_moto = self.cleaned_data.get("has_moto") == "True"
             profile.save()
         return user
 
 
-# --- Este formulario permanece igual ---
 class ProfileForm(forms.ModelForm):
+
+    gender = forms.ChoiceField(
+        choices=Profile.GENDER_CHOICES,
+        widget=forms.RadioSelect,
+        required=False,
+        label="What is your gender?",
+    )
+
+    has_moto = forms.ChoiceField(
+        choices=[(True, "Yes"), (False, "No")],
+        widget=forms.RadioSelect,
+        label="Do you own a motorcycle?",
+    )
+
     class Meta:
         model = Profile
         fields = ["bio", "avatar", "personal_url", "birth_date", "gender", "has_moto"]
-        widgets = {"birth_date": forms.DateInput(attrs={"type": "date"})}
+        widgets = {
+            "birth_date": forms.DateInput(attrs={"type": "date"}),
+            "bio": forms.Textarea(attrs={"rows": 3}),
+        }

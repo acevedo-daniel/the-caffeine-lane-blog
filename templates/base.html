@@ -37,7 +37,7 @@
                class="hover:text-red-500 transition"
                title="Twitter"
                aria-label="Visit our Twtter"><i class="fab fa-x-twitter"></i></a>
-            <a href="#"
+            <a href="{% url 'contact' %}"
                class="hover:text-red-500 transition"
                title="Email"
                aria-label="Contact us by Email"><i class="fas fa-envelope"></i></a>
@@ -68,11 +68,11 @@
           <nav class="flex space-x-4 text-xs">
             <a href="{% url 'home' %}"
                class="text-white font-mont font-semibold uppercase hover:text-red-500 transition">HOME</a>
-            <a href="{% url 'home' %}"
+            <a href="{% url 'category_view' category_slug='builds' %}"
                class="text-white font-mont font-semibold uppercase hover:text-red-500 transition">BUILDS</a>
-            <a href="{% url 'home' %}"
+            <a href="{% url 'category_view' category_slug='guides' %}"
                class="text-white font-mont font-semibold uppercase hover:text-red-500 transition">GUIDES</a>
-            <a href="{% url 'home' %}"
+            <a href="{% url 'category_view' category_slug='reviews' %}"
                class="text-white font-mont font-semibold uppercase hover:text-red-500 transition">REVIEWS</a>
           </nav>
         </div>
@@ -146,10 +146,10 @@
           <div>
             <ul class="space-y-1 font-mont text-sm">
               <li>
-                <a href="#" class="hover:text-red-500 transition">About Us</a>
+                <a href="{% url 'about' %}" class="hover:text-red-500 transition">About Us</a>
               </li>
               <li>
-                <a href="#" class="hover:text-red-500 transition">Contact Us</a>
+                <a href="{% url 'contact' %}" class="hover:text-red-500 transition">Contact Us</a>
               </li>
               <li>
                 <a href="#" class="hover:text-red-500 transition">Privacy Policy</a>

@@ -1,130 +1,260 @@
-{% extends 'base.html' %}
-
-{% block title %}{{ post.title }} - TheCaffeineLane{% endblock %}
-
+{% extends "base.html" %}
+{% load static %}
+{% block title %}
+    {{ post.title }} - The Caffeine Lane
+{% endblock title %}
 {% block content %}
-<article class="max-w-4xl mx-auto px-4 py-8">
-    <!-- Header del post -->
-    <header class="mb-8">
-        <h1 class="text-4xl font-bold text-gray-900 mb-4">{{ post.title }}</h1>
-        <div class="flex items-center text-gray-600 mb-4">
-            <span>Por {{ post.author.get_full_name|default:post.author.username }}</span>
-            <span class="mx-2">•</span>
-            <span>{{ post.created_at|date:"d/m/Y" }}</span>
-            <span class="mx-2">•</span>
-            <span>{{ post.comments.count }} comentario{{ post.comments.count|pluralize }}</span>
-        </div>
-        {% for category in post.category.all %}
-            <span class="inline-block bg-blue-100 text-blue-800 text-sm px-3 py-1 rounded-full mr-2">
-                {{ category.name }}
-            </span>
-        {% endfor %}
-    </header>
-
-    <!-- Imagen principal -->
-    {% if post.image %}
-    <div class="mb-8">
-        <img src="{{ post.image.url }}" alt="{{ post.title }}" 
-             class="w-full h-auto rounded-lg shadow-lg">
-    </div>
-    {% endif %}
-
-    <!-- Contenido del post -->
-    <div class="prose prose-lg max-w-none mb-12">
-        {{ post.content|linebreaks }}
-    </div>
-
-    <!-- Sección de comentarios -->
-    <section class="border-t pt-8">
-        <h3 class="text-2xl font-bold mb-6">
-            Comentarios ({{ comments.count }})
-        </h3>
-
-        <!-- Formulario para nuevo comentario -->
-        {% if user.is_authenticated %}
-        <div class="mb-8 bg-gray-50 p-6 rounded-lg">
-            <h4 class="text-lg font-semibold mb-4">Deja tu comentario</h4>
-            <form method="post">
-                {% csrf_token %}
-                {{ form.content }}
-                <button type="submit" 
-                        class="mt-4 bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition">
-                    Comentar
-                </button>
-            </form>
-        </div>
-        {% else %}
-        <div class="mb-8 bg-yellow-50 border border-yellow-200 p-4 rounded-lg">
-            <p class="text-yellow-800">
-                <a href="#" class="text-blue-600 hover:underline">Inicia sesión</a> 
-                para dejar un comentario.
-            </p>
-        </div>
-        {% endif %}
-
-        <!-- Lista de comentarios -->
-        <div class="space-y-6">
-            {% for comment in comments %}
-            <div class="bg-white border border-gray-200 rounded-lg p-6">
-                <div class="flex items-center mb-3">
-                    <strong class="text-gray-900">
-                        {{ comment.author.get_full_name|default:comment.author.username }}
-                    </strong>
-                    <span class="text-gray-500 ml-2">
-                        {{ comment.created_at|date:"d/m/Y H:i" }}
-                    </span>
+    <div class="bg-white py-8 font-mont">
+        <article class="max-w-4xl mx-auto px-4">
+            {# "Go Back" Link & Post Header #}
+            <header class="mb-8">
+                <a href="{{ request.META.HTTP_REFERER|default:post.get_absolute_url }}"
+                   class="text-sm text-gray-500 hover:text-black transition inline-flex items-center mb-6">
+                    <svg xmlns="http://www.w3.org/2000/svg"
+                         width="24"
+                         height="24"
+                         viewBox="0 0 24 24"
+                         fill="none"
+                         stroke="currentColor"
+                         stroke-width="2"
+                         stroke-linecap="round"
+                         stroke-linejoin="round"
+                         class="w-4 h-4 mr-1">
+                        <path d="m15 18-6-6 6-6" />
+                    </svg>
+                    Go Back
+                </a>
+                <div class="mb-4">
+                    {% for category in post.category.all %}
+                        <a href="{% url 'category_view' category_slug=category.slug %}"
+                           class="text-xs font-bold uppercase text-white bg-red-600 hover:bg-black transition px-3 py-1 rounded-full">{{ category.name }}</a>
+                    {% endfor %}
                 </div>
-                <p class="text-gray-700">{{ comment.content|linebreaks }}</p>
-                
-                <!-- Respuestas al comentario -->
-                {% for reply in comment.replies.all %}
-                <div class="ml-8 mt-4 border-l-2 border-gray-200 pl-4">
-                    <div class="flex items-center mb-2">
-                        <strong class="text-gray-900 text-sm">
-                            {{ reply.author.get_full_name|default:reply.author.username }}
-                        </strong>
-                        <span class="text-gray-500 ml-2 text-sm">
-                            {{ reply.created_at|date:"d/m/Y H:i" }}
-                        </span>
+                <h1 class="text-4xl md:text-6xl font-bebas text-black mb-4">{{ post.title }}</h1>
+                <div class="flex items-center text-sm text-gray-500">
+                    <img src="{{ post.author.profile.avatar.url|default:'/static/images/default-avatar.png' }}"
+                         alt="{{ post.author.username }}'s avatar"
+                         class="w-8 h-8 rounded-full mr-3"
+                         width="32"
+                         height="32" />
+                    <span>By {{ post.author.get_full_name|default:post.author.username }}</span>
+                    <span class="mx-2">•</span>
+                    <span>{{ post.created_at|date:"F j, Y" }}</span>
+                </div>
+            </header>
+            {# Main Post Image with Banner Aspect Ratio #}
+            {% if post.image %}
+                <div class="mb-8 rounded-lg shadow-xl overflow-hidden aspect-video bg-gray-200">
+                    <img src="{{ post.image.url }}"
+                         alt="{{ post.title }}"
+                         class="w-full h-full object-cover"
+                         width="1200"
+                         height="675" />
+                </div>
+            {% endif %}
+            {# Post Content with Tailwind Prose for beautiful typography #}
+            <div class="prose prose-lg max-w-none mb-12 text-gray-800 leading-relaxed">{{ post.content|linebreaks }}</div>
+            {# Comments Section #}
+            <section class="border-t border-gray-200 pt-8">
+                <h3 class="text-3xl font-bebas text-black mb-6">Comments ({{ comments.count }})</h3>
+                {# New Comment Form #}
+                {% if user.is_authenticated %}
+                    <div class="mb-8 bg-gray-50 p-6 rounded-lg border border-gray-200">
+                        <h4 class="text-lg font-bold mb-4 font-mont">Leave a Comment</h4>
+                        <form method="post">
+                            {% csrf_token %}
+                            {{ form.content }}
+                            <button type="submit"
+                                    class="mt-4 bg-black text-white font-mont font-medium tracking-wider py-2 px-6 rounded-full hover:bg-stone-800 transition-all duration-300 transform hover:scale-105">
+                                Submit Comment
+                            </button>
+                        </form>
                     </div>
-                    <p class="text-gray-700 text-sm">{{ reply.content|linebreaks }}</p>
+                {% else %}
+                    <div class="mb-8 bg-gray-100 border border-gray-200 p-4 rounded-lg text-center">
+                        <p class="text-gray-700">
+                            <a href="{% url "login" %}?next={{ request.path }}"
+                               class="font-bold text-black hover:underline">Log in</a>
+                            to leave a comment.
+                        </p>
+                    </div>
+                {% endif %}
+                {# Comments List #}
+                <div class="comments-list space-y-6">
+                    {% for comment in comments %}
+                        <div class="bg-gray-50 border border-gray-200 rounded-lg p-6">
+                            <div class="flex items-start mb-3">
+                                <img src="{{ comment.author.profile.avatar.url|default:'/static/images/default-avatar.png' }}"
+                                     alt="{{ comment.author.username }}'s avatar"
+                                     class="w-10 h-10 rounded-full mr-4"
+                                     width="40"
+                                     height="40" />
+                                <div class="flex-1">
+                                    <div class="flex items-center justify-between">
+                                        <div>
+                                            <strong class="text-gray-900 font-bold">{{ comment.author.get_full_name|default:comment.author.username }}</strong>
+                                            <span class="text-gray-500 text-xs ml-2">{{ comment.created_at|date:"F j, Y, P" }}</span>
+                                        </div>
+                                        {% if request.user == comment.author %}
+                                            <button class="text-gray-500 hover:text-black transition"
+                                                    data-comment-id="{{ comment.id }}">
+                                                <svg xmlns="http://www.w3.org/2000/svg"
+                                                     class="h-5 w-5"
+                                                     viewBox="0 0 20 20"
+                                                     fill="currentColor">
+                                                    <path d="M10 6a2 2 0 110-4 2 2 0 010 4zM10 12a2 2 0 110-4 2 2 0 010 4zM10 18a2 2 0 110-4 2 2 0 010 4z" />
+                                                </svg>
+                                            </button>
+                                        {% endif %}
+                                    </div>
+                                    <p class="text-gray-700 mt-1">{{ comment.content|linebreaks }}</p>
+                                </div>
+                            </div>
+                            {# Comment Replies #}
+                            {% for reply in comment.replies.all %}
+                                <div class="ml-10 mt-4 border-l-2 border-gray-200 pl-6">
+                                    <div class="flex items-start mb-2">
+                                        <img src="{{ reply.author.profile.avatar.url|default:'/static/images/default-avatar.png' }}"
+                                             alt="{{ reply.author.username }}'s avatar"
+                                             class="w-8 h-8 rounded-full mr-3"
+                                             width="32"
+                                             height="32" />
+                                        <div class="flex-1">
+                                            <div class="flex items-center">
+                                                <strong class="text-gray-900 text-sm font-bold">{{ reply.author.get_full_name|default:reply.author.username }}</strong>
+                                                <span class="text-gray-500 text-xs ml-2">{{ reply.created_at|date:"F j, Y, P" }}</span>
+                                            </div>
+                                            <p class="text-gray-700 text-sm mt-1">{{ reply.content|linebreaks }}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    {% empty %}
+                        <p class="text-gray-500 text-center py-8">Be the first to comment on this post.</p>
+                    {% endfor %}
                 </div>
+            </section>
+        </article>
+        {# Related Posts Section #}
+        <section class="max-w-7xl mx-auto px-4 py-8 mt-8 border-t border-gray-200">
+            <h3 class="text-3xl font-bebas text-black mb-6 text-center">Related Posts</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {% for related_post in related_posts %}
+                    <a href="{% url "post_detail" related_post.slug %}" class="block group">
+                        <div class="bg-white rounded-lg overflow-hidden transition-transform duration-300 group-hover:scale-105 shadow-md">
+                            {% if related_post.image %}
+                                <img src="{{ related_post.image.url }}"
+                                     alt="{{ related_post.title }}"
+                                     class="w-full h-64 object-cover"
+                                     width="400"
+                                     height="256" />
+                            {% endif %}
+                            <div class="p-4">
+                                <div class="text-xs text-gray-600 mb-1">
+                                    <span class="font-bold text-gray-800">{{ related_post.author.username }}</span>
+                                </div>
+                                <h3 class="text-lg font-bold text-gray-900">{{ related_post.title }}</h3>
+                            </div>
+                        </div>
+                    </a>
+                {% empty %}
+                    <p class="text-gray-500 md:col-span-3 text-center">No related posts found.</p>
                 {% endfor %}
             </div>
-            {% empty %}
-            <p class="text-gray-500 text-center py-8">
-                Sé el primero en comentar este post.
-            </p>
-            {% endfor %}
-        </div>
-    </section>
-</article>
-
-<!-- Posts relacionados -->
-<section class="max-w-4xl mx-auto px-4 py-8 border-t">
-    <h3 class="text-2xl font-bold mb-6">Posts Relacionados</h3>
-    <div class="grid md:grid-cols-3 gap-6">
-        {% for related_post in post.category.all.0.post_set.all|slice:":3" %}
-        {% if related_post != post %}
-        <article class="bg-white rounded-lg shadow-md overflow-hidden">
-            {% if related_post.image %}
-            <img src="{{ related_post.image.url }}" alt="{{ related_post.title }}" 
-                 class="w-full h-48 object-cover">
-            {% endif %}
-            <div class="p-4">
-                <h4 class="font-semibold mb-2">
-                    <a href="{% url 'post_detail' related_post.slug %}" 
-                       class="hover:text-blue-600">
-                        {{ related_post.title }}
-                    </a>
-                </h4>
-                <p class="text-gray-600 text-sm">
-                    {{ related_post.created_at|date:"d/m/Y" }}
-                </p>
-            </div>
-        </article>
-        {% endif %}
-        {% endfor %}
+        </section>
     </div>
-</section>
-{% endblock %}
+    <style>
+    textarea {
+      appearance: none;
+      background-color: #f9fafb; /* gray-50 */
+      border: 1px solid #d1d5db; /* gray-300 */
+      color: black;
+      padding: 12px;
+      border-radius: 12px;
+      width: 100%;
+      min-height: 100px;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.9rem;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    textarea:focus {
+      outline: none;
+      border-color: #000;
+      box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.1);
+    }
+    </style>
+    <div id="commentOptionsModal"
+         class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 transition-opacity duration-300 opacity-0 pointer-events-none">
+        <div class="bg-white rounded-lg shadow-xl p-6 w-full max-w-sm transition-transform duration-300 scale-95">
+            <h3 class="text-xl font-semibold mb-4 text-center">Opciones del Comentario</h3>
+            <div class="flex flex-col space-y-4">
+                <a id="editLink"
+                   href="#"
+                   class="block w-full py-3 px-6 text-center text-white bg-black rounded-full font-medium hover:bg-stone-800 transition-colors">
+                    Editar
+                </a>
+                <form id="deleteForm" method="post" action="" class="w-full">
+                    {% csrf_token %}
+                    <button type="submit"
+                            class="w-full py-3 px-6 text-center text-red-600 bg-transparent rounded-full font-medium border border-red-600 hover:bg-red-50 transition-colors">
+                        Eliminar
+                    </button>
+                </form>
+                <button id="closeModalButton"
+                        class="w-full py-3 px-6 text-center text-gray-600 bg-transparent rounded-full font-medium border border-gray-300 hover:bg-gray-100 transition-colors mt-4">
+                    Cancelar
+                </button>
+            </div>
+        </div>
+    </div>
+{% endblock content %}
+{% block scripts %}
+    {{ block.super }}
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const modal = document.getElementById('commentOptionsModal');
+        const editLink = document.getElementById('editLink');
+        const deleteForm = document.getElementById('deleteForm');
+        const closeModalButton = document.getElementById('closeModalButton');
+
+        // Función para abrir el modal
+        function openModal(commentId) {
+            editLink.href = `/posts/comments/${commentId}/edit/`;
+            deleteForm.action = `/posts/comments/${commentId}/delete/`;
+            
+            modal.classList.remove('opacity-0', 'pointer-events-none');
+            modal.querySelector('div').classList.remove('scale-95');
+        }
+
+        // Función para cerrar el modal
+        function closeModal() {
+            modal.classList.add('opacity-0', 'pointer-events-none');
+            modal.querySelector('div').classList.add('scale-95');
+        }
+
+        // Delegación de eventos para los botones de opciones de cada comentario
+        document.querySelector('.comments-list').addEventListener('click', function(event) {
+            const button = event.target.closest('[data-comment-id]');
+            if (button) {
+                const commentId = button.dataset.commentId;
+                openModal(commentId);
+            }
+        });
+
+        // Eventos para cerrar el modal
+        closeModalButton.addEventListener('click', closeModal);
+        modal.addEventListener('click', function(event) {
+            if (event.target === modal) {
+                closeModal();
+            }
+        });
+
+        // Este es el contenedor de los comentarios. Asegúrate de que exista.
+        const commentsList = document.querySelector('.comments-list');
+        if (!commentsList) {
+            console.error("No se encontró el contenedor de comentarios con la clase 'comments-list'.");
+        }
+    });
+    </script>
+{% endblock scripts %}

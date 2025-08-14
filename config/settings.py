@@ -13,38 +13,44 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 import os
 from pathlib import Path
 
+# Load environment variables from .env file at the very top
+
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+# ======================================================================
+# CORE SETTINGS
+# ======================================================================
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
+SECRET_KEY = os.getenv(
+    "SECRET_KEY", "django-insecure-uqfm5fq&g5g2t^&9kf%y75i!)u9js-s1_e@!qe#(*y4@!@%pl#"
+)
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-uqfm5fq&g5g2t^&9kf%y75i!)u9js-s1_e@!qe#(*y4@!@%pl#"
-
-# SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-
 ALLOWED_HOSTS = []
 
+ROOT_URLCONF = "config.urls"
+WSGI_APPLICATION = "config.wsgi.application"
+DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-# Application definition
+# ======================================================================
+# APPLICATION DEFINITION
+# ======================================================================
 
 INSTALLED_APPS = [
-    # Django
+    # Django Core Apps
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    # Apps
+    # My Apps
     "apps.core",
     "apps.posts",
     "apps.accounts",
 ]
-
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
@@ -56,7 +62,9 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
-ROOT_URLCONF = "config.urls"
+# ======================================================================
+# TEMPLATES
+# ======================================================================
 
 TEMPLATES = [
     {
@@ -73,11 +81,9 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = "config.wsgi.application"
-
-
-# Database
-# https://docs.djangoproject.com/en/5.2/ref/settings/#databases
+# ======================================================================
+# DATABASE
+# ======================================================================
 
 DATABASES = {
     "default": {
@@ -86,58 +92,46 @@ DATABASES = {
     }
 }
 
-
-# Password validation
-# https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
+# ======================================================================
+# PASSWORD VALIDATION
+# ======================================================================
 
 AUTH_PASSWORD_VALIDATORS = [
     {
-        "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
+        "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator"
     },
-    {
-        "NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",
-    },
-    {
-        "NAME": "django.contrib.auth.password_validation.CommonPasswordValidator",
-    },
-    {
-        "NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",
-    },
+    {"NAME": "django.contrib.auth.password_validation.MinimumLengthValidator"},
+    {"NAME": "django.contrib.auth.password_validation.CommonPasswordValidator"},
+    {"NAME": "django.contrib.auth.password_validation.NumericPasswordValidator"},
 ]
 
-
-# Internationalization
-# https://docs.djangoproject.com/en/5.2/topics/i18n/
+# ======================================================================
+# INTERNATIONALIZATION
+# ======================================================================
 
 LANGUAGE_CODE = "es-ar"
-
 TIME_ZONE = "America/Argentina/Buenos_Aires"
-
 USE_I18N = True
-
 USE_TZ = True
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/5.2/howto/static-files/
+# ======================================================================
+# STATIC & MEDIA FILES
+# ======================================================================
 
 STATIC_URL = "static/"
-STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
+STATICFILES_DIRS = [BASE_DIR / "static"]
 
 MEDIA_URL = "/media/"
 MEDIA_ROOT = BASE_DIR / "media"
 
-# Default primary key field type
-# https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
+# ======================================================================
+# AUTHENTICATION
+# ======================================================================
 
-DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
-
-# Configuración de autenticación
 LOGIN_URL = "/accounts/login/"
 LOGIN_REDIRECT_URL = "/home/"
-# Opcional: redirige después del logout
 LOGOUT_REDIRECT_URL = "home"
 
-# Si usas login social
-SOCIAL_AUTH_LOGIN_REDIRECT_URL = "home"
-
-NPM_BIN_PATH = "C:/Program Files/nodejs/npm.cmd"
+# ======================================================================
+# EMAIL CONFIGURATION (SendGrid via SMTP)
+# ======================================================================
