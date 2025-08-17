@@ -10,51 +10,33 @@
             <header class="text-center mb-12">
                 <h1 class="text-6xl font-bebas text-black">About The Caffeine Lane</h1>
                 <p class="mt-4 text-lg text-gray-600 max-w-2xl mx-auto">
-                    We are a passionate team of developers and motorcycle enthusiasts dedicated to the art of the Cafe Racer. This is our story.
+                    We believe a motorcycle is more than just a machine; it's a canvas for self-expression, a testament to craftsmanship, and a ticket to freedom.
                 </p>
             </header>
-            {# Our Mission Section #}
-            <section class="mb-12">
-                <div class="prose prose-lg max-w-none text-gray-800 leading-relaxed">
-                    <p>
-                        The Caffeine Lane was born from a shared passion for the roar of an engine, the glint of polished chrome, and the timeless aesthetic of the Cafe Racer. We believe that a motorcycle is more than just a machine; it's a canvas for self-expression, a testament to craftsmanship, and a ticket to freedom on the open road.
-                    </p>
-                    <p>
-                        Our mission is to build a community for builders, riders, and dreamers. Whether you're a seasoned mechanic with grease under your fingernails or just starting to fall in love with the culture, this is your space. We provide high-quality guides, honest reviews, and inspiring features on custom builds from around the world.
-                    </p>
-                </div>
+            {# Logo Section #}
+            <section class="flex justify-center mb-12">
+                <img src="{% static 'images/caffeinelane-logo-alternative-full.png' %}"
+                     alt="The Caffeine Lane Logo"
+                     class="h-48 w-auto rounded-full shadow-lg"
+                     width="192"
+                     height="192" />
             </section>
-            {# Meet the Team Section #}
-            <section>
-                <h2 class="text-4xl font-bebas text-black text-center mb-8">Meet the Team</h2>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    {# Team Member 1 #}
-                    <div class="bg-gray-50 p-6 rounded-lg text-center border border-gray-200">
-                        <img src="{% static 'images/default-avatar.png' %}"
-                             alt="Team Member 1"
-                             class="w-24 h-24 rounded-full mx-auto mb-4"
-                             width="96"
-                             height="96">
-                        <h3 class="text-xl font-bold font-mont text-black">Daniel Acevedo</h3>
-                        <p class="text-sm text-red-600 font-semibold">Lead Developer & Builder</p>
-                        <p class="mt-2 text-gray-600 text-sm">
-                            The mind behind the code and the hands behind the wrench. Daniel brings the digital and mechanical worlds together.
-                        </p>
-                    </div>
-                    {# Team Member 2 #}
-                    <div class="bg-gray-50 p-6 rounded-lg text-center border border-gray-200">
-                        <img src="{% static 'images/default-avatar.png' %}"
-                             alt="Team Member 2"
-                             class="w-24 h-24 rounded-full mx-auto mb-4"
-                             width="96"
-                             height="96">
-                        <h3 class="text-xl font-bold font-mont text-black">[Nombre de tu Compañero]</h3>
-                        <p class="text-sm text-red-600 font-semibold">Content Creator & Strategist</p>
-                        <p class="mt-2 text-gray-600 text-sm">
-                            The storyteller who captures the soul of each build and brings our community's adventures to life.
-                        </p>
-                    </div>
-                </div>
+            {# Main Content Section #}
+            <section class="prose prose-lg max-w-none text-gray-800 leading-relaxed">
+                <h2 class="font-bebas text-4xl text-black text-center">Our Mission</h2>
+                <p>
+                    The Caffeine Lane was born from a shared passion for the roar of an engine, the glint of polished chrome, and the timeless aesthetic of the Cafe Racer. Our mission is to build a community for builders, riders, and dreamers.
+                </p>
+                <p>
+                    Whether you're a seasoned mechanic with grease under your fingernails or just starting to fall in love with the culture, this is your space. We provide high-quality guides, honest reviews, and inspiring features on custom builds from around the world to fuel your passion. This blog is a tribute to the late nights in the garage, the smell of gasoline, and the satisfaction of creating something truly unique with your own two hands.
+                </p>
+            </section>
+            {# Call to Action Section #}
+            <section class="text-center mt-16">
+                <a href="{% url 'contact' %}"
+                   class="inline-block bg-black text-white font-mont font-medium tracking-wider py-3 px-8 rounded-full hover:bg-stone-800 transition-all duration-300 transform hover:scale-105">
+                    Get in Touch
+                </a>
             </section>
         </div>
     </div>

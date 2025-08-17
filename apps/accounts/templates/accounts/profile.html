@@ -4,12 +4,12 @@
   Your Profile - The Caffeine Lane
 {% endblock title %}
 {% block content %}
-  <div class="min-h-screen bg-black flex items-center justify-center py-12 px-4">
+  {# CORRECCIÓN: Se eliminaron las clases bg-black y min-h-screen para no interferir con base.html #}
+  <div class="py-12 px-4">
     <div class="bg-white rounded-2xl shadow-2xl w-full max-w-lg mx-auto overflow-hidden">
       {# Profile Header #}
       <div class="p-8 text-center bg-gray-50 border-b border-gray-200">
         <div class="w-24 h-24 mx-auto rounded-full overflow-hidden border-4 border-white shadow-lg">
-          {# Display user's avatar, or a default placeholder if none exists #}
           <img src="{{ user.profile.avatar.url|default:'/static/images/default-avatar.png' }}"
                alt="{{ user.username }}'s Avatar"
                class="w-full h-full object-cover"

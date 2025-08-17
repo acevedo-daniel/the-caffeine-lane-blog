@@ -27,6 +27,7 @@
   <body>
     {% block header %}
       <header class="bg-black flex flex-col">
+        {# Top bar: Social icons & Search Bar #}
         <div class="flex justify-between items-center px-6 py-3">
           <div class="flex space-x-2 text-white text-xs pt-0">
             <a href="#"
@@ -48,7 +49,22 @@
               <i class="fas fa-bell"></i>
             </a>
           </div>
+          {# Search Form (Improved Style) #}
+          <div class="w-full max-w-xs">
+            <form method="get" action="{% url 'search' %}" class="relative">
+              <input type="text"
+                     name="q"
+                     placeholder="Search..."
+                     class="w-full bg-white text-black text-xs border border-gray-300 rounded-full py-1 px-4 focus:outline-none focus:ring-2 focus:ring-red-500">
+              <button type="submit"
+                      class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-black"
+                      aria-label="Submit search">
+                <i class="fas fa-search"></i>
+              </button>
+            </form>
+          </div>
         </div>
+        {# Main title section #}
         <div class="flex items-center justify-center m-0">
           <a href="{% url 'landing' %}"
              class="text-white font-bebas text-5xl transition-transform duration-300 hover:scale-105">THE CAFFEINE LANE</a>
@@ -77,8 +93,15 @@
           </nav>
         </div>
         {# User authentication block #}
-        <div class="flex space-x-2">
+        <div class="flex items-center space-x-2">
           {% if user.is_authenticated %}
+            {% if perms.posts.add_post %}
+              <a href="{% url 'post_create' %}"
+                 title="Create New Post"
+                 class="bg-red-600 text-white w-8 h-8 rounded-full flex items-center justify-center hover:bg-red-700 transition transform hover:scale-110">
+                <i class="fas fa-plus"></i>
+              </a>
+            {% endif %}
             <a href="{% url 'profile' %}"
                class="text-white font-mont font-semibold text-xs uppercase hover:bg-red-500 hover:text-white hover:border-red-600 transition px-3 py-1 border border-white rounded-full">{{ user.username }}</a>
             <a href="{% url 'logout' %}"
@@ -171,16 +194,16 @@
     {% block scripts %}
       <script src="https://cdn.tailwindcss.com"></script>
       <script>
-      tailwind.config = {
-        theme: {
-          extend: {
-            fontFamily: {
-              mont: ["Montserrat", "sans-serif"],
-              bebas: ["Bebas Neue", "sans-serif"],
-            },
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            mont: ["Montserrat", "sans-serif"],
+            bebas: ["Bebas Neue", "sans-serif"],
           },
         },
-      };
+      },
+    };
       </script>
     {% endblock scripts %}
   </body>

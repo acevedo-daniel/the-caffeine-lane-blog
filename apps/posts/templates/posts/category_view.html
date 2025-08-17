@@ -1,46 +1,50 @@
 {% extends "base.html" %}
+{% load static %}
 {% block title %}
-    {{ category.name }} - TheCaffeineLane
+    {{ category.name }} - The Caffeine Lane
 {% endblock title %}
 {% block content %}
+    {# Full-width Category Banner Section #}
+    <div class="relative w-full h-[450px] bg-black">
+        {# Background Image #}
+        {% if category.image %}
+            <img src="{{ category.image.url }}"
+                 alt="{{ category.name }}"
+                 class="absolute inset-0 w-full h-full object-cover opacity-50"
+                 width="1920"
+                 height="450" />
+        {% else %}
+            <div class="absolute inset-0 bg-gray-800"></div>
+        {% endif %}
+        {# "Go Back" Link, positioned over the banner #}
+        <div class="absolute top-6 left-6 z-20">
+            <a href="{{ request.META.HTTP_REFERER|default:'/' }}"
+               class="text-sm text-white opacity-80 hover:opacity-100 transition inline-flex items-center bg-black bg-opacity-30 px-3 py-1 rounded-full">
+                <svg xmlns="http://www.w3.org/2000/svg"
+                     width="24"
+                     height="24"
+                     viewBox="0 0 24 24"
+                     fill="none"
+                     stroke="currentColor"
+                     stroke-width="2"
+                     stroke-linecap="round"
+                     stroke-linejoin="round"
+                     class="w-4 h-4 mr-1">
+                    <path d="m15 18-6-6 6-6" />
+                </svg>
+                Go Back
+            </a>
+        </div>
+        {# Centered Title and Subtitle #}
+        <div class="relative z-10 flex flex-col items-center justify-center w-full h-full text-white text-center px-4">
+            <h1 class="font-bebas text-7xl md:text-8xl leading-tight">{{ category.name }}</h1>
+            <p class="font-mont text-lg md:text-xl font-light mt-2">Explore all articles in this category</p>
+        </div>
+    </div>
+    {# Posts Grid Section #}
     <div class="bg-gray-100 py-12">
         <div class="container mx-auto px-4">
-            <div class="flex items-center mb-6">
-                <a href="{{ request.META.HTTP_REFERER|default:'/' }}"
-                   class="text-sm text-gray-500 hover:text-black transition inline-flex items-center">
-                    <svg xmlns="http://www.w3.org/2000/svg"
-                         width="24"
-                         height="24"
-                         viewBox="0 0 24 24"
-                         fill="none"
-                         stroke="currentColor"
-                         stroke-width="2"
-                         stroke-linecap="round"
-                         stroke-linejoin="round"
-                         class="w-4 h-4 mr-1">
-                        <path d="m15 18-6-6 6-6" />
-                    </svg>
-                    Go Back
-                </a>
-            </div>
-            <div class="relative overflow-hidden rounded-lg shadow-xl"
-                 style="height: 400px">
-                {% if category.image %}
-                    <img src="{{ category.image.url }}"
-                         alt="{{ category.name }}"
-                         class="absolute inset-0 w-full h-full object-cover">
-                {% else %}
-                    <div class="absolute inset-0 bg-gray-200 flex items-center justify-center text-gray-500">No Image</div>
-                {% endif %}
-                <div class="absolute inset-0 bg-black bg-opacity-50 flex items-center"
-                     style="padding-left: 50%">
-                    <div class="max-w-md text-white px-8">
-                        <h1 class="font-bebas text-5xl md:text-6xl leading-tight mb-2">{{ category.name }}</h1>
-                        {% if category.slogan %}<p class="font-mont text-lg md:text-xl font-light">{{ category.slogan }}</p>{% endif %}
-                    </div>
-                </div>
-            </div>
-            <section class="mt-10">
+            <section>
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                     {% for post in posts %}
                         <a href="{% url "post_detail" post.slug %}" class="block group">
@@ -61,7 +65,7 @@
                             </div>
                         </a>
                     {% empty %}
-                        <p class="text-gray-600">No hay posts en esta categoría aún.</p>
+                        <p class="text-gray-600 md:col-span-3 text-center">There are no posts in this category yet.</p>
                     {% endfor %}
                 </div>
             </section>

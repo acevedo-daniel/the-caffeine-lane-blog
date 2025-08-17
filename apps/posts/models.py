@@ -43,7 +43,13 @@ class Post(models.Model):
     image = models.ImageField(upload_to=post_image_path, null=True, blank=True)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     category = models.ManyToManyField(Category)
+    allow_comments = models.BooleanField(default=True)
+    meta_description = models.CharField(max_length=160, blank=True)
+    meta_keywords = models.CharField(max_length=200, blank=True)
+    views_count = models.PositiveIntegerField(default=0) # <-- Añadir default=0 aquí
+    excerpt = models.CharField(max_length=300, blank=True) # <-- Añadir blank=True aquí
     status = models.CharField(max_length=10, choices=STATUS_CHOICES, default="draft")
+    is_featured = models.BooleanField(default=False) 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
