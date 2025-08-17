@@ -29,7 +29,7 @@ SECRET_KEY = os.getenv(
     "SECRET_KEY", "django-insecure-uqfm5fq&g5g2t^&9kf%y75i!)u9js-s1_e@!qe#(*y4@!@%pl#"
 )
 
-DEBUG = True
+DEBUG = False
 ALLOWED_HOSTS = ['*']
 
 ROOT_URLCONF = "config.urls"
