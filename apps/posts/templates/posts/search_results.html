@@ -83,7 +83,7 @@
                         {% if page_obj.has_previous %}
                             <a href="?q={{ query }}&category={{ current_category }}&sort={{ current_sort }}&page={{ page_obj.previous_page_number }}"
                                class="inline-block bg-gray-200 text-gray-800 px-4 py-2 rounded-lg hover:bg-gray-300 transition">
-                                &larr; Previous
+                                ← Previous
                             </a>
                         {% endif %}
                     </div>
@@ -92,7 +92,7 @@
                         {% if page_obj.has_next %}
                             <a href="?q={{ query }}&category={{ current_category }}&sort={{ current_sort }}&page={{ page_obj.next_page_number }}"
                                class="inline-block bg-gray-200 text-gray-800 px-4 py-2 rounded-lg hover:bg-gray-300 transition">
-                                Next &rarr;
+                                Next →
                             </a>
                         {% endif %}
                     </div>
@@ -110,19 +110,17 @@
       const form = document.getElementById('search-form');
       const categorySelect = document.querySelector('select[name="category"]');
       const sortSelect = document.querySelector('select[name="sort"]');
-
-      // Show/hide filter section
+  
       if (toggleBtn && filterSection) {
         toggleBtn.addEventListener('click', function() {
           filterSection.classList.toggle('hidden');
         });
       }
-
-      // Auto-submit form when a filter is changed
+  
       function submitForm() {
         form.submit();
       }
-
+  
       if (categorySelect) {
         categorySelect.addEventListener('change', submitForm);
       }

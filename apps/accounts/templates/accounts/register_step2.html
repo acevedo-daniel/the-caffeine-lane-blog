@@ -9,7 +9,7 @@
 {% endblock footer %}
 {% block content %}
   <div class="min-h-screen bg-black flex items-center justify-center py-6 relative overflow-hidden">
-    <div class="bg-white rounded-2xl pt-4 pb-4 px-6 w-full max-w-md mx-auto">
+    <div class="bg-white rounded-2xl py-6 px-8 w-full max-w-md mx-auto">
       <div class="container mx-auto text-center">
         <a href="{% url "home" %}"
            class="text-xl font-bebas text-black hover:text-stone-800 transition">THE CAFFEINE LANE</a>
@@ -17,6 +17,7 @@
           Finish creating your account
         </h2>
       </div>
+      {# General Messages & Errors #}
       {% if messages %}
         <div class="mb-4">
           {% for message in messages %}<div class="px-5 py-3 text-sm font-mont mt-4 shadow-lg">{{ message }}</div>{% endfor %}
@@ -27,8 +28,9 @@
           {% for error in form.non_field_errors %}<div>{{ error }}</div>{% endfor %}
         </div>
       {% endif %}
-      <form method="post" class="block space-y-6" novalidate>
+      <form method="post" class="block space-y-6 mt-6" novalidate>
         {% csrf_token %}
+        {# Account Credentials Section #}
         <div class="space-y-4">
           <div class="text-left space-y-1">
             <label for="{{ form.username.id_for_label }}"
@@ -55,6 +57,7 @@
             {% endif %}
           </div>
         </div>
+        {# Personal Information Section #}
         <div class="border-t border-gray-200 mt-6 pt-5">
           <h3 class="text-lg font-mont font-bold text-center uppercase text-black mb-4">What about you?</h3>
           <div class="grid grid-cols-2 gap-4 mb-4">
@@ -75,14 +78,14 @@
               {% endif %}
             </div>
           </div>
-          <div class="grid grid-cols-2 gap-4 mb-8">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
             <div class="flex flex-col justify-center items-center gap-2">
               <label class="text-xs font-mont tracking-wide text-black uppercase font-bold mb-2 block">
                 {{ form.gender.label }}
               </label>
               <div class="flex gap-2 justify-center w-full">
                 {% for radio in form.gender %}
-                  <label class="flex-1 cursor-pointer select-none rounded-full py-2 px-3 text-xs font-mont border border-black text-center min-w-[110px] max-w-[140px] whitespace-nowrap flex items-center justify-center bg-white text-black gender-radio-btn transition-all duration-300">
+                  <label class="flex-1 cursor-pointer select-none rounded-full py-2 px-3 text-xs font-mont border border-black text-center min-w-[80px] whitespace-nowrap flex items-center justify-center bg-white text-black gender-radio-btn transition-all duration-300">
                     {{ radio.tag }}
                     <span class="block w-full text-center">{{ radio.choice_label }}</span>
                   </label>
@@ -96,7 +99,7 @@
               </label>
               <div class="flex gap-2 justify-center w-full">
                 {% for radio in form.has_moto %}
-                  <label class="flex-1 cursor-pointer select-none rounded-full py-2 px-3 text-xs font-mont border border-black text-center min-w-[110px] max-w-[140px] whitespace-nowrap flex items-center justify-center bg-white text-black moto-radio-btn transition-all duration-300">
+                  <label class="flex-1 cursor-pointer select-none rounded-full py-2 px-3 text-xs font-mont border border-black text-center min-w-[80px] whitespace-nowrap flex items-center justify-center bg-white text-black moto-radio-btn transition-all duration-300">
                     {{ radio.tag }}
                     <span class="block w-full text-center">{{ radio.choice_label }}</span>
                   </label>
@@ -114,6 +117,7 @@
           <i class="fas fa-arrow-right absolute right-4 top-1/2 transform -translate-y-1/2"></i>
         </button>
       </form>
+      {# Form Styles #}
       <style>
         input[type='text'],
         input[type='password'] {

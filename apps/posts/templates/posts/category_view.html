@@ -35,10 +35,13 @@
                 Go Back
             </a>
         </div>
-        {# Centered Title and Subtitle #}
+        {# Centered Title and Description #}
         <div class="relative z-10 flex flex-col items-center justify-center w-full h-full text-white text-center px-4">
             <h1 class="font-bebas text-7xl md:text-8xl leading-tight">{{ category.name }}</h1>
-            <p class="font-mont text-lg md:text-xl font-light mt-2">Explore all articles in this category</p>
+            {# Display the category description if it exists #}
+            {% if category.description %}
+                <p class="font-mont text-lg md:text-xl font-light mt-2 max-w-3xl">{{ category.description }}</p>
+            {% endif %}
         </div>
     </div>
     {# Posts Grid Section #}

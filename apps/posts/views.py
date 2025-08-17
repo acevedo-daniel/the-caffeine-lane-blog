@@ -55,7 +55,6 @@ def category_view(request, category_slug):
 @login_required
 def comment_edit(request, comment_id):
     comment = get_object_or_404(Comment, pk=comment_id)
-    # MEJORA: Ahora permite al autor O a un colaborador con permisos.
     if not (request.user == comment.author or request.user.has_perm('posts.change_comment')):
         messages.error(request, "You do not have permission to edit this comment.")
         return redirect("post_detail", slug=comment.post.slug)
@@ -73,7 +72,6 @@ def comment_edit(request, comment_id):
 @login_required
 def comment_delete(request, comment_id):
     comment = get_object_or_404(Comment, pk=comment_id)
-    # MEJORA: Ahora permite al autor O a un colaborador con permisos.
     if not (request.user == comment.author or request.user.has_perm('posts.delete_comment')):
         messages.error(request, "You do not have permission to delete this comment.")
         return redirect("post_detail", slug=comment.post.slug)

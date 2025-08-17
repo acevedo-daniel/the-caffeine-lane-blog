@@ -69,9 +69,6 @@ def profile(request):
 
 @csrf_protect
 def custom_logout(request):
-    """
-    Vista para cerrar la sesión del usuario de forma segura.
-    """
     if request.method == "POST":
         logout(request)
         messages.success(request, "You have successfully logged out!")

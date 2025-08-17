@@ -19,61 +19,9 @@ class EmailRegistrationForm(forms.Form):
             )
         return email
 
-
 class RegistrationStep2Form(UserCreationForm):
-
-    TEXT_INPUT_CLASS = "text-black text-xs font-mont font-light tracking-wide"
-
-    username = forms.CharField(
-        label="What is your Username?",
-        widget=forms.TextInput(
-            attrs={
-                "placeholder": "Username",
-                "class": TEXT_INPUT_CLASS,
-                "autocomplete": "off",
-            }
-        ),
-    )
-    password1 = forms.CharField(
-        label="Enter a Password",
-        widget=forms.PasswordInput(
-            attrs={
-                "placeholder": "Password",
-                "class": TEXT_INPUT_CLASS,
-                "autocomplete": "new-password",
-            }
-        ),
-    )
-    password2 = forms.CharField(
-        label="Confirm your Password",
-        widget=forms.PasswordInput(
-            attrs={
-                "placeholder": "Confirm Password",
-                "class": TEXT_INPUT_CLASS,
-                "autocomplete": "new-password",
-            }
-        ),
-    )
-
-    first_name = forms.CharField(
-        label="First Name",
-        max_length=30,
-        required=True,
-        widget=forms.TextInput(
-            attrs={"placeholder": "First Name", "class": TEXT_INPUT_CLASS}
-        ),
-    )
-    last_name = forms.CharField(
-        label="Last Name",
-        max_length=30,
-        required=True,
-        widget=forms.TextInput(
-            attrs={"placeholder": "Last Name", "class": TEXT_INPUT_CLASS}
-        ),
-    )
-
     gender = forms.ChoiceField(
-        choices=[("M", "Male"), ("F", "Female")],
+        choices=Profile.GENDER_CHOICES,
         required=False,
         widget=forms.RadioSelect,
         label="What is your gender?",
@@ -87,11 +35,7 @@ class RegistrationStep2Form(UserCreationForm):
 
     class Meta(UserCreationForm.Meta):
         model = User
-        fields = (
-            "username",
-            "first_name",
-            "last_name",
-        )
+        fields = ("username", "first_name", "last_name")
 
     def save(self, commit=True, email=None):
         user = super().save(commit=False)
@@ -106,16 +50,13 @@ class RegistrationStep2Form(UserCreationForm):
             profile.save()
         return user
 
-
 class ProfileForm(forms.ModelForm):
-
     gender = forms.ChoiceField(
         choices=Profile.GENDER_CHOICES,
         widget=forms.RadioSelect,
         required=False,
         label="What is your gender?",
     )
-
     has_moto = forms.ChoiceField(
         choices=[(True, "Yes"), (False, "No")],
         widget=forms.RadioSelect,

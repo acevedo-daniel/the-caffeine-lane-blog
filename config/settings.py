@@ -29,7 +29,7 @@ SECRET_KEY = os.getenv(
     "SECRET_KEY", "django-insecure-uqfm5fq&g5g2t^&9kf%y75i!)u9js-s1_e@!qe#(*y4@!@%pl#"
 )
 
-DEBUG = False
+DEBUG = True
 ALLOWED_HOSTS = ['*']
 
 ROOT_URLCONF = "config.urls"
@@ -89,8 +89,14 @@ TEMPLATES = [
 # ======================================================================
 
 DATABASES = {
-    'default': dj_database_url.config(conn_max_age=600)
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
 }
+
+if 'DATABASE_URL' in os.environ:
+    DATABASES['default'] = dj_database_url.config(conn_max_age=600)
 
 # ======================================================================
 # PASSWORD VALIDATION

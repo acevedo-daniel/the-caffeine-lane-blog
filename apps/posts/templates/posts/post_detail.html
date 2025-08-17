@@ -111,7 +111,6 @@
                                             <strong class="text-gray-900 font-bold">{{ comment.author.get_full_name|default:comment.author.username }}</strong>
                                             <span class="text-gray-500 text-xs ml-2">{{ comment.created_at|date:"F j, Y, P" }}</span>
                                         </div>
-                                        {# ADDITION: Comment options button for author or collaborators #}
                                         {% if request.user == comment.author or perms.posts.delete_comment %}
                                             <button class="text-gray-500 hover:text-black transition comment-options-btn"
                                                     data-comment-id="{{ comment.pk }}">
@@ -127,6 +126,25 @@
                                     <p class="text-gray-700 mt-1">{{ comment.content|linebreaks }}</p>
                                 </div>
                             </div>
+                            {# Comment Replies #}
+                            {% for reply in comment.replies.all %}
+                                <div class="ml-10 mt-4 border-l-2 border-gray-200 pl-6">
+                                    <div class="flex items-start mb-2">
+                                        <img src="{{ reply.author.profile.avatar.url|default:'/static/images/default-avatar.png' }}"
+                                             alt="{{ reply.author.username }}'s avatar"
+                                             class="w-8 h-8 rounded-full mr-3"
+                                             width="32"
+                                             height="32" />
+                                        <div class="flex-1">
+                                            <div class="flex items-center">
+                                                <strong class="text-gray-900 text-sm font-bold">{{ reply.author.get_full_name|default:reply.author.username }}</strong>
+                                                <span class="text-gray-500 text-xs ml-2">{{ reply.created_at|date:"F j, Y, P" }}</span>
+                                            </div>
+                                            <p class="text-gray-700 text-sm mt-1">{{ reply.content|linebreaks }}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
                         </div>
                     {% empty %}
                         <p class="text-gray-500 text-center py-8">Be the first to comment on this post.</p>
@@ -134,8 +152,35 @@
                 </div>
             </section>
         </article>
+        {# Related Posts Section #}
+        <section class="max-w-7xl mx-auto px-4 py-8 mt-8 border-t border-gray-200">
+            <h3 class="text-3xl font-bebas text-black mb-6 text-center">Related Posts</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {# NOTE: Assumes the view passes a `related_posts` variable #}
+                {% for related_post in related_posts %}
+                    <a href="{% url "post_detail" related_post.slug %}" class="block group">
+                        <div class="bg-white rounded-lg overflow-hidden transition-transform duration-300 group-hover:scale-105 shadow-md">
+                            {% if related_post.image %}
+                                <img src="{{ related_post.image.url }}"
+                                     alt="{{ related_post.title }}"
+                                     class="w-full h-64 object-cover"
+                                     width="400"
+                                     height="256" />
+                            {% endif %}
+                            <div class="p-4">
+                                <div class="text-xs text-gray-600 mb-1">
+                                    <span class="font-bold text-gray-800">{{ related_post.author.username }}</span>
+                                </div>
+                                <h3 class="text-lg font-bold text-gray-900">{{ related_post.title }}</h3>
+                            </div>
+                        </div>
+                    </a>
+                {% empty %}
+                    <p class="text-gray-500 md:col-span-3 text-center">No related posts found.</p>
+                {% endfor %}
+            </div>
+        </section>
     </div>
-    {# ADDITION: Modal for Comment Options #}
     <div id="commentOptionsModal"
          class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 transition-opacity duration-300 opacity-0 pointer-events-none">
         <div class="bg-white rounded-lg shadow-xl p-6 w-full max-w-sm transition-transform duration-300 scale-95">
@@ -188,7 +233,7 @@
       const deleteLink = document.getElementById('deleteLink');
       const closeModalButton = document.getElementById('closeModalButton');
       const commentsList = document.querySelector('.comments-list');
-
+  
       function openModal(commentId) {
         editLink.href = `/posts/comments/${commentId}/edit/`;
         deleteLink.href = `/posts/comments/${commentId}/delete/`;
@@ -196,12 +241,12 @@
         modal.classList.remove('opacity-0', 'pointer-events-none');
         modal.querySelector('div').classList.remove('scale-95');
       }
-
+  
       function closeModal() {
         modal.classList.add('opacity-0', 'pointer-events-none');
         modal.querySelector('div').classList.add('scale-95');
       }
-
+  
       if (commentsList) {
         commentsList.addEventListener('click', function(event) {
           const button = event.target.closest('.comment-options-btn');
@@ -211,7 +256,7 @@
           }
         });
       }
-
+  
       closeModalButton.addEventListener('click', closeModal);
       modal.addEventListener('click', function(event) {
         if (event.target === modal) {

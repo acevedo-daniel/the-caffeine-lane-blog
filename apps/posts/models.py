@@ -16,7 +16,7 @@ class Category(models.Model):
     name = models.CharField(max_length=100, unique=True)
     slug = models.SlugField(max_length=120, unique=True, blank=True)
     image = models.ImageField(upload_to="categories/", null=True, blank=True)
-    slogan = models.CharField(max_length=255, blank=True, null=True)
+    description = models.CharField(max_length=255, blank=True, null=True)
 
     def save(self, *args, **kwargs):
         if not self.slug:
@@ -44,10 +44,8 @@ class Post(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     category = models.ManyToManyField(Category)
     allow_comments = models.BooleanField(default=True)
-    meta_description = models.CharField(max_length=160, blank=True)
-    meta_keywords = models.CharField(max_length=200, blank=True)
-    views_count = models.PositiveIntegerField(default=0) # <-- Añadir default=0 aquí
-    excerpt = models.CharField(max_length=300, blank=True) # <-- Añadir blank=True aquí
+    views_count = models.PositiveIntegerField(default=0)
+    excerpt = models.CharField(max_length=300, blank=True) 
     status = models.CharField(max_length=10, choices=STATUS_CHOICES, default="draft")
     is_featured = models.BooleanField(default=False) 
     created_at = models.DateTimeField(auto_now_add=True)

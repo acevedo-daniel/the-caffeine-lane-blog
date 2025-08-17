@@ -30,7 +30,7 @@
             <label for="{{ form.email.id_for_label }}"
                    class="text-xs font-mont font-basic tracking-wide text-black">Email Address</label>
             <div class="relative">
-              <i class="fas fa-envelope absolute left-2 top-1/2 transform -translate-y-1/2"></i>
+              <i class="fas fa-envelope absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
               {{ form.email }}
             </div>
             {% if form.email.errors %}<p class="font-mont text-red-600 text-xs mt-1">{{ form.email.errors.0 }}</p>{% endif %}
