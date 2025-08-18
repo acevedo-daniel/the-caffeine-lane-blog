@@ -51,7 +51,7 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                     {% for post in posts %}
                         <a href="{% url "post_detail" post.slug %}" class="block group">
-                            <div class="bg-white rounded-lg overflow-hidden transition-transform duration-300 group-hover:scale-105 shadow-md">
+                            <div class="bg-white  overflow-hidden transition-transform duration-300 group-hover:scale-105">
                                 {% if post.image %}
                                     <img src="{{ post.image.url }}"
                                          alt="{{ post.title }}"
