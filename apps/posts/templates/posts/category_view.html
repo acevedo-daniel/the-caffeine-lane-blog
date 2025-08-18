@@ -35,23 +35,19 @@
                 Go Back
             </a>
         </div>
-        {# Centered Title and Description #}
+        {# Centered Title #}
         <div class="relative z-10 flex flex-col items-center justify-center w-full h-full text-white text-center px-4">
             <h1 class="font-bebas text-7xl md:text-8xl leading-tight">{{ category.name }}</h1>
-            {# Display the category description if it exists #}
-            {% if category.description %}
-                <p class="font-mont text-lg md:text-xl font-light mt-2 max-w-3xl">{{ category.description }}</p>
-            {% endif %}
         </div>
     </div>
     {# Posts Grid Section #}
-    <div class="bg-gray-100 py-12">
+    <div class="bg-white py-12">
         <div class="container mx-auto px-4">
             <section>
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                     {% for post in posts %}
                         <a href="{% url "post_detail" post.slug %}" class="block group">
-                            <div class="bg-white  overflow-hidden transition-transform duration-300 group-hover:scale-105">
+                            <div class="bg-white overflow-hidden transition-transform duration-300 group-hover:scale-105">
                                 {% if post.image %}
                                     <img src="{{ post.image.url }}"
                                          alt="{{ post.title }}"
