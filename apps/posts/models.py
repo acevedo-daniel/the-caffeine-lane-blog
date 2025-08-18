@@ -41,11 +41,8 @@ class Post(models.Model):
     image = models.ImageField(upload_to=post_image_path, null=True, blank=True)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     category = models.ManyToManyField(Category)
-    allow_comments = models.BooleanField(default=True)
     views_count = models.PositiveIntegerField(default=0)
-    excerpt = models.CharField(max_length=300, blank=True) 
     status = models.CharField(max_length=10, choices=STATUS_CHOICES, default="draft")
-    is_featured = models.BooleanField(default=False) 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
